@@ -11,7 +11,7 @@ class Home extends Component {
                         <ul>
                             <Link to="/SearchTickets">Search Tickets</Link>
                             <br />
-                            <Link to="/Home">Post Tickets</Link>
+                            <Link to="/PostTicket">Post Tickets</Link>
                             <br />
                             <Link to="/ViewMyTickets">View My Tickets</Link>
                             <br />
