@@ -43,7 +43,7 @@ class App extends Component {
 					<Route exact path='/PostTickets' component={Home}/>
 					<Route exact path='/ViewMyTickets' component={ViewMyTickets} />
 					<Route exact path='/CheckInbox' component={Home}/>
-					<Route exact path='/ViewProfile' component={Home} />
+					<Route exact path='/Profile' component={Profile} />
 					<Route exact path='/Login' component={Login} />
 					<Route exact path='/SignUp' component={SignUp} />
 				</div>
