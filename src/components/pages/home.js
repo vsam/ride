@@ -17,7 +17,7 @@ class Home extends Component {
                             <br />
                             <Link to="/Home">Check Inbox</Link>
                             <br />
-                            <Link to="/Home">View Profile</Link>
+                            <Link to="/Profile">View Profile</Link>
                         </ul>
                     </nav>
                 </h3>

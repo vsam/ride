@@ -8,6 +8,7 @@ import SearchTickets   from './components/pages/searchTickets';
 import ViewMyTickets   from './components/pages/viewMyTickets';
 // import CheckInbox   from './components/pages/CheckInbox';
 // import ViewProfile   from './components/pages/ViewProfile';
+import Profile from './components/pages/profile';
 
 function App() {
 	return (
@@ -19,7 +20,8 @@ function App() {
 				<Route exact path='/PostTickets' component={Home}/>
 				<Route exact path='/ViewMyTickets' component={ViewMyTickets} />
 				<Route exact path='/CheckInbox' component={Home}/>
-				<Route exact path='/ViewProfile' component={Home} />
+
+				<Route exact path='/Profile' component={Profile} />
 			</div>
 		</Router>
 	);
