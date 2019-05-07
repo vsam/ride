@@ -53,14 +53,11 @@ class SignUp extends Component {
     });
 
     const { firstName, lastName, email, password, confirmPwd } = this.state;
-
      //email validation
-     console.log(email);
     if( email.length === 0 ){
       this.setState({emailFmtErr:true});
       return;
     }
-
     //firstname lastname validation
     if(firstName.length  === 0 || firstName.length > 50){
       this.setState({firestNameErr: true});
@@ -70,7 +67,6 @@ class SignUp extends Component {
       this.setState({lastNameErr: true});
       return;
     }
-
     //password check
     if(password !== confirmPwd){
       this.setState({ pwdNotMatch: true});
@@ -80,65 +76,47 @@ class SignUp extends Component {
     let emailAddress = email + '@ucsd.edu'
     //create user
     firebase.auth().createUserWithEmailAndPassword(emailAddress, password)
-      .then(this.onSignUpSuccess())
+      .then(() => this.onSignUpSuccess(emailAddress))
       .catch((error) => this.onSignUpFailed(error));
   }
 
-  onSignUpSuccess() {
+  onSignUpSuccess(emailAddress) {
     //reset state
-    let { email } = this.state.email;
-    email += '@ucsd.edu';
-
-    this.setstate = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      firestNameErr: false,
-      lasttNameErr: false,
-      emailInUse: false,
-      emailFmtErr: false,
-      emailNotUcsd: false,
-      pwdErr: false,
-      pwdNotMatch: false
-    };
-
     let actionCodeSettings = {
-      url: 'http://localhost:3000/SignUp',
+      url: 'http://localhost:3000/LogIn',
       handleCodeInApp: true,
-      //TODO:
-      iOS: {
-        bundleId: 'com.example.ios'
-      },
-      //TODO:
-      android: {
-        packageName: 'com.example.android',
-        installApp: true,
-        minimumVersion: '12'
-      },
-    dynamicLinkDomain: 'https://www.google.com/'
     };
     //send verification
-    firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+    var that = this;
+    firebase.auth().sendSignInLinkToEmail(emailAddress, actionCodeSettings)
       .then(function() {
-        console.log('send');
         alert("Sign up successfully! Please check your email for validation");
       // The link was successfully sent. Inform the user.
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
-      window.localStorage.setItem('emailForSignIn', email);
+      console.log(emailAddress);
+      window.localStorage.setItem('emailForSignIn', emailAddress);
+      window.localStorage.setItem('firstName', that.state.firstName);
+      window.localStorage.setItem('lastName', that.state.lastName);
+
+      //reset state
+      that.setstate = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        firestNameErr: false,
+        lasttNameErr: false,
+        emailInUse: false,
+        emailFmtErr: false,
+        emailNotUcsd: false,
+        pwdErr: false,
+        pwdNotMatch: false
+      };
     })
     .catch(function(error) {
-      console.log(error);
-    // Some error occurred, you can inspect the code: error.code
+      alert(error.message);
     });
-
-
-    
-
-   
-   // return (<Link to="/LogIn" />)
-   //TODO:redirect to login page
   }
 
   onSignUpFailed(error) {
