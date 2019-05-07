@@ -1,13 +1,25 @@
-[debug] [2019-05-07T16:37:38.736Z] ----------------------------------------------------------------------
-[debug] [2019-05-07T16:37:38.738Z] Command:       /usr/local/bin/node /usr/local/bin/firebase login
-[debug] [2019-05-07T16:37:38.739Z] CLI Version:   6.9.0
-[debug] [2019-05-07T16:37:38.739Z] Platform:      darwin
-[debug] [2019-05-07T16:37:38.739Z] Node Version:  v11.6.0
-[debug] [2019-05-07T16:37:38.739Z] Time:          Tue May 07 2019 09:37:38 GMT-0700 (Pacific Daylight Time)
-[debug] [2019-05-07T16:37:38.740Z] ----------------------------------------------------------------------
+[debug] [2019-05-07T19:04:10.427Z] ----------------------------------------------------------------------
+[debug] [2019-05-07T19:04:10.429Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-05-07T19:04:10.430Z] CLI Version:   6.9.0
+[debug] [2019-05-07T19:04:10.430Z] Platform:      darwin
+[debug] [2019-05-07T19:04:10.430Z] Node Version:  v11.6.0
+[debug] [2019-05-07T19:04:10.431Z] Time:          Tue May 07 2019 12:04:10 GMT-0700 (Pacific Daylight Time)
+[debug] [2019-05-07T19:04:10.431Z] ----------------------------------------------------------------------
 [debug] 
+[debug] [2019-05-07T19:04:10.449Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-05-07T19:04:10.450Z] > authorizing via signed-in user
+[debug] [2019-05-07T19:04:10.450Z] [iam] checking project ride-f1e96 for permissions ["firebase.projects.get"]
+[debug] [2019-05-07T19:04:10.452Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ride-f1e96:testIamPermissions  
+
+[debug] [2019-05-07T19:04:10.931Z] <<< HTTP RESPONSE 200
+[debug] [2019-05-07T19:04:10.933Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/ride-f1e96  
+ 
+[debug] [2019-05-07T19:04:11.335Z] <<< HTTP RESPONSE 200
 [info] 
-[info] Visit this URL on any device to log in:
-[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=402243043&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] === Serving from '/Users/hyt/UCSD/19SP/CSE 110/ride'...
 [info] 
-[info] Waiting for authentication...
+[debug] [2019-05-07T19:04:11.337Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/499959516483/clients/_:getWebAppConfig  
+ 
+[debug] [2019-05-07T19:04:11.520Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
