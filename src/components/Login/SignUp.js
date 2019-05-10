@@ -98,6 +98,7 @@ class SignUp extends Component {
       window.localStorage.setItem('emailForSignIn', emailAddress);
       window.localStorage.setItem('firstName', that.state.firstName);
       window.localStorage.setItem('lastName', that.state.lastName);
+      window.localStorage.setItem('password', that.state.password);
 
       //reset state
       that.setstate = {

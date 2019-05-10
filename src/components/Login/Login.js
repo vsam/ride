@@ -45,6 +45,7 @@ class Login extends Component {
         alert('Please provide your email for confirmation');
       }
 
+      
       firebase.auth().signInWithEmailLink(emailAddress, window.location.href)
         .then((result) =>{
           alert('success');
@@ -57,7 +58,7 @@ class Login extends Component {
             lastName: window.localStorage.getItem('lastName')
           });
           window.localStorage.removeItem('firstName');
-          window.localStorage.removeItem('firstName');
+          window.localStorage.removeItem('lastName');
         })
         .catch((error) => {
           console.log(error);
@@ -74,7 +75,7 @@ class Login extends Component {
   }
 
   onLoginSuccess() {
-    console.log('login');
+
     this.setState({
       email: '',
       password: '',
@@ -82,9 +83,13 @@ class Login extends Component {
       emailErr: false,
       pwdErr: false
     })
+    console.log(this.props.history)
+    this.props.history.push("/");
   }
 
   onLoginFailed(error) {
+    //TODO:
+   // alert(error);
     switch (error.code) {
       case 'auth/invalid-email':
         this.setState({ emailFmtErr: true });
