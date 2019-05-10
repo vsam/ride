@@ -18,6 +18,8 @@ class Home extends Component {
                             <Link to="/Home">Check Inbox</Link>
                             <br />
                             <Link to="/Home">View Profile</Link>
+                            <br />
+                            <Link to="/TicketDetails">testingTicketDetail</Link>
                         </ul>
                     </nav>
                 </h3>
