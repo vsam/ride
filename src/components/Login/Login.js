@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-//import SignUp from './SignUp';
-import { Link } from 'react-router-dom'
+import { Form, Button } from 'react-bootstrap';
+import './SignUp.css'
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
-    //this.signUp = this.signUp.bind(this);
+    this.goToSignUp = this.goToSignUp.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
     this.displayEmailError = this.displayEmailError.bind(this);
@@ -45,9 +45,10 @@ class Login extends Component {
         alert('Please provide your email for confirmation');
       }
 
-      
+
       firebase.auth().signInWithEmailLink(emailAddress, window.location.href)
-        .then((result) =>{
+        .then((result) => {
+
           alert('success');
           window.localStorage.removeItem('emailForSignIn');
           //store the user info
@@ -55,27 +56,30 @@ class Login extends Component {
           firebase.database().ref('users/' + user.uid).set({
             email: emailAddress,
             firstName: window.localStorage.getItem('firstName'),
-            lastName: window.localStorage.getItem('lastName')
+            lastName: window.localStorage.getItem('lastName'),
+            userName: window.localStorage.getItem('userName')
           });
           window.localStorage.removeItem('firstName');
           window.localStorage.removeItem('lastName');
+          window.localStorage.removeItem('userName');
+          this.props.history.push('/');
         })
         .catch((error) => {
           console.log(error);
-          console.log(window.location.href);
           alert(error.message);
         });
     } else {
       //normal sign in
       const { email, password } = this.state;
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(this.onLoginSuccess())
+      let emailAddress = email + "@ucsd.edu"
+      firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+        .then((result) => this.onLoginSuccess(result))
         .catch((error) => { this.onLoginFailed(error) })
     }
   }
 
-  onLoginSuccess() {
-
+  onLoginSuccess(result) {
+    console.log(result);
     this.setState({
       email: '',
       password: '',
@@ -83,13 +87,12 @@ class Login extends Component {
       emailErr: false,
       pwdErr: false
     })
-    console.log(this.props.history)
     this.props.history.push("/");
   }
 
   onLoginFailed(error) {
     //TODO:
-   // alert(error);
+    // alert(error);
     switch (error.code) {
       case 'auth/invalid-email':
         this.setState({ emailFmtErr: true });
@@ -108,57 +111,67 @@ class Login extends Component {
   //display email related error msg
   displayEmailError() {
     if (this.state.emailFmtErr) {
-      return (<div style={styles.errorMsgStyle}>Email address is not valid</div>)
+      return (<div className="errorMsg">Email address is not valid</div>)
     }
     if (this.state.emailErr) {
-      return (<div style={styles.errorMsgStyle}>User not found</div>)
+      return (<div className="errorMsg">User not found. Need a new account?</div>)
     }
+  }
+
+  goToSignUp() {
+    this.props.history.push('/SignUp')
   }
 
   //display pwd related error msg
   displayPwdError() {
     if (this.state.pwdErr) {
-      return (<div style={styles.errorMsgStyle}>Password does not match</div>)
+      return (<div className="errorMsg">Password does not match</div>)
     }
   }
 
   handleChange(event) {
     let key = event.target.name;
-    console.log(event.target.value);
     this.setState({ [key]: event.target.value });
   }
 
   render() {
     return (
-      <div style={styles.containerStyle}>
-        <form onSubmit={this.login}>
-          <label>
-            Email:
-            <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-          </label>
-          <br />
+
+      <div className="formContainer">
+        <Form>
+          <div className="titleClass">
+            <h2>Log in with email</h2>
+          </div>
+
+          <Form.Group className="form-group" controlId="formBasicEmail">
+            <Form.Control className="email" type="email" placeholder="UCSD Email"
+              name="email" value={this.state.email} onChange={this.handleChange}
+            />
+            <Form.Label>@ucsd.edu</Form.Label>
+          </Form.Group>
           {this.displayEmailError()}
-          <label>
-            Password:
-            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-          </label>
-          <br />
+
+          <Form.Group className="form-group" controlId="formBasicPassword">
+            <Form.Control className="form-control" type="password" placeholder="Password"
+              name="password" value={this.state.password} onChange={this.handleChange} />
+          </Form.Group>
           {this.displayPwdError()}
-          <input type="submit" value="Sign In"></input>
-        </form>
-        <Link to="/SignUp">Sign Up</Link>
+
+          <div className="btnClass">
+            <Button variant="outline-secondary" type="submit" onClick={this.login}>
+              Log In
+            </Button>
+          </div>
+          <div className="btnClass">
+            <Button variant="outline-secondary" onClick={this.goToSignUp} >
+              Need an account?
+            </Button>
+          </div>
+        </Form>
+
       </div>
     );
   }
 }
 
-const styles = {
-  containerStyle: {
-    marginLeft: 20,
-    marginRight: 20
-  },
-  errorMsgStyle: {
-    color: 'red'
-  }
-};
 export default Login;
