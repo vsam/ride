@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: #ccc;
+  margin-top: 48px;
+  font-size: 21px;
+  line-height: 1.38105;
+  font-weight: 400;
+  letter-spacing: .011em;
+  font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  direction: ltr;
+  text-align: left;
+}
+
+.ticket-content {
+  margin: 48px 40px 40px;
+}
+
+.logo {
+  height: 75px;
+  width: 75px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-left-col {
+  align-items: flex-start;
+}
+
+.elevated {
+  font-size: 18px;
+  color: black;
+}
+
+.eyebrow-elevated {
+  font-size: 18px;
+  font-weight: 800;
+  color: black;
+}
+
+.reduced {
+  font-size: 14px;
+}
+
+.detail-info {
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.paragraph {
+  font-size: 14px;
+  line-height: 1.1em;
+  color: black;
+  margin-top: 8px;
+}
+
+.route {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 17px;
+}
+
+.address {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.address:first-of-type {
+  margin-bottom: 20px;
+}
+
+.address:nth-of-type(2) {
+  color: black;
+}
+
+.marker {
+  display: inline-block;
+  height: 11px;
+  width: 11px;
+  margin-right: 10px;
+  background-color: black;
+}
+
+.circle {
+  border-radius: 5.5px;
+}
+
+.separator {
+  position: absolute;
+  top: 19px;
+  left: 5px;
+  height: 28px;
+  border-left: solid;
+  border-width: 1px;
+}
+
+.email {
+  color: white;
+  padding: 12px 60px;
+  background-color: rgb(27,42,73);
+  border-radius: 6px;
+  border: none;
+  margin-top: 20px;
+}

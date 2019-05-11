@@ -1,50 +1,55 @@
 import React from 'react';
-import { Form, Button, Row, Tabs, Tab } from 'react-bootstrap';
+import NavBar from '../common/NavBar';
 import './Post.css';
 
 class Post extends React.Component {
   render() {
     return (
-      <Form>
-        <h1>Create Post</h1>
+      <div>
+        <input type="checkbox" id="menustate" className="menustate" />
+        <NavBar>
+          <button className="tab-button">From UCSD</button>
+          <button className="tab-button">To UCSD</button>
+        </NavBar>
 
-        <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
-          <Tab eventKey="driver" title="Driver">
-            <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label>Address</Form.Label>
-              <Form.Control type="address" placeholder="UC San Diego" />
-            </Form.Group>
+        <div className="form">
+          <div className="headline">I am a ...</div>
 
-            <Form.Group controlId="exampleForm.ControlInput2">
-              <Form.Label>Date</Form.Label>
-              <Form.Control type="address" placeholder="6/13/19" />
-            </Form.Group>
+          <div className="image-slot">
+            <img
+              alt="driver"
+              src={require('../../images/driver button.png')}
+              className="logo"
+            />
+            <img
+              alt="passenger"
+              src={require('../../images/passenger button.png')}
+              className="logo"
+            />
+          </div>
 
-            <Form.Group controlId="exampleForm.ControlInput3">
-              <Form.Label>Price</Form.Label>
-              <Form.Control type="address" placeholder="$14" />
-            </Form.Group>
+          <div className="input-label">Traveling from UCSD to</div>
+          <input className="input" placeholder="Address"/>
 
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows="5" placeholder="This is a line of description." />
-            </Form.Group>
-          </Tab>
-          <Tab eventKey="passenger" title="Passenger">
-          </Tab>
-        </Tabs>
-        
+          <div className="input-label">Departed on</div>
+          <input className="input" placeholder="e.g. 5/13/19"/>
 
-        <Row>
-          <Button variant="primary" type="submit">
-            Request
-          </Button>
+          <div className="input-label"># of people</div>
+          <input className="input" placeholder="e.g. 3"/>
 
-          <Button variant="primary" type="submit">
-            Email
-          </Button>
-        </Row>
-      </Form>
+          <div className="input-label">Designed Price</div>
+          <input className="input" placeholder="e.g. 20"/>
+
+          <div className="input-label">Description</div>
+          <textarea
+            rows="5"
+            className="input"
+            placeholder="Specific Requirements."
+          />
+
+          <button className="submit">Post</button>
+        </div>
+      </div>
     );
   }
 }

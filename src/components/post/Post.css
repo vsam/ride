@@ -1,94 +1,82 @@
-form {
-  margin: 20px 16px;
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
-.form-label {
-  display: block;
-  position: relative;
-  color: #212529;
-  margin-bottom: 4px;
-  text-align: left;
+input, button, textarea {
+  border: none;
 }
 
-.form-control {
-  display: block;
+input::placeholder, textarea::placeholder {
+  color: #bbb;
+}
+
+textarea {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tab-button {
+  font-size: 15px;
+  padding: 4px 28px;
+  color: white;
+  border: 1px solid;
+  border-color: white;
+}
+
+.tab-button:first-of-type {
+  color: rgb(27,42,73);
+  background-color: white;
+}
+
+.tab-button:nth-of-type(2) {
+  color: white;
+  background-color: rgb(27,42,73);
+}
+
+.form {
+  margin: 0 40px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.headline {
+  font-size: 20px;
+  text-align: start;
+  margin-top: 10px;
+  color: rgb(27,42,73);
+}
+
+.image-slot {
+  margin: auto;
+}
+
+.input-label {
+  color: rgb(27,42,73);
+  font-size: 17px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.input {
+  font-size: 17px;
+  background-color: rgb(240,240,240);
+  padding: 10px 20px;
+  border-radius: 4px;
   box-sizing: border-box;
   width: 100%;
-  margin: 8px 0;
-  padding: .375rem .75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.btn {
-  display: inline-block;
-  font-weight: 400;
-  color: #212529;
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  padding: .375rem .75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-primary:not(:first-of-type) {
-  margin-left: 50px;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-left: 0;
-  margin-bottom: 16px;
-  list-style: none;
-}
-
-.nav-tabs {
-  border-bottom: 1px solid #dee2e6;
-}
-
-.nav-tabs .nav-item {
-  margin-bottom: -1px;
-}
-
-.nav-link {
-  display: block;
-  padding: 0.8rem 3.5rem;
-}
-
-.nav-tabs .nav-link {
-  border: 1px solid transparent;
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
-}
-
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-  color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+.submit {
+  color: white;
+  padding: 12px 40px;
+  background-color: rgb(27,42,73);
+  border-radius: 6px;
+  border: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 20px;
 }
