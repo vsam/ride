@@ -1,0 +1,75 @@
+
+.ticket { 
+  border-top: 1px solid lightgrey;
+  padding-bottom: 1px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.oddTicketBG {
+  background-color: rgb(245, 245, 245);
+}
+
+.evenTicketBG {
+  background-color: white;
+}
+
+.ticketImage {
+  width: 70px;
+}
+
+/* 
+Div that contains all the text in a ticket,
+so everything to the right of the image
+*/
+.ticketContent {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+}
+
+/*
+Main block of text describing the ticket
+*/
+.ticketInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticketInfoMain {
+  font-size: 11pt;
+}
+
+.ticketInfoSub {
+  font-size: 10pt;
+  color: grey;
+}
+
+/*
+The column on the right of the ticket that 
+displays the ticket's price
+*/
+.ticketPriceCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 70px;
+}
+
+.ticketPriceMain {
+  font-size: 14pt;
+  font-weight: bold;
+  justify-content: end;
+  flex: 1;
+}
+
+.ticketPriceSub {
+  color: grey;
+  font-size: 10pt;
+  justify-content: right;
+  flex: 1;
+}
