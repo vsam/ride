@@ -151,7 +151,6 @@ class SignUp extends Component {
         setInterval(() => {
           that.props.history.push('/Login');
         }, 500);
-        
 
       })
       .catch((error) => {

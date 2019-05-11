@@ -63,7 +63,7 @@
   width: 100%;
   margin-top: 40px;
 }
-Button {
+.btn{
   width: 100%;
   color: black !important;
 }
