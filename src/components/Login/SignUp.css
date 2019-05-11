@@ -1,36 +1,56 @@
 .formContainer {
-  position: relative;
+  /*position: relative;*/
   color: #212529;
   padding: 1rem;
   margin-right: 0;
   margin-left: 0;
-  border: .2rem solid #ececec;
-  border-radius: 8px;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  margin-top: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+  /*border: .2rem solid #ececec;
+  border-radius: 8px;*/
 }
 
+.titleClass {
+  margin-bottom: 20px;
+}
 .form-group {
   display: block;
+  overflow: auto;
+}
+
+#formBasicEmail {
+  display: inline-block !important;
 }
 
 .form-control {
-    /*display: block;*/
-    /*width: 100%;*/
-    /*height: calc(2.25rem + 2px);*/
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    /*TODO:*/
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  width: 100%;
+  float: left;
+  height: calc(2.25rem + 2px);
+  padding-left: 15px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
 
+.email {
+  width: 65% !important;
+}
+
+Form.label {
+  float: right;
 }
 
 .errorMsg {
   color: red;
+  margin-bottom:15px;
+}
+
+.btnClass {
+  margin-bottom: 15px;
 }
