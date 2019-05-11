@@ -3,13 +3,49 @@ import NavBar from '../common/NavBar';
 import './Post.css';
 
 class Post extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      rider: true
+    }
+  }
+
+  handleSelect(rider) {
+    var buttons = document.getElementsByClassName("tab-button");
+    var images = document.getElementsByClassName("image-button");
+    
+    if (rider) {
+      buttons[0].classList.add("selected");
+      buttons[1].classList.remove("selected");
+
+      images[0].classList.add("selected");
+      images[1].classList.remove("selected");
+    } else {
+      buttons[0].classList.remove("selected");
+      buttons[1].classList.add("selected");
+
+      images[0].classList.remove("selected");
+      images[1].classList.add("selected");
+    }
+  }
+
   render() {
     return (
       <div>
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
-          <button className="tab-button">From UCSD</button>
-          <button className="tab-button">To UCSD</button>
+          <button
+            className="tab-button selected"
+            onClick={() => this.handleSelect(true)}
+          >
+            From UCSD
+          </button>
+          <button
+            onClick={() => this.handleSelect(false)}
+            className="tab-button"
+          >
+            To UCSD
+          </button>
         </NavBar>
 
         <div className="form">
@@ -19,12 +55,14 @@ class Post extends React.Component {
             <img
               alt="driver"
               src={require('../../images/driver button.png')}
-              className="logo"
+              className="image-button selected"
+              onClick={() => this.handleSelect(true)}
             />
             <img
               alt="passenger"
               src={require('../../images/passenger button.png')}
-              className="logo"
+              className="image-button"
+              onClick={() => this.handleSelect(false)}
             />
           </div>
 

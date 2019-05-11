@@ -31,7 +31,10 @@ export default function NavBar(props) {
             <a href='/' onClick={hideMenu}>Home</a>
           </li>
           <li className="item-menu">
-            <a href='./' onClick={hideMenu}>Ticket Detail</a>
+            <a href='/PostTicket' onClick={hideMenu}>Post Ticket</a>
+          </li>
+          <li className="item-menu">
+            <a href='TicketDetail' onClick={hideMenu}>Ticket Detail</a>
           </li>
         </ul>
       </div>

@@ -17,22 +17,23 @@ textarea {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button:active {
+  opacity: 0.5;
+}
+
 .tab-button {
   font-size: 15px;
   padding: 4px 28px;
   color: white;
   border: 1px solid;
   border-color: white;
-}
-
-.tab-button:first-of-type {
-  color: rgb(27,42,73);
-  background-color: white;
-}
-
-.tab-button:nth-of-type(2) {
   color: white;
   background-color: rgb(27,42,73);
+}
+
+.tab-button.selected {
+  color: rgb(27,42,73);
+  background-color: white;
 }
 
 .form {
@@ -52,6 +53,20 @@ textarea {
 
 .image-slot {
   margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.image-button {
+  height: 60px;
+  width: 60px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.image-button.selected {
+  height: 75px;
+  width: 75px;
 }
 
 .input-label {
@@ -71,8 +86,9 @@ textarea {
 }
 
 .submit {
+  font-size: 17px;
   color: white;
-  padding: 12px 40px;
+  padding: 10px 40px;
   background-color: rgb(27,42,73);
   border-radius: 6px;
   border: none;

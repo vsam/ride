@@ -114,6 +114,7 @@ body {
 }
 
 .email {
+  font-size: 14px;
   color: white;
   padding: 12px 60px;
   background-color: rgb(27,42,73);
