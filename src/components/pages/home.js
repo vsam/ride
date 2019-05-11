@@ -5,7 +5,6 @@ import firebase from 'firebase';
 class Home extends Component {
 	render() {
         let isLoggedIn = firebase.auth().currentUser !== null;
-        console.log(firebase.auth().currentUser);
 		return (
             <header className="App-header">
                 <h1>Welcome to Ride+</h1>

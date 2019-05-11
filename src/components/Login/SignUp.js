@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import { Form, Button } from 'react-bootstrap';
 import './SignUp.css';
+import ReactDOM from 'react-dom';
 
 class SignUp extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class SignUp extends Component {
       email: '',
       password: '',
       confirmPwd: '',
-      firestNameErr: false,
+      firstNameErr: false,
       lasttNameErr: false,
       userNameErr: false,
       emailInUse: false,
@@ -22,6 +23,7 @@ class SignUp extends Component {
       emailNotUcsd: false,
       pwdErr: false,
       pwdNotMatch: false,
+      loading: false,
     }
 
     this.signUp = this.signUp.bind(this);
@@ -44,9 +46,9 @@ class SignUp extends Component {
   signUp(event) {
     event.preventDefault();
 
-    //reset error state
+    //reset error state and laoding status
     this.setState({
-      firestNameErr: false,
+      firstNameErr: false,
       lastNameErr: false,
       userNameErr: false,
       emailInUse: false,
@@ -54,32 +56,40 @@ class SignUp extends Component {
       emailNotUcsd: false,
       pwdErr: false,
       pwdNotMatch: false,
+      loading: true
     });
 
     const { firstName, lastName, userName, email, password, confirmPwd } = this.state;
     //email validation
     if (email.length === 0) {
-      this.setState({ emailFmtErr: true });
+      this.setState({ emailFmtErr: true, loading: false});
       return;
     }
     //firstname lastname validation
     if (firstName.length === 0 || firstName.length > 50) {
-      this.setState({ firestNameErr: true });
+      this.setState({ firstNameErr: true, loading: false});
       return;
     }
 
     if (lastName.length === 0 || lastName.length > 50) {
-      this.setState({ lastNameErr: true });
+      this.setState({ lastNameErr: true, loading: false});
       return;
     }
 
     if (userName.length === 0 || userName.length > 50) {
-      this.setState({ userNameErr: true });
+      this.setState({ userNameErr: true, loading: false});
       return;
     }
     //password check
+    //one special character, one uppper, 8-16 length
+    let reg = /((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,16})/;
+    if(!reg.test(password)){
+      this.setState({pwdErr: true, loading: false});
+      return;
+    }
+
     if (password !== confirmPwd) {
-      this.setState({ pwdNotMatch: true });
+      this.setState({ pwdNotMatch: true, loading: false});
       return;
     }
 
@@ -103,18 +113,22 @@ class SignUp extends Component {
       handleCodeInApp: true,
     };
     //send verification
-    var that = this;
-    firebase.auth().sendSignInLinkToEmail(emailAddress, actionCodeSettings)
+    let user = firebase.auth().currentUser;
+    let that = this;
+    user.sendEmailVerification(actionCodeSettings)
       .then(() => {
-        alert("Sign up successfully! Please check your email for validation");
-        // The link was successfully sent. Inform the user.
-        // Save the email locally so you don't need to ask the user for it again
-        // if they open the link on the same device.
-        window.localStorage.setItem('emailForSignIn', emailAddress);
-        window.localStorage.setItem('firstName', that.state.firstName);
-        window.localStorage.setItem('lastName', that.state.lastName);
-        window.localStorage.setItem('userName', that.state.userName);
-        window.localStorage.setItem('password', that.state.password);
+
+        //insert log in msg
+        let loginMsg = React.createElement("div", {id:'msg'}, "Sign up successfully! Please check your email for validation");
+        ReactDOM.render(loginMsg, document.getElementById("formBasicConfirmPassword"));
+        //alert("Sign up successfully! Please check your email for validation");
+        //set user info
+        firebase.database().ref('users/' + user.uid).set({
+          email: emailAddress,
+          firstName: that.state.firstName,
+          lastName: that.state.lastName,
+          userName: that.state.userName
+        });
 
         //reset state
         that.setstate = {
@@ -123,15 +137,22 @@ class SignUp extends Component {
           userName: '',
           email: '',
           password: '',
-          firestNameErr: false,
+          firstNameErr: false,
           lasttNameErr: false,
           userNameErr: false,
           emailInUse: false,
           emailFmtErr: false,
           emailNotUcsd: false,
           pwdErr: false,
-          pwdNotMatch: false
+          pwdNotMatch: false,
+          loading: false
         };
+
+        setInterval(() => {
+          that.props.history.push('/Login');
+        }, 500);
+        
+
       })
       .catch((error) => {
         alert(error.message);
@@ -139,6 +160,7 @@ class SignUp extends Component {
   }
 
   onSignUpFailed(error) {
+    console.log(error);
     switch (error.code) {
       case 'auth/email-already-in-use':
         this.setState({ emailInUse: true });
@@ -152,10 +174,13 @@ class SignUp extends Component {
       default:
         break;
     }
+    this.setState({
+      loading: false
+    })
   }
 
   displayFirstNameError() {
-    if (this.state.firestNameErr) {
+    if (this.state.firstNameErr) {
       return (<div className="errorMsg">Please enter a valid firstname</div>)
     }
   }
@@ -177,7 +202,7 @@ class SignUp extends Component {
       return (<div className="errorMsg">Email address is not valid</div>)
     }
     if (this.state.emailInUse) {
-      return (<div className="errorMsg">Email is in user</div>)
+      return (<div className="errorMsg">Email is already registered</div>)
     }
     if (this.state.emailNotUcsd) {
       return (<div className="errorMsg">Please enter ucsd email</div>)
@@ -186,7 +211,7 @@ class SignUp extends Component {
 
   displayPwdError() {
     if (this.state.pwdErr) {
-      return (<div className="errorMsg">Password is too weak</div>)
+      return (<div className="errorMsg">Password should contain at least special character, one capital letter and of length 8-16</div>)
     }
   }
 
@@ -207,57 +232,62 @@ class SignUp extends Component {
       <div className="formContainer">
         <Form >
           <div className="titleClass">
-            <h2>Create an account</h2>
+            <h3>Create an Account</h3>
           </div>
-          <Form.Group className="form-group" controlId="formBasicEmail">
-            <Form.Control className="email" type="email" placeholder="UCSD Email"
+          <Form.Group controlId="formBasicEmail">
+            <Form.Control className="email" type="text" placeholder="UCSD Email"
               name="email" value={this.state.email} onChange={this.handleChange}
             />
             <Form.Label>@ucsd.edu</Form.Label>
           </Form.Group>
           {this.displayEmailError()}
 
-          <Form.Group className="form-group" controlId="formBasicFirstName">
+          <Form.Group controlId="formBasicFirstName">
             {/*<Form.Label>First Name</Form.Label>*/}
-            <Form.Control className="form-control" type="text" placeholder="First Name"
+            <Form.Control type="text" placeholder="First Name"
               name="firstName" value={this.state.firstName} onChange={this.handleChange}
             />
           </Form.Group>
           {this.displayFirstNameError()}
 
-          <Form.Group className="form-group" controlId="formBasicLastName">
+          <Form.Group controlId="formBasicLastName">
             {/*<Form.Label>Last Name</Form.Label>*/}
-            <Form.Control className="form-control" type="text" placeholder="Last Name"
+            <Form.Control type="text" placeholder="Last Name"
               name="lastName" value={this.state.lastName} onChange={this.handleChange} />
           </Form.Group>
           {this.displayLastNameError()}
 
-          <Form.Group className="form-group" controlId="formBasicUserName">
+          <Form.Group controlId="formBasicUserName">
             {/*<Form.Label>Last Name</Form.Label>*/}
-            <Form.Control className="form-control" type="text" placeholder="User Name"
+            <Form.Control type="text" placeholder="User Name"
               name="userName" value={this.state.userName} onChange={this.handleChange} />
           </Form.Group>
           {this.displayUserNameError()}
 
-          <Form.Group className="form-group" controlId="formBasicPassword">
+          <Form.Group controlId="formBasicPassword">
             {/*<Form.Label>Password</Form.Label>*/}
-            <Form.Control className="form-control" type="password" placeholder="Password"
+            <Form.Control type="password" placeholder="Password"
               name="password" value={this.state.password} onChange={this.handleChange} />
           </Form.Group>
           {this.displayPwdError()}
 
-          <Form.Group className="form-group" controlId="formBasicConfirmPassword">
+          <Form.Group controlId="formBasicConfirmPassword">
             {/*<Form.Label>Confirm Password</Form.Label>*/}
-            <Form.Control className="form-control" type="password" placeholder="Confirm Password"
+            <Form.Control type="password" placeholder="Confirm Password"
               name="confirmPwd" value={this.state.confirmPwd} onChange={this.handleChange} />
           </Form.Group>
           {this.displayConfirmPwdError()}
 
-          <div className="btnClass">
-            <Button variant="outline-secondary" type="submit" onClick={this.signUp}>
-              Sign Up
+          <div className="submitBtn">
+            <Button 
+              variant="outline-secondary" 
+              type="submit" 
+              disabled={this.state.loading}
+              onClick={this.signUp}>
+            {!this.state.loading? "Sign Up": "Loading..."}
             </Button>
           </div>
+
           <div className="btnClass">
             <Button variant="outline-secondary" onClick={this.goToLogIn}>
               Already have an account?

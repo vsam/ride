@@ -4,7 +4,7 @@
   padding: 1rem;
   margin-right: 0;
   margin-left: 0;
-  margin-top: 50px;
+  margin-top: 40px;
   padding-left: 40px;
   padding-right: 40px;
   /*border: .2rem solid #ececec;
@@ -12,11 +12,14 @@
 }
 
 .titleClass {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .form-group {
-  display: block;
+  display: flex;
   overflow: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #formBasicEmail {
@@ -31,26 +34,36 @@
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
+  color: #000000;
+  background-color: #eff0f1 !important;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
+  border: 1px solid #eff0f1 !important;
+  border-radius: .25 rem;
 }
 
 .email {
-  width: 65% !important;
+  width: 70% !important;
 }
 
-Form.label {
-  float: right;
+.form-label {
+  margin-bottom: 0 !important;
 }
 
 .errorMsg {
   color: red;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
 
 .btnClass {
-  margin-bottom: 15px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 40px;
+}
+Button {
+  width: 100%;
+  color: black !important;
 }

@@ -11,16 +11,20 @@ class Login extends Component {
       password: '',
       emailFmtErr: false,
       emailErr: false,
-      pwdErr: false
+      pwdErr: false,
+      verifyErr: false,
+      loading: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
+    this.resetPwd = this.resetPwd.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
     this.displayEmailError = this.displayEmailError.bind(this);
     this.displayPwdError = this.displayPwdError.bind(this);
+    this.displayVerifyError = this.displayVerifyError.bind(this);
   }
 
   componentWillUnmount() {
@@ -33,79 +37,69 @@ class Login extends Component {
     this.setState({
       emailFmtErr: false,
       emailErr: false,
-      pwdErr: false
+      pwdErr: false,
+      loading: true
     })
 
-    //sign in with email link - from verfication.
-    if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-      var emailAddress = window.localStorage.getItem('emailForSignIn');
-      //user open link on a different device
-      if (!emailAddress) {
-        //TODO:could do provide email again for verification
-        alert('Please provide your email for confirmation');
-      }
+    const { email, password } = this.state;
+    let emailAddress = email + "@ucsd.edu"
+    firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+      .then((result) => this.onLoginSuccess(result))
+      .catch((error) => {
+        this.onLoginFailed(error)
+      })
 
-
-      firebase.auth().signInWithEmailLink(emailAddress, window.location.href)
-        .then((result) => {
-
-          alert('success');
-          window.localStorage.removeItem('emailForSignIn');
-          //store the user info
-          let user = firebase.auth().currentUser;
-          firebase.database().ref('users/' + user.uid).set({
-            email: emailAddress,
-            firstName: window.localStorage.getItem('firstName'),
-            lastName: window.localStorage.getItem('lastName'),
-            userName: window.localStorage.getItem('userName')
-          });
-          window.localStorage.removeItem('firstName');
-          window.localStorage.removeItem('lastName');
-          window.localStorage.removeItem('userName');
-          this.props.history.push('/');
-        })
-        .catch((error) => {
-          console.log(error);
-          alert(error.message);
-        });
-    } else {
-      //normal sign in
-      const { email, password } = this.state;
-      let emailAddress = email + "@ucsd.edu"
-      firebase.auth().signInWithEmailAndPassword(emailAddress, password)
-        .then((result) => this.onLoginSuccess(result))
-        .catch((error) => { this.onLoginFailed(error) })
-    }
   }
 
   onLoginSuccess(result) {
+    //user not verify email
+    if(!firebase.auth().currentUser.emailVerified){
+      this.setState({
+        verifyErr: true, 
+        loading: false
+      })
+      return;
+    }
+
     console.log(result);
     this.setState({
       email: '',
       password: '',
       emailFmtErr: false,
       emailErr: false,
-      pwdErr: false
+      pwdErr: false,
+      loading: false
     })
-    this.props.history.push("/");
+    setInterval(() => {
+      this.props.history.push("/");
+    }, 500);
   }
 
   onLoginFailed(error) {
-    //TODO:
     // alert(error);
+    console.log(error);
     switch (error.code) {
       case 'auth/invalid-email':
-        this.setState({ emailFmtErr: true });
+        this.setState({ emailFmtErr: true, loading: false});
         break;
       case 'auth/user-not-found':
-        this.setState({ emailErr: true });
+        this.setState({ emailErr: true, loading: false});
         break;
       case 'auth/wrong-password':
-        this.setState({ pwdErr: true });
+        this.setState({ pwdErr: true, loading: false});
         break;
       default:
         break;
     }
+  }
+
+  goToSignUp() {
+
+    this.props.history.push('/SignUp')
+  }
+
+  resetPwd(){
+
   }
 
   //display email related error msg
@@ -114,18 +108,21 @@ class Login extends Component {
       return (<div className="errorMsg">Email address is not valid</div>)
     }
     if (this.state.emailErr) {
-      return (<div className="errorMsg">User not found. Need a new account?</div>)
+      return (<div className="errorMsg">User not found. Need a account?</div>)
     }
-  }
-
-  goToSignUp() {
-    this.props.history.push('/SignUp')
   }
 
   //display pwd related error msg
   displayPwdError() {
     if (this.state.pwdErr) {
       return (<div className="errorMsg">Password does not match</div>)
+    }
+  }
+
+  //display verification error msg
+  displayVerifyError(){
+    if (this.state.verifyErr) {
+      return (<div className="errorMsg">Account not verify, please check email</div>)
     }
   }
 
@@ -136,30 +133,39 @@ class Login extends Component {
 
   render() {
     return (
-
       <div className="formContainer">
         <Form>
           <div className="titleClass">
-            <h2>Log in with email</h2>
+            <h3>Log In with Email</h3>
           </div>
 
-          <Form.Group className="form-group" controlId="formBasicEmail">
-            <Form.Control className="email" type="email" placeholder="UCSD Email"
+          <Form.Group controlId="formBasicEmail">
+            <Form.Control className="email" type="text" placeholder="UCSD Email"
               name="email" value={this.state.email} onChange={this.handleChange}
             />
             <Form.Label>@ucsd.edu</Form.Label>
           </Form.Group>
           {this.displayEmailError()}
 
-          <Form.Group className="form-group" controlId="formBasicPassword">
-            <Form.Control className="form-control" type="password" placeholder="Password"
+          <Form.Group controlId="formBasicPassword">
+            <Form.Control type="password" placeholder="Password"
               name="password" value={this.state.password} onChange={this.handleChange} />
           </Form.Group>
           {this.displayPwdError()}
+          {this.displayVerifyError()}
 
+          <div className="submitBtn">
+            <Button 
+              variant="outline-secondary" 
+              type="submit" 
+              disabled={this.state.loading}
+              onClick={this.login}>
+              {this.state.loading? "Loading":"Log In"}
+            </Button>
+          </div>
           <div className="btnClass">
-            <Button variant="outline-secondary" type="submit" onClick={this.login}>
-              Log In
+            <Button variant="outline-secondary" onClick={this.resetPwd} >
+              Forget Password
             </Button>
           </div>
           <div className="btnClass">
@@ -167,6 +173,7 @@ class Login extends Component {
               Need an account?
             </Button>
           </div>
+          
         </Form>
 
       </div>
