@@ -12,7 +12,7 @@ import SignUp from './components/Login/SignUp'
 //import { tsConstructorType } from '@babel/types';
 // import CheckInbox   from './components/pages/CheckInbox';
 // import ViewProfile   from './components/pages/ViewProfile';
-import Profile from './components/pages/profile';
+import Profile from './components/Profile/profile';
 
 class App extends Component {
 	constructor(props){
