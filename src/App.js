@@ -9,6 +9,8 @@ import ViewMyTickets   from './components/pages/viewMyTickets';
 // import CheckInbox   from './components/pages/CheckInbox';
 // import ViewProfile   from './components/pages/ViewProfile';
 import TestTicketList from './components/ticketList/testTicketList';
+import Post from './components/post/Post';
+import TicketDetail from './components/ticket_detail/TicketDetail';
 
 function App() {
 	return (
@@ -17,11 +19,12 @@ function App() {
 				<Route exact path='/' component={Home}/>
 				<Route exact path='/Home' component={Home}/>
 				<Route exact path='/SearchTickets' component={SearchTickets} />
-				<Route exact path='/PostTickets' component={Home}/>
+				<Route exact path='/PostTicket' component={Post}/>
 				<Route exact path='/ViewMyTickets' component={ViewMyTickets} />
 				<Route exact path='/CheckInbox' component={Home}/>
 				<Route exact path='/ViewProfile' component={Home} />
 				<Route exact path='/TestTicketList' component={TestTicketList} />
+				<Route exact path='/TicketDetails' component={TicketDetail} />
 			</div>
 		</Router>
 	);

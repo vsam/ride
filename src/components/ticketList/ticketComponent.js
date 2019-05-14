@@ -58,8 +58,7 @@ class TicketComponent extends Component {
   }
 
   onClick() {
-    // TODO: open the ticket detail view
-    alert("Ticket " + this.props.index + " was clicked");
+    window.location.href = '/TicketDetails';
   }
 }
 
