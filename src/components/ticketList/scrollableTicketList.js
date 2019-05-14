@@ -9,7 +9,7 @@ import "./scrollableTicketList.css";
  */
 class ScrollableTicketList extends Component {
   static defaultProps = {
-    rowHeight: 80,
+    rowHeight: 90,
     ticketList: []
   };
 

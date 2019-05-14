@@ -42,7 +42,8 @@ class TicketComponent extends Component {
             alt=""
           />
           <div className="ticketInfo">
-            <div className="ticketInfoMain">From UCSD to San Francisco</div>
+            <div className="ticketInfoMain">From: UCSD</div>
+            <div className="ticketInfoMain">To: San Francisco</div>
             <div className="ticketInfoSub">{this.descriptionText}</div>
             <div className="ticketInfoSub">On 5/6/19, 3 {this.seatsDescriptor}</div>
           </div>
