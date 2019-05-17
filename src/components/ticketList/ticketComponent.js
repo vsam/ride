@@ -49,7 +49,7 @@ class TicketComponent extends Component {
             <div className="ticketInfoSub">On 5/6/19, 3 {this.seatsDescriptor}</div>
           </div>
           <div className="ticketPriceCol">
-            <div className="ticketPriceMain">$25.00</div>
+            <div className="ticketPriceMain">${this.props.ticketList[this.props.index].price}.00</div>
             <div className="ticketPriceSub">per person</div>
           </div>
         </div>
