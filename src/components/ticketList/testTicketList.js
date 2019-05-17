@@ -8,54 +8,44 @@ import "./testTicketList.css";
 const rowCount = 100;
 
 class TestTicketList extends Component {
-  constructor() {
-    super();
+	
+	constructor() {
+		super();
+		this.state = {
+			ticketDB: []
+		};
+	}
 
-    const lorem = new LoremIpsum({
-      wordsPerSentence: {
-        max: 2,
-        min: 2
-      }
-    });
+	async componentDidMount() {
+		console.log("Hello I mounted the component")
+		fetch('http://localhost:4000')
+		.then(res => res.json())
+		.then(
+			(result) => {
+				console.log("Data is being read");
+				console.log("# of elements = " + result.length);
+				this.setState({ticketDB: result});
+			},
+			(error) => {
+				console.log("There is an error")
+				console.log(error);
+		  	}
+		)
+	}
 
-    this.list = Array(rowCount)
-      .fill()
-      .map((val, idx) => {
-        var name = "Driver";
-        var type = "driver";
-        
-        if (Math.random() > 0.5) {
-          name = "Passenger";
-          type = "rider";
-        }
-
-        return {
-          id: idx,
-          type: type,
-          name: name + " #" + idx,
-          text: lorem.generateWords(2) + " ⇒ " + lorem.generateWords(2),
-          location: "UCSD",
-          date: "5/5/19",
-          price: "$25",
-          seats: 3,
-        };
-      }
-    );
-
-  }
-
-  render() {
-    return (
-      <div className="app">
-        <div className="header">
-          <h1 className="headerText">Search Tickets</h1>
-        </div>
-        <div className="bodyContent">
-          <ScrollableTicketList ticketList={this.list} />
-        </div>
-      </div>
-    );
-  }
+	render() {
+		const { ticketDB } = this.state;
+		return (
+			<div className="app">
+				<div className="header">
+					<h1 className="headerText">Search Tickets</h1>
+				</div>
+				<div className="bodyContent">
+					<ScrollableTicketList ticketList={this.state.ticketDB} />
+				</div>
+			</div>
+		);
+	}
 }
 
 export default TestTicketList;

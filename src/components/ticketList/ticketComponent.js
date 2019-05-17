@@ -9,19 +9,20 @@ import passengerIcon from "../../images/passenger.svg";
  */
 class TicketComponent extends Component {
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    if(props.ticketList[props.index].type === "driver") {
-      this.icon = driverIcon;
-      this.descriptionText = "Driving with open seats";
-      this.seatsDescriptor = "seats available";
-    } else {
-      this.icon = passengerIcon;
-      this.descriptionText = "Buying a ride";
-      this.seatsDescriptor = "people";
+        if (props.ticketList[props.index].type === "driver") {
+            this.icon = driverIcon;
+            this.descriptionText = "Driving with open seats";
+            this.seatsDescriptor = "seats available";
+        } 
+        else {
+            this.icon = passengerIcon;
+            this.descriptionText = "Buying a ride";
+            this.seatsDescriptor = "people";
+        }
     }
-  }
 
   render() {
     var colorClass =
