@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../common/NavBar';
-import './Post.css';
+import './PostTicket.css';
 
 class Post extends React.Component {
   constructor() {

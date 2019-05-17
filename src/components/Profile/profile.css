@@ -1,0 +1,36 @@
+.form-control {
+    width: 50%;
+    display: inline-block;
+    background-color: #F0F0F0;
+    border: none;
+    border-radius: .25rem;
+    margin-bottom: 0.5em;
+}
+
+img {
+    height: 35px;
+    width: 35px;
+    position: relative;
+    vertical-align: middle;
+}
+
+#changePwdBtn {
+    text-align: left;
+    font-size: 1.5rem;
+    color: lightgrey;
+    background-color: transparent;
+}
+
+#confirmBtn {
+    margin-top: 0.5em;
+    color: white;
+    background-color: #182B49;
+}
+
+#confirmBtn:disabled {
+    background-color: darkgray;
+}
+
+.form-control:focus, #changePwdBtn:focus, #confirmBtn:focus {
+    outline: 0px;
+}
