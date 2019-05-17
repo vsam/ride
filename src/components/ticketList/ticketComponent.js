@@ -43,10 +43,11 @@ class TicketComponent extends Component {
             alt=""
           />
           <div className="ticketInfo">
-            <div className="ticketInfoMain">From: UCSD</div>
-            <div className="ticketInfoMain">To: San Francisco</div>
+            <div className="ticketInfoMain">From: {this.props.ticketList[this.props.index].startLocation}</div>
+            <div className="ticketInfoMain">To: {this.props.ticketList[this.props.index].endLocation}</div>
             <div className="ticketInfoSub">{this.descriptionText}</div>
-            <div className="ticketInfoSub">On 5/6/19, 3 {this.seatsDescriptor}</div>
+            <div className="ticketInfoSub">{this.props.ticketList[this.props.index].date}
+                                            , {this.props.ticketList[this.props.index].seats} {this.seatsDescriptor}</div>
           </div>
           <div className="ticketPriceCol">
             <div className="ticketPriceMain">${this.props.ticketList[this.props.index].price}.00</div>
