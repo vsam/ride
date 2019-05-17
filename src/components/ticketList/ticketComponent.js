@@ -15,12 +15,21 @@ class TicketComponent extends Component {
         if (props.ticketList[props.index].type === "driver") {
             this.icon = driverIcon;
             this.descriptionText = "Driving with open seats";
-            this.seatsDescriptor = "seats available";
+
+            if(props.ticketList[props.index].seats === 1) {
+              this.seatsDescriptor = "seat available";
+            } else {
+              this.seatsDescriptor = "seats available";
+            }
         } 
         else {
             this.icon = passengerIcon;
             this.descriptionText = "Buying a ride";
-            this.seatsDescriptor = "people";
+            if(props.ticketList[props.index].seats === 1) {
+              this.seatsDescriptor = "person";
+            } else {
+              this.seatsDescriptor = "people";
+            }
         }
     }
 
