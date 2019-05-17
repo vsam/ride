@@ -173,9 +173,7 @@ class Login extends Component {
               Need an account?
             </Button>
           </div>
-          
         </Form>
-
       </div>
     );
   }

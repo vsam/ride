@@ -2,7 +2,8 @@ import React, { Component} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from "firebase/app";
 import './App.css';
-import Home from './components/pages/home';
+//import Home from './components/pages/old-home';
+import Home from './components/Login/Home'
 import SearchTickets   from './components/pages/searchTickets';
 //import PostTickets   from './components/pages/PostTickets';
 import ViewMyTickets   from './components/pages/viewMyTickets';
