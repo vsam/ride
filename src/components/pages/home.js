@@ -11,13 +11,17 @@ class Home extends Component {
                         <ul>
                             <Link to="/SearchTickets">Search Tickets</Link>
                             <br />
-                            <Link to="/Home">Post Tickets</Link>
+                            <Link to="/PostTicket">Post Tickets</Link>
                             <br />
                             <Link to="/ViewMyTickets">View My Tickets</Link>
                             <br />
                             <Link to="/Home">Check Inbox</Link>
                             <br />
                             <Link to="/Home">View Profile</Link>
+                            <br />
+                            <Link to="/TestTicketList">Test Ticket List</Link>
+                            <br />
+                            <Link to="/TicketDetails">testingTicketDetail</Link>
                         </ul>
                     </nav>
                 </h3>

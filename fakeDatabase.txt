@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "word": "Yoooooo" },
+    { "word": "You just read a database!" },
+    { "word": "Go get a beer!" }
+  ] 
+}

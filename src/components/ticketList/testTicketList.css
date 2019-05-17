@@ -1,0 +1,38 @@
+.app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #006A96;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  padding: 8px;
+}
+
+.headerText {
+  flex: 1;
+  color: white;
+  font-size: 25pt;
+}
+
+.headerButtonsDiv {
+  display: flex;
+}
+
+.headerButton {
+  margin: 2px;
+}
+
+html {
+  height: 100%;
+}
+
+.bodyContent {
+  flex: 1;
+  display: flex;
+  background-color: lightgrey;
+}
