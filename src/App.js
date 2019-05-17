@@ -5,14 +5,11 @@ import './App.css';
 //import Home from './components/pages/old-home';
 import Home from './components/Login/Home'
 import SearchTickets   from './components/pages/searchTickets';
-//import PostTickets   from './components/pages/PostTickets';
 import ViewMyTickets   from './components/pages/viewMyTickets';
 import Login from './components/Login/Login';
 import SignUp from './components/Login/SignUp'
-
-//import { tsConstructorType } from '@babel/types';
-// import CheckInbox   from './components/pages/CheckInbox';
-// import ViewProfile   from './components/pages/ViewProfile';
+import PostTicket from './components/post_ticket/PostTicket';
+import TicketDetail from './components/ticket_detail/TicketDetail';
 import Profile from './components/Profile/profile';
 
 class App extends Component {
@@ -31,7 +28,6 @@ class App extends Component {
 			};
 			// Initialize Firebase
 			firebase.initializeApp(firebaseConfig);
-
 	}
 
 	render(){
@@ -41,8 +37,9 @@ class App extends Component {
 					<Route exact path='/' component={Home}/>
 					<Route exact path='/Home' component={Home}/>
 					<Route exact path='/SearchTickets' component={SearchTickets} />
-					<Route exact path='/PostTickets' component={Home}/>
+					<Route exact path='/PostTicket' component={PostTicket}/>
 					<Route exact path='/ViewMyTickets' component={ViewMyTickets} />
+					<Route exact path='/TicketDetail' component={TicketDetail} />
 					<Route exact path='/CheckInbox' component={Home}/>
 					<Route exact path='/Profile' component={Profile} />
 					<Route exact path='/Login' component={Login} />

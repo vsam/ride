@@ -14,6 +14,7 @@
 .titleClass {
   margin-bottom: 30px;
 }
+
 .form-group {
   display: flex;
   overflow: auto;
@@ -41,7 +42,7 @@
   border-radius: .25 rem;
 }
 
-.email {
+Form.Control.email {
   width: 70% !important;
 }
 
@@ -63,6 +64,7 @@
   width: 100%;
   margin-top: 40px;
 }
+
 .btn{
   width: 100%;
   color: black !important;
