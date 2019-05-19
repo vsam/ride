@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { Form, Button } from 'react-bootstrap';
 import './SignUp.css'
 
 class Login extends Component {
@@ -99,7 +98,6 @@ class Login extends Component {
   }
 
   resetPwd(){
-
   }
 
   //display email related error msg
@@ -133,47 +131,48 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="formContainer">
-        <Form>
-          <div className="titleClass">
+      <div className="container">
+        <form>
+          <div className="title">
             <h3>Log In with Email</h3>
           </div>
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Control className="email" type="text" placeholder="UCSD Email"
+          <div className="inputGroup" id="email">
+            <input id="emailInput" type="text" placeholder="UCSD Email"
               name="email" value={this.state.email} onChange={this.handleChange}
             />
-            <Form.Label>@ucsd.edu</Form.Label>
-          </Form.Group>
+            <label>@ucsd.edu</label>
+          </div>
           {this.displayEmailError()}
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password"
+          <div className="inputGroup" id="pwd">
+            <input type="password" placeholder="Password"
               name="password" value={this.state.password} onChange={this.handleChange} />
-          </Form.Group>
+          </div>
           {this.displayPwdError()}
           {this.displayVerifyError()}
 
-          <div className="submitBtn">
-            <Button 
-              variant="outline-secondary" 
-              type="submit" 
+          <div className="btnGroup" id="submit">
+            <button
+              id="submitBtn"
               disabled={this.state.loading}
               onClick={this.login}>
-              {this.state.loading? "Loading":"Log In"}
-            </Button>
+              {this.state.loading? "Loading...":"Log In"}
+            </button>
           </div>
-          <div className="btnClass">
-            <Button variant="outline-secondary" onClick={this.resetPwd} >
+
+          <div className="btnGroup" id="forget">
+            <button id="forgetBtn" onClick={this.resetPwd} >
               Forget Password
-            </Button>
+            </button>
           </div>
-          <div className="btnClass">
-            <Button variant="outline-secondary" onClick={this.goToSignUp} >
+
+          <div className="btnGroup" id="signup">
+            <button id="signUpBtn" onClick={this.goToSignUp} >
               Need an account?
-            </Button>
+            </button>
           </div>
-        </Form>
+        </form>
       </div>
     );
   }

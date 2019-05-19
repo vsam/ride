@@ -1,4 +1,4 @@
-.formContainer {
+.container {
   /*position: relative;*/
   color: #212529;
   padding: 1rem;
@@ -11,61 +11,92 @@
   border-radius: 8px;*/
 }
 
-.titleClass {
+.title {
   margin-bottom: 30px;
 }
 
-.form-group {
+div.inputGroup {
+  /* display: flex;
+  overflow: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; */
+  margin-bottom: 10px;
+} 
+
+input{
+  width: 100%; 
+  float: left;
+  height: 45px;
+  padding-left: 10px !important;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #eff0f1 !important;
+  background-clip: padding-box;
+  border: 1px solid #eff0f1 !important;
+  border-radius: 5px;
+}
+
+#title {
+  margin-bottom: 30px;
+}
+
+.inputGroup {
   display: flex;
   overflow: auto;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
+} 
 
-#formBasicEmail {
+/* div#email.inputGroup {
   display: inline-block !important;
-}
+}  */
 
-.form-control {
-  width: 100%;
-  float: left;
-  height: calc(2.25rem + 2px);
-  padding-left: 15px;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #000000;
-  background-color: #eff0f1 !important;
-  background-clip: padding-box;
-  border: 1px solid #eff0f1 !important;
-  border-radius: .25 rem;
-}
 
-Form.Control.email {
+input#emailInput {
   width: 70% !important;
+  margin-right: 10px;
 }
 
-.form-label {
-  margin-bottom: 0 !important;
+#email label {
+  font-size: 16px;
+}
+
+.btnGroup {
+  width: 100%;
+  margin-top: 15px;
+}
+
+div#submit {
+  margin-top:50px;
+}
+
+#logInBtn, #signUpBtn, #forgetBtn, #submitBtn{
+  width: 100%;
+  height:45px;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #cccccc;
+}
+
+#logInBtn, #signUpBtn{
+  background-color:#ffffff;
+  color: black;
+  border: 1px solid #000000;
 }
 
 .errorMsg {
   color: red;
   margin-bottom:10px;
+  font-size: 16px;
 }
 
-.btnClass {
-  width: 100%;
-  margin-top: 15px;
-}
-
-.submitBtn {
-  width: 100%;
-  margin-top: 40px;
-}
-
-.btn{
-  width: 100%;
-  color: black !important;
-}
+/* #forget {
+  width:100%;
+  margin: 0 auto;
+  font-size: 12px;
+  text-align: center;
+  border: 2px solid #000000;
+} */

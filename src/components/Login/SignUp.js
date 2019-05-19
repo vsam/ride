@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { Form, Button } from 'react-bootstrap';
 import './SignUp.css';
 import ReactDOM from 'react-dom';
 
@@ -228,71 +227,70 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="formContainer">
-        <Form >
-          <div className="titleClass">
+      <div className="container">
+        <form >
+          <div className="title">
             <h3>Create an Account</h3>
           </div>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Control className="email" type="text" placeholder="UCSD Email"
+          <div className="inputGroup" id="email">
+            <input id="emailInput" type="text" placeholder="UCSD Email"
               name="email" value={this.state.email} onChange={this.handleChange}
             />
-            <Form.Label>@ucsd.edu</Form.Label>
-          </Form.Group>
+            <label>@ucsd.edu</label>
+          </div>
           {this.displayEmailError()}
 
-          <Form.Group controlId="formBasicFirstName">
+          <div className="inputGroup" id="firstName">
             {/*<Form.Label>First Name</Form.Label>*/}
-            <Form.Control type="text" placeholder="First Name"
+            <input type="text" placeholder="First Name"
               name="firstName" value={this.state.firstName} onChange={this.handleChange}
             />
-          </Form.Group>
+          </div>
           {this.displayFirstNameError()}
 
-          <Form.Group controlId="formBasicLastName">
+          <div className="inputGroup" id="lastName">
             {/*<Form.Label>Last Name</Form.Label>*/}
-            <Form.Control type="text" placeholder="Last Name"
+            <input type="text" placeholder="Last Name"
               name="lastName" value={this.state.lastName} onChange={this.handleChange} />
-          </Form.Group>
+          </div>
           {this.displayLastNameError()}
 
-          <Form.Group controlId="formBasicUserName">
+          <div className="inputGroup" id="userName">
             {/*<Form.Label>Last Name</Form.Label>*/}
-            <Form.Control type="text" placeholder="User Name"
+            <input type="text" placeholder="User Name"
               name="userName" value={this.state.userName} onChange={this.handleChange} />
-          </Form.Group>
+          </div>
           {this.displayUserNameError()}
 
-          <Form.Group controlId="formBasicPassword">
+          <div className="inputGroup" id="pwd">
             {/*<Form.Label>Password</Form.Label>*/}
-            <Form.Control type="password" placeholder="Password"
+            <input type="password" placeholder="Password"
               name="password" value={this.state.password} onChange={this.handleChange} />
-          </Form.Group>
+          </div>
           {this.displayPwdError()}
 
-          <Form.Group controlId="formBasicConfirmPassword">
+          <div className="inputGroup" id="confirmPwd">
             {/*<Form.Label>Confirm Password</Form.Label>*/}
-            <Form.Control type="password" placeholder="Confirm Password"
+            <input type="password" placeholder="Confirm Password"
               name="confirmPwd" value={this.state.confirmPwd} onChange={this.handleChange} />
-          </Form.Group>
+          </div>
           {this.displayConfirmPwdError()}
 
-          <div className="submitBtn">
-            <Button 
-              variant="outline-secondary" 
-              type="submit" 
+          <div className="btnGroup" id="submit">
+            <button
+              id="submitBtn"
               disabled={this.state.loading}
               onClick={this.signUp}>
             {!this.state.loading? "Sign Up": "Loading..."}
-            </Button>
+            </button>
           </div>
 
-          <div className="btnClass">
-            <Button variant="outline-secondary" onClick={this.goToLogIn}>
+          <div className="btnGroup" id="logIn">
+            <button id="logInBtn" onClick={this.goToLogIn}>
               Already have an account?
-            </Button>
+            </button>
           </div>
-        </Form>
+        </form>
       </div>
     )
   }

@@ -11,14 +11,23 @@ class Home extends Component {
                 <h3>
                     <nav>
                         <ul style={{display: 'block'}}>
-                            <li><Link to="/SearchTickets">Search Tickets</Link></li>
-                            <li><Link to="/PostTicket">Post Tickets</Link></li>
-                            <li><Link to="/ViewMyTickets">View My Tickets</Link></li>
-                            <li><Link to="/TicketDetail">Ticket Detail</Link></li>
-                            <li><Link to="/">Check Inbox</Link></li>
-                            {isLoggedIn && <li><Link to="/Profile">View Profile</Link></li>}
-                            {!isLoggedIn && <li><Link to='/Login'>Log in</Link></li>}
-                            {!isLoggedIn && <li><Link to='/SignUp'>Sign Up</Link></li>}
+                            <Link to="/SearchTickets">Search Tickets</Link>
+                            <br />
+                            <Link to="/Home">Post Tickets</Link>
+                            <br />
+                            <Link to="/ViewMyTickets">View My Tickets</Link>
+                            <br/>
+                            <Link to="/Home">Check Inbox</Link>
+                            
+                            {isLoggedIn?<Link to="/Profile">View Profile</Link>:<br/>}
+                            {!isLoggedIn?<Link to='/Login'>Log in </Link>:<br/>}
+                            {!isLoggedIn?<Link to='/SignUp'>Sign Up</Link>:<br/>}
+                           
+                            
+                            {/*<br />
+                            <Link to='/Login'>Log in </Link>
+                            <br />
+                            <Link to='/SignUp'>Sign Up</Link>*/}
                         </ul>
                     </nav>
                 </h3>
