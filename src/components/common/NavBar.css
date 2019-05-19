@@ -1,0 +1,332 @@
+ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, hgroup, p, blockquote, figure, form, fieldset, input, legend, pre, abbr, button {
+  margin: 0;
+  padding: 0;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
+#globalnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: block;
+  width: 100%;
+  min-width: 1024px;
+  height: 52px;
+  max-height: 44px;
+  background-color: rgb(27,42,73);
+  font-size: 17px;
+  text-align: center;
+}
+
+#globalnav-bar {
+  padding: 0 200px;
+}
+
+#globalnav ul {
+  list-style: none;
+  margin: 0 10px;
+  padding: 0;
+}
+
+#globalnav .globalnav-header {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52px;
+  overflow: hidden;
+}
+
+#globalnav .globalnav-list {
+  cursor: default;
+  margin: 0 -10px;
+  width: auto;
+  height: 44px;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+#globalnav .item-menu {
+  display: inline-block;
+  position: relative;
+  height: 44px;
+  z-index: 1;
+  vertical-align: top;
+}
+
+#globalnav a {
+  font-size: 14px;
+  line-height: 3.14286;
+  font-weight: 400;
+  letter-spacing: -.01em;
+  font-family: "SF Pro Text","Myriad Set Pro","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0 10px;
+  height: 44px;
+  opacity: 1;
+  background: no-repeat;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#globalnav a:hover {
+  color: rgb(180,180,180);
+  transition: 0.2s;
+}
+
+#menustate {
+  display: none;
+}
+
+#nav-title {
+  font-size: 20px;
+  line-height: 2.6em;
+}
+
+#menuicon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 52px;
+}
+
+.menuicon-label {
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),transform 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+  -webkit-tap-highlight-color: transparent;
+}
+
+#menustate:checked ~ #globalnav .menuicon-label {
+  transform: rotate(90deg);
+}
+
+.menuicon-bread {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.menuicon-bread-top {
+  transition: transform 0.25s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+  transform: rotate(0);
+  z-index: 4;
+}
+
+#menustate:checked ~ #globalnav .menuicon-bread-top {
+  transition: transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+  transform: rotate(45deg);
+}
+
+.menuicon-bread-bottom {
+  transition: transform 0.25s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+  transform: rotate(0);
+}
+
+#menustate:checked ~ #globalnav .menuicon-bread-bottom {
+  transition: transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+  transform: rotate(-45deg);
+}
+
+.menuicon-bread-crust {
+  display: block;
+  width: 17px;
+  height: 1px;
+  background: #fff;
+  position: absolute;
+  left: 16px;
+  z-index: 1;
+  transition: transform 0.2s;
+}
+
+.menuicon-bread-crust-top {
+  top: 23px;
+  transition: transform 0.2s 0.2s;
+  transform: translateY(-3px);
+}
+
+#menustate:checked ~ #globalnav .menuicon-bread-crust-top {
+  transform: translateY(0);
+  transition-delay: 0;
+}
+
+.menuicon-bread-crust-bottom {
+  bottom: 23px;
+  transform: translateY(3px);
+}
+
+#menustate:checked ~ #globalnav .menuicon-bread-crust-bottom {
+  transition: transform 0.2s;
+  transform: translateY(0);
+}
+
+.tabnav-link-current:hover {
+  cursor: default;
+}
+
+@media only screen and (max-width: 1068px) {
+  #globalnav {
+    min-width: 735px;
+  }
+
+  #globalnav-bar {
+    padding: 0 100px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  h1, h2, h3, h4, h5, h6, p, li, a {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu !important;
+  }
+  
+  #globalnav {
+    min-width: 320px;
+    max-height: none;
+    transition: background 0.35s linear,height 0.35s ease-in;
+  }
+
+  #menustate:checked ~ #globalnav {
+    height: 100%;
+    background: rgb(27,42,73);
+    transition: background 0.35s linear,height 0.35s ease-in 200ms;
+  }
+
+  #globalnav a {
+    padding: 0;
+    width: 100%;
+  }
+
+  #globalnav-list-homeicon {
+    display: none !important;
+  }
+
+  #globalnav .globalnav-header {
+    display: initial;
+    height: 52px;
+    width: 100%;
+    background: rgb(27,42,73);
+    overflow: hidden;
+    transition: all 0.5s ease-out, background 1s ease-out;
+    transition-delay: 0.2s;
+    z-index: 1;
+    margin: 0;
+  }
+
+  #globalnav .globalnav-header li {
+    width: 100%;
+  }
+
+  #globalnav .globalnav-list {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 54px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 664px;
+    margin: 0 auto;
+    padding: 0px 40px 8px;
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    visibility: hidden;
+    transition: visibility 0s linear 1s;
+  }
+
+  #menustate:checked ~ #globalnav .globalnav-list {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  #globalnav a {
+    font-size: 17px;
+    line-height: 2.52947;
+    letter-spacing: -.021em;
+    font-family: "SF Pro Text","Myriad Set Pro","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  }
+
+  #globalnav .item-menu {
+    height: 43px;
+    width: 100%;
+    border-bottom: 1px solid #777;
+    opacity: 0;
+    pointer-events: none;
+    text-align: left;
+  }
+
+  #menustate:checked ~ #globalnav .item-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  #globalnav .item-menu:nth-child(2) {
+    transform: translateY(-44px);
+    transition: opacity .3345s cubic-bezier(0.52, 0.16, 0.52, 0.84) .15s,transform .4669s cubic-bezier(0.52, 0.16, 0.52, 0.84) .108s;
+  }
+
+  #globalnav .item-menu:nth-child(3) {
+    transform: translateY(-40px);
+    transition: opacity .29294s cubic-bezier(0.52, 0.16, 0.52, 0.84) .13s,transform .45043s cubic-bezier(0.52, 0.16, 0.52, 0.84) .095s;
+  }
+
+  #globalnav .item-menu:nth-child(4) {
+    transform: translateY(-36px);
+    transition: opacity .26098s cubic-bezier(0.52, 0.16, 0.52, 0.84) .11s,transform .43756s cubic-bezier(0.52, 0.16, 0.52, 0.84) .082s;
+  }
+
+  #globalnav .item-menu:nth-child(5) {
+    transform: translateY(-32px);
+    transition: opacity .2386s cubic-bezier(0.52, 0.16, 0.52, 0.84) .09s,transform .42827s cubic-bezier(0.52, 0.16, 0.52, 0.84) .069s;
+  }
+
+  #globalnav .item-menu:nth-child(6) {
+    transform: translateY(-28px);
+    transition: opacity .22581s cubic-bezier(0.52, 0.16, 0.52, 0.84) .07s,transform .42259s cubic-bezier(0.52, 0.16, 0.52, 0.84) .056s;
+  }
+
+  #menustate:checked ~ #globalnav .item-menu:nth-child(2) {
+    transition: opacity .3091s cubic-bezier(0.32, 0.08, 0.24, 1) .03s,transform .3455s cubic-bezier(0.32, 0.08, 0.24, 1) .02s;
+  }
+
+  #menustate:checked ~ #globalnav .item-menu:nth-child(3) {
+    transition: opacity .32244s cubic-bezier(0.32, 0.08, 0.24, 1) .05s,transform .35825s cubic-bezier(0.32, 0.08, 0.24, 1) .04s;
+  }
+
+  #menustate:checked ~ #globalnav .item-menu:nth-child(4) {
+    transition: opacity .33467s cubic-bezier(0.32, 0.08, 0.24, 1) .07s,transform .37539s cubic-bezier(0.32, 0.08, 0.24, 1) .06s;
+  }
+
+  #menustate:checked ~ #globalnav .item-menu:nth-child(5) {
+    transition: opacity .34577s cubic-bezier(0.32, 0.08, 0.24, 1) .09s,transform .39692s cubic-bezier(0.32, 0.08, 0.24, 1) .08s;
+  }
+
+  #menustate:checked ~ #globalnav .item-menu:nth-child(6) {
+    transition: opacity .35577s cubic-bezier(0.32, 0.08, 0.24, 1) .11s,transform .42286s cubic-bezier(0.32, 0.08, 0.24, 1) .1s;
+  }
+}

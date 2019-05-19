@@ -1,0 +1,102 @@
+.container {
+  /*position: relative;*/
+  color: #212529;
+  padding: 1rem;
+  margin-right: 0;
+  margin-left: 0;
+  margin-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  /*border: .2rem solid #ececec;
+  border-radius: 8px;*/
+}
+
+.title {
+  margin-bottom: 30px;
+}
+
+div.inputGroup {
+  /* display: flex;
+  overflow: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; */
+  margin-bottom: 10px;
+} 
+
+input{
+  width: 100%; 
+  float: left;
+  height: 45px;
+  padding-left: 10px !important;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #eff0f1 !important;
+  background-clip: padding-box;
+  border: 1px solid #eff0f1 !important;
+  border-radius: 5px;
+}
+
+#title {
+  margin-bottom: 30px;
+}
+
+.inputGroup {
+  display: flex;
+  overflow: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+} 
+
+/* div#email.inputGroup {
+  display: inline-block !important;
+}  */
+
+
+input#emailInput {
+  width: 70% !important;
+  margin-right: 10px;
+}
+
+#email label {
+  font-size: 16px;
+}
+
+.btnGroup {
+  width: 100%;
+  margin-top: 15px;
+}
+
+div#submit {
+  margin-top:50px;
+}
+
+#logInBtn, #signUpBtn, #forgetBtn, #submitBtn{
+  width: 100%;
+  height:45px;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #cccccc;
+}
+
+#logInBtn, #signUpBtn{
+  background-color:#ffffff;
+  color: black;
+  border: 1px solid #000000;
+}
+
+.errorMsg {
+  color: red;
+  margin-bottom:10px;
+  font-size: 16px;
+}
+
+/* #forget {
+  width:100%;
+  margin: 0 auto;
+  font-size: 12px;
+  text-align: center;
+  border: 2px solid #000000;
+} */
