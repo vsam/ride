@@ -1,5 +1,5 @@
 .home {
-  background: url(background.png) no-repeat; 
+  background: url(../../images/background.png) no-repeat; 
   background-size: cover;
   position: fixed; 
   top: 0; 

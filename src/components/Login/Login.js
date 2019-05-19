@@ -69,8 +69,8 @@ class Login extends Component {
       pwdErr: false,
       loading: false
     })
-    setInterval(() => {
-      this.props.history.push("/");
+    setTimeout(() => {
+      this.props.history.push("/Home");
     }, 500);
   }
 
@@ -93,7 +93,6 @@ class Login extends Component {
   }
 
   goToSignUp() {
-
     this.props.history.push('/SignUp')
   }
 
