@@ -7,13 +7,6 @@
     margin-bottom: 0.5em;
 }
 
-img {
-    height: 35px;
-    width: 35px;
-    position: relative;
-    vertical-align: middle;
-}
-
 #changePwdBtn {
     text-align: left;
     font-size: 1.5rem;
