@@ -12,7 +12,7 @@ import SignUp from './components/login/SignUp';
 import PostTicket from './components/post_ticket/PostTicket';
 import TicketDetail from './components/ticket_detail/TicketDetail';
 import Profile from './components/profile/Profile';
-import TestTicketList from './components/ticketList/testTicketList';
+import TestTicketList from './components/ticketList/TestTicketList';
 
 class App extends Component {
 	constructor(props){

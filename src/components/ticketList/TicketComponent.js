@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ticketComponent.css"
+import "./TicketComponent.css"
 
 import driverIcon from "../../images/driver.svg";
 import passengerIcon from "../../images/passenger.svg";

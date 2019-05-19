@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { List, AutoSizer } from "react-virtualized";
-import TicketComponent from "./ticketComponent";
+import TicketComponent from "./TicketComponent";
 
-import "./scrollableTicketList.css";
+import "./ScrollableTicketList.css";
 
 /**
  * Accepts a list of tickets and renders them as a scrollable list.

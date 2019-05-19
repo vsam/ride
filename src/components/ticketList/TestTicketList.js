@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import firebase from 'firebase';
 import 'firebase/database';
 
-import ScrollableTicketList from "./scrollableTicketList";
+import ScrollableTicketList from "./ScrollableTicketList";
 
-import "./testTicketList.css";
+import "./TestTicketList.css";
 
 class TestTicketList extends Component {
 	
