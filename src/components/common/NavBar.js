@@ -28,7 +28,7 @@ export default function NavBar(props) {
         </ul>
         <ul className="globalnav-list">
           <li className="item-menu">
-            <a href='/' onClick={hideMenu}>Home</a>
+            <a href='/Home' onClick={hideMenu}>Home</a>
           </li>
           <li className="item-menu">
             <a href='/PostTicket' onClick={hideMenu}>Post Ticket</a>
