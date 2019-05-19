@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { LoremIpsum } from "lorem-ipsum";
+import firebase from 'firebase';
+import 'firebase/database';
 
 import ScrollableTicketList from "./scrollableTicketList";
 
 import "./testTicketList.css";
-
-const rowCount = 100;
 
 class TestTicketList extends Component {
 	
@@ -18,6 +17,29 @@ class TestTicketList extends Component {
 
 	async componentDidMount() {
 		console.log("Hello I mounted the component")
+
+		var database = firebase.database();
+		
+		database.ref("testTickets").once('value').then(function(snapshot) {
+
+			// do criteria filtering here
+
+			// for all tickets:
+			var list = snapshot.val();
+
+			// for only driver tickets:
+			/*
+			var list = snapshot.val().filter(function(item) {
+				return item.type === "rider";
+			});
+			*/
+
+			this.setState({ticketDB: list});
+
+		}.bind(this));
+
+
+		/*
 		fetch('http://localhost:4000')
 		.then(res => res.json())
 		.then(
@@ -31,6 +53,7 @@ class TestTicketList extends Component {
 				console.log(error);
 		  	}
 		)
+		*/
 	}
 
 	render() {
