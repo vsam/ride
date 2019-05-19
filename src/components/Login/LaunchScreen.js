@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './Home.css';
+import './LaunchScreen.css';
 
-class Home extends Component {
-
+class LaunchScreen extends Component {
   render(){
     return (
       <div className="home">
@@ -22,5 +21,5 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default LaunchScreen;
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
+import { Navbar, Button } from "react-bootstrap";
 import pwdIcon from "./password.png";
 
 import "./profile.css";

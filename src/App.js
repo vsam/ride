@@ -3,14 +3,15 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from "firebase/app";
 import './App.css';
 //import Home from './components/pages/old-home';
-import Home from './components/Login/Home'
-import SearchTickets   from './components/pages/searchTickets';
-import ViewMyTickets   from './components/pages/viewMyTickets';
-import Login from './components/Login/Login';
-import SignUp from './components/Login/SignUp'
+import Home from './components/home/Home';
+import LaunchScreen from './components/login/LaunchScreen';
+import SearchTickets   from './components/home/SearchTickets';
+import ViewMyTickets   from './components/home/ViewMyTickets';
+import Login from './components/login/Login';
+import SignUp from './components/login/SignUp';
 import PostTicket from './components/post_ticket/PostTicket';
 import TicketDetail from './components/ticket_detail/TicketDetail';
-import Profile from './components/Profile/profile';
+import Profile from './components/profile/Profile';
 
 class App extends Component {
 	constructor(props){
@@ -34,7 +35,7 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="App">
-					<Route exact path='/' component={Home}/>
+					<Route exact path='/' component={LaunchScreen}/>
 					<Route exact path='/Home' component={Home}/>
 					<Route exact path='/SearchTickets' component={SearchTickets} />
 					<Route exact path='/PostTicket' component={PostTicket}/>
