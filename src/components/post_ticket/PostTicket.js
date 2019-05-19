@@ -6,13 +6,14 @@ import './PostTicket.css';
 class Post extends React.Component {
   constructor() {
     super();
+    
     this.state = {
       rider: true,
       ticket: {
         fromUCSD: true,
         location: '',
         date: '',
-        numOfPeople: '',
+        numOfSeats: '',
         price: '',
         description: '',
       }
@@ -56,7 +57,7 @@ class Post extends React.Component {
   }
 
   handleSubmit() {
-    firebase.database().ref('tickets').set(this.state.ticket);
+    firebase.firestore().collection('tickets').add(this.state.ticket);
   }
 
   render() {
@@ -118,9 +119,9 @@ class Post extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.numOfPeople}
+            value={this.state.ticket.numOfSeats}
             placeholder="e.g. 3"
-            onChange={e => this.updateTicket('numOfPeople', e)}
+            onChange={e => this.updateTicket('numOfSeats', e)}
           />
 
           <div className="input-label">Designed Price</div>
@@ -141,7 +142,7 @@ class Post extends React.Component {
             onChange={e => this.updateTicket('description', e)}
           />
 
-          <button className="submit">Post</button>
+          <button onClick={this.handleSubmit.bind(this)} className="submit">Post</button>
         </div>
       </div>
     );
