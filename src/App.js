@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from "firebase/app";
 import './App.css';
-//import Home from './components/pages/old-home';
 import Home from './components/home/Home';
 import LaunchScreen from './components/login/LaunchScreen';
 import SearchTickets   from './components/home/SearchTickets';
@@ -11,8 +10,9 @@ import Login from './components/login/Login';
 import SignUp from './components/login/SignUp';
 import PostTicket from './components/post_ticket/PostTicket';
 import TicketDetail from './components/ticket_detail/TicketDetail';
-import Profile from './components/profile/profile';
 import WelcomeScreen from './components/login/WelcomeScreen'
+import Profile from './components/profile/Profile';
+import TicketList from './components/ticketList/TicketList';
 
 class App extends Component {
 	constructor(props){
@@ -39,6 +39,7 @@ class App extends Component {
 					<Route exact path='/' component={LaunchScreen}/>
 					<Route exact path='/WelcomeScreen' component={WelcomeScreen}/>
 					<Route exact path='/Home' component={Home}/>
+					<Route exact path='/Home' component={TicketList}/>
 					<Route exact path='/SearchTickets' component={SearchTickets} />
 					<Route exact path='/PostTicket' component={PostTicket}/>
 					<Route exact path='/ViewMyTickets' component={ViewMyTickets} />

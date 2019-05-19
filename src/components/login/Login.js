@@ -69,6 +69,7 @@ class Login extends Component {
       pwdErr: false,
       loading: false
     })
+
     setTimeout(() => {
       this.props.history.push("/Home");
     }, 500);

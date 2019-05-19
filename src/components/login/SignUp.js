@@ -115,8 +115,6 @@ class SignUp extends Component {
     let that = this;
     user.sendEmailVerification(actionCodeSettings)
       .then(() => {
-
-        //alert("Sign up successfully! Please check your email for validation");
         //set user info
         const db = firebase.firestore();
         db.collection("users").add({
