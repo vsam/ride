@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import firebase from 'firebase';
 import 'firebase/database';
-
+import NavBar from '../common/NavBar';
 import ScrollableTicketList from "./ScrollableTicketList";
+import "./TicketList.css";
 
-import "./TestTicketList.css";
-
-class TestTicketList extends Component {
+class TicketList extends Component {
 	
 	constructor() {
 		super();
@@ -57,12 +56,13 @@ class TestTicketList extends Component {
 	}
 
 	render() {
-		const { ticketDB } = this.state;
 		return (
 			<div className="app">
-				<div className="header">
-					<h1 className="headerText">Search Tickets</h1>
-				</div>
+				<input type="checkbox" id="menustate" className="menustate" />
+				<NavBar>
+					<span className="headerText">Search Tickets</span>
+				</NavBar>
+				
 				<div className="bodyContent">
 					<ScrollableTicketList ticketList={this.state.ticketDB} />
 				</div>
@@ -71,4 +71,4 @@ class TestTicketList extends Component {
 	}
 }
 
-export default TestTicketList;
+export default TicketList;

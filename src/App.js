@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from "firebase/app";
 import './App.css';
-//import Home from './components/pages/old-home';
 import Home from './components/home/Home';
 import LaunchScreen from './components/login/LaunchScreen';
 import SearchTickets   from './components/home/SearchTickets';
@@ -12,7 +11,7 @@ import SignUp from './components/login/SignUp';
 import PostTicket from './components/post_ticket/PostTicket';
 import TicketDetail from './components/ticket_detail/TicketDetail';
 import Profile from './components/profile/Profile';
-import TestTicketList from './components/ticketList/TestTicketList';
+import TicketList from './components/ticketList/TicketList';
 
 class App extends Component {
 	constructor(props){
@@ -37,7 +36,7 @@ class App extends Component {
 			<Router>
 				<div className="App">
 					<Route exact path='/' component={LaunchScreen}/>
-					<Route exact path='/Home' component={Home}/>
+					<Route exact path='/Home' component={TicketList}/>
 					<Route exact path='/SearchTickets' component={SearchTickets} />
 					<Route exact path='/PostTicket' component={PostTicket}/>
 					<Route exact path='/ViewMyTickets' component={ViewMyTickets} />
@@ -46,7 +45,6 @@ class App extends Component {
 					<Route exact path='/Profile' component={Profile} />
 					<Route exact path='/Login' component={Login} />
 					<Route exact path='/SignUp' component={SignUp} />
-					<Route exact path='/TestTicketList' component={TestTicketList} />
 				</div>
 			</Router>
 		);

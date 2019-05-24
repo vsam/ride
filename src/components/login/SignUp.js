@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './SignUp.css';
-import ReactDOM from 'react-dom';
 
 class SignUp extends Component {
   constructor(props) {
@@ -118,8 +117,6 @@ class SignUp extends Component {
       .then(() => {
 
         //insert log in msg
-        let loginMsg = React.createElement("div", {id:'msg'}, "Sign up successfully! Please check your email for validation");
-        ReactDOM.render(loginMsg, document.getElementById("formBasicConfirmPassword"));
         //alert("Sign up successfully! Please check your email for validation");
         //set user info
         firebase.database().ref('users/' + user.uid).set({

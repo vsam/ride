@@ -1,8 +1,34 @@
 import React from 'react';
+import firebase from 'firebase';
 import NavBar from '../common/NavBar';
 import './TicketDetail.css';
 
 class TicketDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      fromUCSD: true,
+      location: 'San Jose',
+      date: '5/5/19',
+      numOfSeats: '3',
+      price: '25.00',
+      description:
+      `I am driving to San Jose Municipal Garden. I will pass LA.
+      So if you want to go to LA, you are also welcomed. If you
+      want to go to SF, you need to contact me to discuss about
+      additional payment. I can take at most 3 people. My trunk
+      has no extra space so I basically cannot take large luggage.`
+    };
+
+    /*
+    firebase.firestore().collection('tickets').doc('LN17FwxkrlMpvY5PlYce')
+    .get().then(doc => {
+      this.setState({ ...doc.data() });
+    });
+    */
+  }
+
   render() {
     return (
       <div>
@@ -18,12 +44,12 @@ class TicketDetail extends React.Component {
 
           <div className="info">
             <div className="col info-left-col">
-              <span className="elevated">5/5/19</span>
-              <span className="reduced">3 seats available</span>
+              <span className="elevated">{this.state.date}</span>
+              <span className="reduced">{`${this.state.numOfSeats} seats available`}</span>
             </div>
 
             <div className="col info-right-col">
-              <span className="eyebrow-elevated">$25.00</span>
+              <span className="eyebrow-elevated">{`$${this.state.price}`}</span>
               <span className="reduced">per person</span>
             </div>
           </div>
@@ -31,25 +57,19 @@ class TicketDetail extends React.Component {
           <div className="route">
             <div className="address">
               <span className="marker circle"></span>
-              <span>UCSD</span>
+              <span>{this.state.fromUCSD ? 'UCSD' : this.state.location}</span>
               <div className="separator"></div>
             </div>
 
             <div className="address">
               <span className="marker"></span>
-              <span>San Jose</span>
+              <span>{this.state.fromUCSD ? this.state.location : 'UCSD'}</span>
             </div>
           </div>
 
           <div className="detail-info">
             <div className="eyebrow-elevated">Description</div>
-            <div className="paragraph">
-              I am driving to San Jose Municipal Garden. I will pass LA.
-              So if you want to go to LA, you are also welcomed. If you
-              want to go to SF, you need to contact me to discuss about
-              additional payment. I can take at most 3 people. My trunk
-              has no extra space so I basically cannot take large luggage.
-            </div>
+            <div className="paragraph">{this.state.description}}</div>
           </div>
 
           <div className="detail-info">
