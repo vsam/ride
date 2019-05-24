@@ -117,7 +117,7 @@ class SignUp extends Component {
       .then(() => {
         //set user info
         const db = firebase.firestore();
-        db.collection("users").add({
+        db.collection("users").doc(user.uid).set({
           email: emailAddress,
           firstName: that.state.firstName,
           lastName: that.state.lastName,

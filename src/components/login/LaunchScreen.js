@@ -5,8 +5,16 @@ class LaunchScreen extends Component {
   render(){
     return (
       <div className="home">
-        <div id="title1">Ride+</div>
-        <div id="title2">Better Travel Together</div>
+        <img 
+          src={require("../../images/Ride+.png")}
+          alt="ride+"
+          id="ride_logo"
+        />
+        <img 
+          src={require("../../images/Better Travel Together.png")}
+          alt="better"
+          id="better_logo"
+        />
         <div className="home-btnGroup">
           <button id="home-loginBtn"
             onClick={()=>this.props.history.push('/Login')}

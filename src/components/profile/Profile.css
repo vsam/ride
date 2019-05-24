@@ -1,22 +1,49 @@
-.form-control {
+.pwd-form {
+    align-self: center;
     width: 50%;
-    display: inline-block;
-    background-color: #F0F0F0;
-    border: none;
-    border-radius: .25rem;
     margin-bottom: 0.5em;
+    align-content: center;
+}
+
+input {
+    width: 80%;
+    display: inline-block;
+    border: none;
+    height: calc(2.25rem + 2px);
+    padding-left: 15px;
+    background-color: #F0F0F0;
+    color: black;
+    border-radius: .25rem;
+}
+
+img {
+    height: calc(2rem + 2px);
+    width: calc(2rem + 2px);
+    position: relative;
+    vertical-align: middle;
+}
+
+#changePwdBtn, #confirmBtn {
+    width: 100%;
+    display: inline-block;
+    height: calc(2.25rem + 2px);
+    border: none !important;
+    outline: none !important;
+    border-radius: .25rem;
+    font-size: 1rem;
 }
 
 #changePwdBtn {
-    text-align: left;
-    font-size: 1.5rem;
-    color: lightgrey;
+    display: flow;
+    color: #182B49 !important;
     background-color: transparent;
+    vertical-align: middle;
 }
 
 #confirmBtn {
+    width: 80%;
     margin-top: 0.5em;
-    color: white;
+    color: white !important;
     background-color: #182B49;
 }
 
@@ -24,6 +51,6 @@
     background-color: darkgray;
 }
 
-.form-control:focus, #changePwdBtn:focus, #confirmBtn:focus {
-    outline: 0px;
+*:focus, *:visited {
+    outline: none !important;
 }

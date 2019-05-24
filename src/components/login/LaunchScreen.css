@@ -10,38 +10,24 @@
   min-height: 100%;
 }
 
-#title1, #title2{
-  color: #ffffff;
-  width: 100%;
-  text-align: center;
-}
-
-#title1 {
-  font-size: 60px;
-  position: fixed;
-  top: 100px;
+#ride_logo{
+  width: 200px;
+  height: auto;
+  margin-top: 100px;
   animation: easeIn 2s;
 }
-  
+#better_logo{
+  width: 270px; 
+  height: auto;
+  animation: easeIn 2s;
+  animation-delay: 1s;
+  animation-fill-mode:both;
+}
+
 @keyframes easeIn {
   0% {opacity: 0} 
   100% {opacity: 1}
 }
-
-#title2 {
-  font-size: 25px;
-  position: fixed;
-  top: 180px;
-  animation: easeIn2 4s;
-}
-
-@keyframes easeIn2 {
-  0% {opacity: 0} 
-  40% {opacity: 0} 
-  100% {opacity: 1}
-}
-
-
 
 .home-btnGroup{
   position: fixed;

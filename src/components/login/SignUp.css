@@ -24,7 +24,7 @@ div.inputGroup {
   margin-bottom: 10px;
 } 
 
-input{
+.inputGroup input{
   width: 100%; 
   float: left;
   height: 45px;

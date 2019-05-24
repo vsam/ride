@@ -34,13 +34,16 @@ class Welcome extends Component {
             src={require('../../images/history.png')} 
             alt="history"
             id="history_img"/>
-          <div id="history_text"> Easily keep track of your appointment trips</div>
+          <div id="history_text"> Easily keep track of your appointed trips</div>
         </div>
 
-        <div>
+        <div className="confirmation">
           A confirmation email has been sent to your UCSD email address. 
           Please use the link in the email to complete the registration
         </div>
+        {setTimeout(() =>{
+          this.props.history.push('/Login')
+        }, 10000)}
       </div>
     )
   }
