@@ -8,9 +8,9 @@ class Post extends React.Component {
     super();
     
     this.state = {
-      rider: true,
       ticket: {
         fromUCSD: true,
+        role: 'driver',
         location: '',
         date: '',
         numOfSeats: '',
@@ -38,6 +38,12 @@ class Post extends React.Component {
       buttons[0].classList.remove("selected");
       buttons[1].classList.add("selected");
     }
+    this.setState({
+      ticket: {
+        ...this.state.ticket,
+        fromUCSD: rider,
+      }
+    });
   }
 
   handleRoleSelect(role) {
@@ -54,6 +60,12 @@ class Post extends React.Component {
       default:
         console.error('Unknown role.')
     }
+    this.setState({
+      ticket: {
+        ...this.state.ticket,
+        role: role,
+      }
+    });
   }
 
   handleSubmit() {
