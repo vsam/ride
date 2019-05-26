@@ -3,14 +3,15 @@ import firebase from 'firebase';
 import NavBar from '../common/NavBar';
 import './PostTicket.css';
 
-class Post extends React.Component {
+export default class PostTicket extends React.Component {
   constructor() {
     super();
     
     this.state = {
-      rider: true,
+      uploading: false,
       ticket: {
         fromUCSD: true,
+        isDriver: true,
         location: '',
         date: '',
         numOfSeats: '',
@@ -18,6 +19,11 @@ class Post extends React.Component {
         description: '',
       }
     };
+
+    this.driver = require('../../vectors/Driver button with Text.png');
+    this.driverArchived = require('../../vectors/Archived Driver button with Text.png');
+    this.passenger = require('../../vectors/Passenger button with Text.png');
+    this.passengerArchived = require('../../vectors/Archived Passenger button with Text.png');
   }
 
   updateTicket(prop, event) {
@@ -29,9 +35,16 @@ class Post extends React.Component {
     });
   }
 
-  handleNavBarSelect(rider) {
+  handleNavBarSelect(fromUCSD) {
+    this.setState({
+      ticket: {
+        ...this.state.ticket,
+        fromUCSD
+      }
+    });
+    
     var buttons = document.getElementsByClassName("tab-button");
-    if (rider) {
+    if (fromUCSD) {
       buttons[0].classList.add("selected");
       buttons[1].classList.remove("selected");
     } else {
@@ -41,6 +54,13 @@ class Post extends React.Component {
   }
 
   handleRoleSelect(role) {
+    this.setState({
+      ticket: {
+        ...this.state.ticket,
+        isDriver: role === 'driver'
+      }
+    });
+
     var images = document.getElementsByClassName("image-button");
     switch (role) {
       case 'driver':
@@ -57,12 +77,23 @@ class Post extends React.Component {
   }
 
   handleSubmit() {
+    this.setState({ uploading: true });
     firebase.firestore().collection('tickets').add(this.state.ticket);
   }
 
   render() {
+    const { ticket, uploading } = this.state;
+    let loaderStyle;
+    if (!uploading) {
+      loaderStyle = { visibility: 'hidden' };
+    }
+
     return (
       <div>
+        <div class="placeholder" style={loaderStyle}>
+          <div class="loader"/>
+        </div>
+        
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
           <button
@@ -85,23 +116,26 @@ class Post extends React.Component {
           <div className="image-slot">
             <img
               alt="driver"
-              src={require('../../images/driver button.png')}
+              src={ticket.isDriver ? this.driver : this.driverArchived}
               className="image-button selected"
               onClick={() => this.handleRoleSelect('driver')}
             />
             <img
               alt="passenger"
-              src={require('../../images/passenger button.png')}
+              src={ticket.isDriver ? this.passengerArchived : this.passenger}
               className="image-button"
               onClick={() => this.handleRoleSelect('passenger')}
             />
           </div>
 
-          <div className="input-label">Traveling from UCSD to</div>
+          <div className="input-label">
+            {(ticket.isDriver ? "Driving " : "Traveling ") +
+             (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
+          </div>
           <input
             className="input"
             type="text"
-            value={this.state.ticket.address}
+            value={ticket.address}
             placeholder="Address"
             onChange={e => this.updateTicket('location', e)}
           />
@@ -110,7 +144,7 @@ class Post extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.date}
+            value={ticket.date}
             placeholder="e.g. 5/13/19"
             onChange={e => this.updateTicket('date', e)}
           />
@@ -119,7 +153,7 @@ class Post extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.numOfSeats}
+            value={ticket.numOfSeats}
             placeholder="e.g. 3"
             onChange={e => this.updateTicket('numOfSeats', e)}
           />
@@ -128,7 +162,7 @@ class Post extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.price}
+            value={ticket.price}
             placeholder="e.g. 20"
             onChange={e => this.updateTicket('price', e)}
           />
@@ -137,7 +171,7 @@ class Post extends React.Component {
           <textarea
             rows="5"
             className="input"
-            value={this.state.ticket.description}
+            value={ticket.description}
             placeholder="Specific Requirements."
             onChange={e => this.updateTicket('description', e)}
           />
@@ -147,6 +181,4 @@ class Post extends React.Component {
       </div>
     );
   }
-}
-
-export default Post;
+};

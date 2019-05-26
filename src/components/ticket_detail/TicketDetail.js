@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import NavBar from '../common/NavBar';
 import './TicketDetail.css';
 
-class TicketDetail extends React.Component {
+export default class TicketDetail extends React.Component {
   constructor(props) {
     super(props);
     
@@ -82,6 +82,5 @@ class TicketDetail extends React.Component {
       </div>
     );
   }
-}
+};
 
-export default TicketDetail;

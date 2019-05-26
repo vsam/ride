@@ -2,40 +2,41 @@ import React, { Component } from "react";
 import firebase from 'firebase';
 import 'firebase/database';
 import NavBar from '../common/NavBar';
+import TicketSelector from '../common/TicketSelector';
 import ScrollableTicketList from "./ScrollableTicketList";
 import "./TicketList.css";
 
 class TicketList extends Component {
-	
-	constructor() {
-		super();
-		this.state = {
-			ticketDB: []
-		};
-	}
 
-	async componentDidMount() {
-		console.log("Hello I mounted the component")
+  constructor() {
+    super();
+    this.state = {
+      ticketDB: []
+    };
+  }
 
-		var database = firebase.database();
-		
-		database.ref("testTickets").once('value').then(function(snapshot) {
+  async componentDidMount() {
+    console.log("Hello I mounted the component")
 
-			// do criteria filtering here
+    var database = firebase.database();
 
-			// for all tickets:
-			var list = snapshot.val();
+    database.ref("testTickets").once('value').then(function (snapshot) {
 
-			// for only driver tickets:
+      // do criteria filtering here
+
+      // for all tickets:
+      var list = snapshot.val();
+
+      // for only driver tickets:
 			/*
 			var list = snapshot.val().filter(function(item) {
 				return item.type === "rider";
 			});
 			*/
 
-			this.setState({ticketDB: list});
+      this.setState({ ticketDB: list });
 
-		}.bind(this));
+    }.bind(this));
 
 
 		/*
@@ -53,22 +54,22 @@ class TicketList extends Component {
 		  	}
 		)
 		*/
-	}
+  }
 
-	render() {
-		return (
-			<div className="app">
-				<input type="checkbox" id="menustate" className="menustate" />
-				<NavBar>
-					<span className="headerText">Search Tickets</span>
-				</NavBar>
-				
-				<div className="bodyContent">
-					<ScrollableTicketList ticketList={this.state.ticketDB} />
-				</div>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="app">
+        <input type="checkbox" id="menustate" className="menustate" />
+        <NavBar>
+          <TicketSelector handleNavBarSelect={(fromUCSD) => {}}/>
+        </NavBar>
+
+        <div className="bodyContent">
+          <ScrollableTicketList ticketList={this.state.ticketDB} />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default TicketList;

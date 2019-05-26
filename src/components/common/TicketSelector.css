@@ -1,0 +1,14 @@
+.tab-button {
+    font-size: 15px;
+    padding: 4px 28px;
+    color: white;
+    border: 1px solid;
+    border-color: white;
+    color: white;
+    background-color: rgb(27,42,73);
+  }
+  
+  .tab-button.selected {
+    color: rgb(27,42,73);
+    background-color: white;
+  }
