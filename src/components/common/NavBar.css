@@ -19,6 +19,7 @@ a:link, a:visited {
   height: 52px;
   max-height: 44px;
   background-color: rgb(27,42,73);
+  color:'white';
   font-size: 17px;
   text-align: center;
 }

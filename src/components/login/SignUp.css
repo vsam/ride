@@ -78,9 +78,15 @@ div#submit {
   height:45px;
   border-radius: 5px;
   font-size: 16px;
+  background-color: rgb(27,42,73);
+  color:white;
+}
+#submitBtn:disabled{
   background-color: #cccccc;
 }
-
+#signUpBtn:disabled{
+  background-color: #cccccc;
+}
 #logInBtn, #signUpBtn{
   background-color:#ffffff;
   color: black;
@@ -92,11 +98,3 @@ div#submit {
   margin-bottom:10px;
   font-size: 16px;
 }
-
-/* #forget {
-  width:100%;
-  margin: 0 auto;
-  font-size: 12px;
-  text-align: center;
-  border: 2px solid #000000;
-} */

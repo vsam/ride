@@ -57,7 +57,8 @@
 }
 
 #safe_img, #history_img, #money_img{
-  width: 35px !important;
+  
+  height: 35px;
   margin-right: 10px;
 }
 

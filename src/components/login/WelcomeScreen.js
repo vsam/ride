@@ -43,7 +43,7 @@ class Welcome extends Component {
         </div>
         {setTimeout(() =>{
           this.props.history.push('/Login')
-        }, 10000)}
+          }, 10000)}
       </div>
     )
   }

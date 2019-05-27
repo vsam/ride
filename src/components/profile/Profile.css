@@ -4,8 +4,53 @@
     margin-bottom: 0.5em;
     align-content: center;
 }
-
-input {
+.container {
+    margin:100px 40px 0px 40px;
+    padding:0px 0px 0px 0px;
+    border-width: 1px;
+}
+.welcomeDiv {
+    text-align: left;
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom:10px;
+    color:rgb(27,42,73);
+    animation: easeIn 0.7s;
+}
+.bossDiv {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom:10px;
+    color:	#808080;
+    animation: easeIn 0.7s;
+    animation-fill-mode: both;
+    animation-delay: 0.7s;
+}
+.line {
+    height: 0.2px;
+    background-color: 	#888888;
+    margin-bottom:40px;
+}
+.inputLabel-email {
+    font-weight: bold;
+    font-size: 25px;
+    margin-right:18px;
+}
+.inputLabel-name {
+    font-weight: bold;
+    font-size: 25px;
+    margin-right:15px;
+}
+.infoDiv {
+    font-size: 18px;
+    text-align: left;
+    margin-top:15px;
+    animation: easeIn 0.7s;
+    animation-fill-mode: both;
+    animation-delay: 1.4s;
+}
+.inputs {
     width: 80%;
     display: inline-block;
     border: none;
@@ -15,42 +60,67 @@ input {
     color: black;
     border-radius: .25rem;
 }
-
-img {
-    height: calc(2rem + 2px);
-    width: calc(2rem + 2px);
-    position: relative;
-    vertical-align: middle;
+#pwdImg {
+    margin-top: 5px;
+    max-height: 100%;
+    width: auto;
 }
 
-#changePwdBtn, #confirmBtn {
-    width: 100%;
-    display: inline-block;
-    height: calc(2.25rem + 2px);
-    border: none !important;
-    outline: none !important;
-    border-radius: .25rem;
-    font-size: 1rem;
-}
 
-#changePwdBtn {
-    display: flow;
-    color: #182B49 !important;
+#changePwdBtn{
+    padding-bottom: 30px;
+    margin-top: 40px;
+    margin-bottom:5px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
     background-color: transparent;
-    vertical-align: middle;
+    color: #182B49;
+    animation: easeIn 0.7s;
+    animation-fill-mode: both;
+    animation-delay: 1.4s;
 }
 
 #confirmBtn {
-    width: 80%;
-    margin-top: 0.5em;
-    color: white !important;
-    background-color: #182B49;
+    margin-top:20px;
+    width: 100%;
+    height:45px;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgb(27,42,73);
 }
 
 #confirmBtn:disabled {
-    background-color: darkgray;
+    background-color: #cccccc;
+    color:'black';
 }
 
-*:focus, *:visited {
-    outline: none !important;
+
+.placeholder {
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+.loader {
+    border: .25em solid rgb(27,42,73);
+    border-right-color: transparent;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 0.75s linear infinite;
+    z-index: 99;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes easeIn {
+    0% {opacity: 0} 
+    100% {opacity: 1}
+  }
+  

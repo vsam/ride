@@ -142,9 +142,8 @@ class SignUp extends Component {
           loading: false
         };
 
-        setTimeout(() => {
-          that.props.history.push('/Login');
-        }, 500);
+          this.props.history.push('/WelcomeScreen');
+
       })
       .catch((error) => {
         alert(error.message);
@@ -219,12 +218,20 @@ class SignUp extends Component {
     this.setState({ [key]: value });
   }
 
+  disableBtn(){
+    if(this.state.email !=='' && this.state.firstName !== '' && this.state.lastName !== '' &&
+      this.state.userName !== '' && this.state.password !== ''&& this.state.confirmPwd !== ''){
+      return false;
+    }
+    return true
+  }
   render() {
     return (
-      <div className="container">
+      !this.state.loading?
+      (<div className="container">
         <form >
           <div className="title">
-            <h3>Create an Account</h3>
+            <h2>Create an Account</h2>
           </div>
           <div className="inputGroup" id="email">
             <input id="emailInput" type="text" placeholder="UCSD Email"
@@ -273,9 +280,9 @@ class SignUp extends Component {
           <div className="btnGroup" id="submit">
             <button
               id="submitBtn"
-              disabled={this.state.loading}
+              disabled={this.disableBtn()}
               onClick={this.signUp}>
-            {!this.state.loading? "Sign Up": "Loading..."}
+            Sign Up
             </button>
           </div>
 
@@ -285,7 +292,12 @@ class SignUp extends Component {
             </button>
           </div>
         </form>
-      </div>
+      </div>)
+      :(
+        <div className="placeholder">
+          <div className="loader" />
+        </div>
+      )
     )
   }
 }

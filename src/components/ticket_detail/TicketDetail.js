@@ -34,14 +34,12 @@ class TicketDetail extends React.Component {
       <div>
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar> Ticket Detail </NavBar>
-
         <div className="ticket-content">
           <img
             alt="driver"
             src={require('../../images/driver button.png')}
             className="logo"
           />
-
           <div className="info">
             <div className="col info-left-col">
               <span className="elevated">{this.state.date}</span>

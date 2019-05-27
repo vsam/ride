@@ -18,7 +18,6 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
-    this.resetPwd = this.resetPwd.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
     this.displayEmailError = this.displayEmailError.bind(this);
@@ -97,7 +96,11 @@ class Login extends Component {
     this.props.history.push('/SignUp')
   }
 
-  resetPwd(){
+  disableBtn(){
+    if(this.state.email !=='' && this.state.password !== ''){
+      return false;
+    }
+    return true
   }
 
   //display email related error msg
@@ -120,7 +123,7 @@ class Login extends Component {
   //display verification error msg
   displayVerifyError(){
     if (this.state.verifyErr) {
-      return (<div className="errorMsg">Account not verify, please check email</div>)
+      return (<div className="errorMsg">This account has not been verified</div>)
     }
   }
 
@@ -131,10 +134,11 @@ class Login extends Component {
 
   render() {
     return (
+      !this.state.loading?(
       <div className="container">
         <form>
           <div className="title">
-            <h3>Log In with Email</h3>
+            <h2>Log In with Email</h2>
           </div>
 
           <div className="inputGroup" id="email">
@@ -155,17 +159,17 @@ class Login extends Component {
           <div className="btnGroup" id="submit">
             <button
               id="submitBtn"
-              disabled={this.state.loading}
+              disabled={this.disableBtn()}
               onClick={this.login}>
-              {this.state.loading? "Loading...":"Log In"}
+              Log In
             </button>
           </div>
 
-          <div className="btnGroup" id="forget">
+          {/*<div className="btnGroup" id="forget">
             <button id="forgetBtn" onClick={this.resetPwd} >
               Forget Password
             </button>
-          </div>
+      </div>*/}
 
           <div className="btnGroup" id="signup">
             <button id="signUpBtn" onClick={this.goToSignUp} >
@@ -173,7 +177,12 @@ class Login extends Component {
             </button>
           </div>
         </form>
+      </div>)
+      :(
+        <div className="placeholder">
+        <div className="loader" />
       </div>
+      )
     );
   }
 }
