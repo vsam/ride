@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar'
 
@@ -7,7 +6,7 @@ import pwdIcon from "./password_blue.png";
 
 import "./Profile.css";
 
-class Profile extends React.Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
 
@@ -23,6 +22,7 @@ class Profile extends React.Component {
             email: '',
             userName: '',
             dataFetched: false,
+            loading:false
         };
 
         this.inputStyle={visibility:'hidden'};
@@ -31,11 +31,7 @@ class Profile extends React.Component {
         this.onChangePwdSuccess = this.onChangePwdSuccess.bind(this);
         this.onChangePwdFailure = this.onChangePwdFailure.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.displayPwdError = this.displayPwdError.bind(this);
-        //this.displayConfirmPwdError = this.displayConfirmPwdError.bind(this);
         this.toggleFields = this.toggleFields.bind(this);
-        this.clearFields = this.clearFields.bind(this);
-        //this.enableBtn = this.enableBtn.bind(this);
     }
 
     handleChange(event) {
@@ -62,6 +58,7 @@ class Profile extends React.Component {
     }
 
     changePassword() {
+        this.setState({loading:true})
         const { newPwd, confirmPwd } = this.state;
         if (confirmPwd !== newPwd) {
             this.setState({ confirmPwdError: true });
@@ -73,19 +70,21 @@ class Profile extends React.Component {
             firebase.auth().currentUser.email,
             this.state.oldPwd
         );
-
+        
         user.reauthenticateWithCredential(credential)
         .then((result) => this.onChangePwdSuccess(result))
         .catch((error) => this.onChangePwdFailure(error));
+        this.setState({loading:false})
     }
 
     onChangePwdSuccess(result) {
         let user = firebase.auth().currentUser;
         user.updatePassword(this.state.newPwd)
         .then(()=>{
-            this.props.history.push("/Login")}
-        )
-        .catch((error) => {
+            firebase.auth().signOut().then(() =>{
+                this.props.history.push("/Login")
+              });
+        }).catch((error) => {
             this.onChangePwdFailure(error)
         });
     }
@@ -179,7 +178,7 @@ class Profile extends React.Component {
 
     render() {
         return (
-            this.state.dataFetched ? (
+            this.state.dataFetched && !this.state.loading? (
                 <div>
                     <input className="menustate" type="checkbox" id="menustate" />
                     <NavBar> Profile </NavBar>

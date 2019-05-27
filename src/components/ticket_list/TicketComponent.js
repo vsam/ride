@@ -8,7 +8,6 @@ import "./TicketComponent.css"
  */
 class TicketComponent extends Component {
   handleClick() {
-    console.log(this.props.ticket.id);
     this.props.history.push('/TicketDetail', { ticketId: this.props.ticket.id });
   }
 
@@ -22,6 +21,7 @@ class TicketComponent extends Component {
     } else {
       seatDescriptor = (ticket.seats === 1 ? "person" : "people");
     }
+
 
     return (
       <div

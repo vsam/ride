@@ -2,16 +2,8 @@ import React from 'react';
 import './TicketSelector.css';
 
 export default class TicketSelector extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fromUCSD: true
-    };
-  }
-
-  handleNavBarSelect(fromUCSD) {
-    this.setState({ fromUCSD });
-
+  handleSelect(fromUCSD) {
+    this.props.onSelect(fromUCSD);
     var buttons = document.getElementsByClassName("tab-button");
     if (fromUCSD) {
       buttons[0].classList.add("selected");
@@ -27,12 +19,12 @@ export default class TicketSelector extends React.Component {
       <div>
         <button
           className="tab-button selected"
-          onClick={() => this.handleNavBarSelect(true)}
+          onClick={() => this.handleSelect(true)}
         >
           From UCSD
         </button>
         <button
-          onClick={() => this.handleNavBarSelect(false)}
+          onClick={() => this.handleSelect(false)}
           className="tab-button"
         >
           To UCSD

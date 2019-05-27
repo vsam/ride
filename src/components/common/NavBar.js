@@ -1,11 +1,20 @@
 import React from 'react';
 import './NavBar.css';
+import firebase from 'firebase';
 
 const hideMenu = () => {
   document.getElementById('menustate').checked = false;
   document.documentElement.classList.remove('noscroll');
   document.documentElement.classList.remove('noscroll-long');
 }
+
+const logOut= () => {
+  document.getElementById('menustate').checked = false;
+  document.documentElement.classList.remove('noscroll');
+  document.documentElement.classList.remove('noscroll-long');
+  firebase.auth().signOut();
+}
+
 
 export default function NavBar(props) {
   return (
@@ -41,6 +50,9 @@ export default function NavBar(props) {
           </li>
           <li className="item-menu">
             <a href='/Profile' onClick={hideMenu}>Profile</a>
+          </li>
+          <li className="item-menu">
+            <a href='/Login' onClick={logOut}>Log Out</a>
           </li>
         </ul>
       </div>
