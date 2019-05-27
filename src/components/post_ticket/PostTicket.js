@@ -1,12 +1,15 @@
 import React from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
+import Driver from '../../vectors/Driver button with Text.png';
+import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
+import Passenger from '../../vectors/Passenger button with Text.png';
+import ArchivedPassenger from '../../vectors/Archived Passenger button with Text.png';
 import './PostTicket.css';
 
 export default class PostTicket extends React.Component {
   constructor() {
     super();
-    
     this.state = {
       uploading: false,
       ticket: {
@@ -19,11 +22,6 @@ export default class PostTicket extends React.Component {
         description: '',
       }
     };
-
-    this.driver = require('../../vectors/Driver button with Text.png');
-    this.driverArchived = require('../../vectors/Archived Driver button with Text.png');
-    this.passenger = require('../../vectors/Passenger button with Text.png');
-    this.passengerArchived = require('../../vectors/Archived Passenger button with Text.png');
   }
 
   updateTicket(prop, event) {
@@ -116,13 +114,13 @@ export default class PostTicket extends React.Component {
           <div className="image-slot">
             <img
               alt="driver"
-              src={ticket.isDriver ? this.driver : this.driverArchived}
+              src={ticket.isDriver ? Driver : ArchivedDriver}
               className="image-button selected"
               onClick={() => this.handleRoleSelect('driver')}
             />
             <img
               alt="passenger"
-              src={ticket.isDriver ? this.passengerArchived : this.passenger}
+              src={ticket.isDriver ? ArchivedPassenger : Passenger}
               className="image-button"
               onClick={() => this.handleRoleSelect('passenger')}
             />

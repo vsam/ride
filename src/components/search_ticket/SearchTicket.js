@@ -1,12 +1,15 @@
 import React from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
+import Driver from '../../vectors/Driver button with Text.png';
+import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
+import Passenger from '../../vectors/Passenger button with Text.png';
+import ArchivedPassenger from '../../vectors/Archived Passenger button with Text.png';
 import './SearchTicket.css';
 
 export default class SearchTickets extends React.Component {
   constructor() {
     super();
-    
     this.state = {
       uploading: false,
       ticket: {
@@ -16,14 +19,8 @@ export default class SearchTickets extends React.Component {
         date: '',
         numOfSeats: '',
         price: '',
-        description: '',
       }
     };
-
-    this.driver = require('../../vectors/Driver button with Text.png');
-    this.driverArchived = require('../../vectors/Archived Driver button with Text.png');
-    this.passenger = require('../../vectors/Passenger button with Text.png');
-    this.passengerArchived = require('../../vectors/Archived Passenger button with Text.png');
   }
 
   updateTicket(prop, event) {
@@ -78,7 +75,16 @@ export default class SearchTickets extends React.Component {
 
   handleSubmit() {
     this.setState({ uploading: true });
-    firebase.firestore().collection('tickets').add(this.state.ticket);
+    var db = firebase.firestore();
+    db.collection('tickets')
+      .get().then(querySnapshot => {
+        var tickets = [];
+        querySnapshot.forEach(doc => {
+          tickets.push(doc.data());
+        });
+        console.log(tickets);
+        this.props.history.push('/SearchResults', { tickets });
+      });
   }
 
   render() {
@@ -90,8 +96,8 @@ export default class SearchTickets extends React.Component {
 
     return (
       <div>
-        <div class="placeholder" style={loaderStyle}>
-          <div class="loader"/>
+        <div className="placeholder" style={loaderStyle}>
+          <div className="loader"/>
         </div>
         
         <input type="checkbox" id="menustate" className="menustate" />
@@ -111,18 +117,18 @@ export default class SearchTickets extends React.Component {
         </NavBar>
 
         <div className="form">
-          <div className="headline">I am a ...</div>
+          <div className="headline">I want to find a...</div>
 
           <div className="image-slot">
             <img
               alt="driver"
-              src={ticket.isDriver ? this.driver : this.driverArchived}
+              src={ticket.isDriver ? Driver : ArchivedDriver}
               className="image-button selected"
               onClick={() => this.handleRoleSelect('driver')}
             />
             <img
               alt="passenger"
-              src={ticket.isDriver ? this.passengerArchived : this.passenger}
+              src={ticket.isDriver ? ArchivedPassenger : Passenger}
               className="image-button"
               onClick={() => this.handleRoleSelect('passenger')}
             />
@@ -149,7 +155,7 @@ export default class SearchTickets extends React.Component {
             onChange={e => this.updateTicket('date', e)}
           />
 
-          <div className="input-label"># of people</div>
+          <div className="input-label">Min # of Available Seats</div>
           <input
             className="input"
             type="text"
@@ -158,25 +164,16 @@ export default class SearchTickets extends React.Component {
             onChange={e => this.updateTicket('numOfSeats', e)}
           />
 
-          <div className="input-label">Designed Price</div>
+          <div className="input-label">Max Acceptable Price</div>
           <input
             className="input"
             type="text"
             value={ticket.price}
-            placeholder="e.g. 20"
+            placeholder="e.g. 20 (Optional)"
             onChange={e => this.updateTicket('price', e)}
           />
 
-          <div className="input-label">Description</div>
-          <textarea
-            rows="5"
-            className="input"
-            value={ticket.description}
-            placeholder="Specific Requirements."
-            onChange={e => this.updateTicket('description', e)}
-          />
-
-          <button onClick={this.handleSubmit.bind(this)} className="submit">Post</button>
+          <button onClick={this.handleSubmit.bind(this)} className="submit">Search</button>
         </div>
       </div>
     );

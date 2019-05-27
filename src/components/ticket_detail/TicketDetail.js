@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase';
+//import firebase from 'firebase';
 import NavBar from '../common/NavBar';
 import './TicketDetail.css';
 
@@ -38,7 +38,7 @@ export default class TicketDetail extends React.Component {
         <div className="ticket-content">
           <img
             alt="driver"
-            src={require('../../images/driver button.png')}
+            src={require('../../vectors/driver button.png')}
             className="logo"
           />
 
