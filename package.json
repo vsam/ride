@@ -33,5 +33,6 @@
   },
   "devDependencies": {
     "eslint-plugin-promise": "^4.1.1"
-  }
+  },
+  "homepage": "https://ride-f1e96.firebaseapp.com"
 }
