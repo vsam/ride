@@ -149,7 +149,7 @@ export default class PostTicket extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.address}
+            value={ticket.address}
             placeholder="Address"
             onChange={e => this.updateTicket('location', e)}
           />
@@ -158,7 +158,7 @@ export default class PostTicket extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.date}
+            value={ticket.date}
             placeholder="e.g. 5/13/19"
             onChange={e => this.updateTicket('date', e)}
           />
@@ -167,7 +167,7 @@ export default class PostTicket extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.numOfSeats}
+            value={ticket.numOfSeats}
             placeholder="e.g. 3"
             onChange={e => this.updateTicket('numOfSeats', e)}
           />
