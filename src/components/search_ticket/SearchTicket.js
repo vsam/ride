@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
+import Loader from '../common/Loader';
 import Driver from '../../vectors/Driver button with Text.png';
 import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
@@ -11,7 +12,7 @@ export default class SearchTickets extends React.Component {
   constructor() {
     super();
     this.state = {
-      uploading: false,
+      loading: false,
       ticket: {
         fromUCSD: true,
         isDriver: true,
@@ -39,7 +40,7 @@ export default class SearchTickets extends React.Component {
         fromUCSD
       }
     });
-    
+
     var buttons = document.getElementsByClassName("tab-button");
     if (fromUCSD) {
       buttons[0].classList.add("selected");
@@ -74,32 +75,26 @@ export default class SearchTickets extends React.Component {
   }
 
   handleSubmit() {
-    this.setState({ uploading: true });
+    this.setState({ loading: true });
     var db = firebase.firestore();
     db.collection('tickets')
       .get().then(querySnapshot => {
         var tickets = [];
         querySnapshot.forEach(doc => {
-          tickets.push(doc.data());
+          let ticket = doc.data();
+          ticket.id = doc.id;
+          tickets.push(ticket);
         });
-        console.log(tickets);
         this.props.history.push('/SearchResults', { tickets });
       });
   }
 
   render() {
-    const { ticket, uploading } = this.state;
-    let loaderStyle;
-    if (!uploading) {
-      loaderStyle = { visibility: 'hidden' };
-    }
-
+    const { ticket, loading } = this.state;
     return (
       <div>
-        <div className="placeholder" style={loaderStyle}>
-          <div className="loader"/>
-        </div>
-        
+        <Loader loading={loading} />
+
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
           <button
@@ -136,7 +131,7 @@ export default class SearchTickets extends React.Component {
 
           <div className="input-label">
             {(ticket.isDriver ? "Driving " : "Traveling ") +
-             (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
+              (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
           </div>
           <input
             className="input"

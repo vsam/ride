@@ -1,0 +1,23 @@
+.placeholder {
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader {
+    border: .25em solid rgb(27,42,73);
+    border-right-color: transparent;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 0.75s linear infinite;
+    z-index: 99;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

@@ -18,6 +18,7 @@ class ScrollableTicketList extends Component {
         index={index}
         key={key}
         style={style}
+        history={this.props.history}
       />
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
+import Loader from '../common/Loader';
 import Driver from '../../vectors/Driver button with Text.png';
 import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
@@ -11,7 +12,7 @@ export default class PostTicket extends React.Component {
   constructor() {
     super();
     this.state = {
-      uploading: false,
+      loading: false,
       ticket: {
         fromUCSD: true,
         isDriver: true,
@@ -19,7 +20,7 @@ export default class PostTicket extends React.Component {
         date: '',
         numOfSeats: '',
         price: '',
-        description: '',
+        description: ''
       }
     };
   }
@@ -75,22 +76,20 @@ export default class PostTicket extends React.Component {
   }
 
   handleSubmit() {
-    this.setState({ uploading: true });
-    firebase.firestore().collection('tickets').add(this.state.ticket);
+    this.setState({ loading: true });
+    var db = firebase.firestore();
+    var ref = db.collection('tickets');
+    ref.add({...this.state.ticket, email: firebase.auth().currentUser.email})
+      .then(() => {
+        this.props.history.push('/MyTickets');
+      });
   }
 
   render() {
-    const { ticket, uploading } = this.state;
-    let loaderStyle;
-    if (!uploading) {
-      loaderStyle = { visibility: 'hidden' };
-    }
-
+    const { ticket, loading } = this.state;
     return (
       <div>
-        <div class="placeholder" style={loaderStyle}>
-          <div class="loader"/>
-        </div>
+        <Loader loading={loading}/>
         
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>

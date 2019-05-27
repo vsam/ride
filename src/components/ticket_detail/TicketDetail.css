@@ -107,7 +107,8 @@
 .email {
   font-size: 17px;
   color: white;
-  padding: 12px 60px;
+  width: 100%;
+  padding: 15px 0px;
   background-color: rgb(27,42,73);
   border-radius: 6px;
   border: none;

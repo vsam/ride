@@ -38,16 +38,18 @@ class Login extends Component {
       emailErr: false,
       pwdErr: false,
       loading: true
-    })
+    });
 
     const { email, password } = this.state;
-    let emailAddress = email + "@ucsd.edu"
-    firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+    let emailAddress = email + "@ucsd.edu";
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        return firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+      })
       .then((result) => this.onLoginSuccess(result))
       .catch((error) => {
         this.onLoginFailed(error)
-      })
-
+      });
   }
 
   onLoginSuccess(result) {

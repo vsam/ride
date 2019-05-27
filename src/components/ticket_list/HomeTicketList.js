@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
+import Loader from '../common/Loader';
 import TicketSelector from '../common/TicketSelector';
 import ScrollableTicketList from "./ScrollableTicketList";
-import "./HomeTicketList.css";
+import "./TicketList.css";
 
 export default class HomeTicketList extends Component {
   constructor() {
     super();
     this.state = {
-      tickets: []
+      tickets: [],
+      loading: true
     };
   }
 
@@ -19,9 +21,11 @@ export default class HomeTicketList extends Component {
       .get().then(querySnapshot => {
         var tickets = [];
         querySnapshot.forEach(doc => {
-          tickets.push(doc.data());
+          let ticket = doc.data();
+          ticket.id = doc.id;
+          tickets.push(ticket);
         });
-        this.setState({ tickets });
+        this.setState({ tickets, loading: false });
       });
   }
 
@@ -34,8 +38,13 @@ export default class HomeTicketList extends Component {
         </NavBar>
 
         <div className="bodyContent">
-          <ScrollableTicketList tickets={this.state.tickets} />
+          <ScrollableTicketList
+            tickets={this.state.tickets}
+            history={this.props.history}
+          />
         </div>
+
+        <Loader loading={this.state.loading}/>
       </div>
     );
   }

@@ -7,6 +7,11 @@ import "./TicketComponent.css"
  * Renders a ticket in the list view
  */
 class TicketComponent extends Component {
+  handleClick() {
+    console.log(this.props.ticket);
+    this.props.history.push('/TicketDetail', { ticketId: this.props.ticket.id });
+  }
+
   render() {
     var colorClass = this.props.index % 2 === 0 ? "evenTicketBG" : "oddTicketBG";
     const { ticket } = this.props;
@@ -23,7 +28,7 @@ class TicketComponent extends Component {
         key={this.props.index}
         style={this.props.style}
         className={"ticket " + colorClass}
-        onClick={this.onClick.bind(this)}
+        onClick={this.handleClick.bind(this)}
       >
         <div className="ticketContent">
           <img
@@ -54,10 +59,6 @@ class TicketComponent extends Component {
         </div>
       </div>
     );
-  }
-
-  onClick() {
-    window.location.href = '/TicketDetail';
   }
 }
 
