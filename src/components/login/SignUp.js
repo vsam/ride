@@ -282,7 +282,7 @@ class SignUp extends Component {
               id="submitBtn"
               disabled={this.disableBtn()}
               onClick={this.signUp}>
-            Sign Up
+              Sign Up
             </button>
           </div>
 

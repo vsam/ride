@@ -6,27 +6,20 @@ import Driver from '../../vectors/Driver button with Text.png';
 import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
 import ArchivedPassenger from '../../vectors/Archived Passenger button with Text.png';
-import './PostTicket.css';
+import './SearchTicket.css';
 
-export default class PostTicket extends React.Component {
-  constructor(props) {
-    super(props);
-
-    //console.log(this.props.location.state.ticket)
+export default class SearchTickets extends React.Component {
+  constructor() {
+    super();
     this.state = {
       loading: false,
-      update: this.props.location.state !== undefined,
-      ticket: this.props.location.state !== undefined?
-      this.props.location.state.ticket
-      :{
+      ticket: {
         fromUCSD: true,
         isDriver: true,
         location: '',
         date: '',
         numOfSeats: '',
         price: '',
-        description: '',
-        archived: false
       }
     };
   }
@@ -47,7 +40,7 @@ export default class PostTicket extends React.Component {
         fromUCSD
       }
     });
-    
+
     var buttons = document.getElementsByClassName("tab-button");
     if (fromUCSD) {
       buttons[0].classList.add("selected");
@@ -84,30 +77,24 @@ export default class PostTicket extends React.Component {
   handleSubmit() {
     this.setState({ loading: true });
     var db = firebase.firestore();
-    var ref = db.collection('tickets');
-    if(!this.state.update){
-      ref.add({...this.state.ticket, 
-        email: firebase.auth().currentUser.email, 
-        userName:localStorage.getItem('userName')
-      })
-      .then(() => {
-        this.props.history.push('/MyTickets');
+    db.collection('tickets')
+      .get().then(querySnapshot => {
+        var tickets = [];
+        querySnapshot.forEach(doc => {
+          let ticket = doc.data();
+          ticket.id = doc.id;
+          tickets.push(ticket);
+        });
+        this.props.history.push('/SearchResults', { tickets });
       });
-    }else{
-      ref.doc(this.props.location.state.ticketId)
-      .update({...this.state.ticket})
-      .then(() => {
-        this.props.history.push('/MyTickets');
-      });
-    }
   }
 
   render() {
-    const { ticket, loading, update} = this.state;
+    const { ticket, loading } = this.state;
     return (
       <div>
-        <Loader loading={loading}/>
-        
+        <Loader loading={loading} />
+
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
           <button
@@ -125,7 +112,7 @@ export default class PostTicket extends React.Component {
         </NavBar>
 
         <div className="form">
-          <div className="headline">I am a ...</div>
+          <div className="headline">I want to find a...</div>
 
           <div className="image-slot">
             <img
@@ -144,12 +131,12 @@ export default class PostTicket extends React.Component {
 
           <div className="input-label">
             {(ticket.isDriver ? "Driving " : "Traveling ") +
-             (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
+              (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
           </div>
           <input
             className="input"
             type="text"
-            value={this.state.ticket.address}
+            value={ticket.address}
             placeholder="Address"
             onChange={e => this.updateTicket('location', e)}
           />
@@ -158,42 +145,32 @@ export default class PostTicket extends React.Component {
           <input
             className="input"
             type="text"
-            value={this.state.ticket.date}
+            value={ticket.date}
             placeholder="e.g. 5/13/19"
             onChange={e => this.updateTicket('date', e)}
           />
 
-          <div className="input-label"># of people</div>
+          <div className="input-label">Min # of Available Seats</div>
           <input
             className="input"
             type="text"
-            value={this.state.ticket.numOfSeats}
+            value={ticket.numOfSeats}
             placeholder="e.g. 3"
             onChange={e => this.updateTicket('numOfSeats', e)}
           />
 
-          <div className="input-label">Designed Price</div>
+          <div className="input-label">Max Acceptable Price</div>
           <input
             className="input"
             type="text"
             value={ticket.price}
-            placeholder="e.g. 20"
+            placeholder="e.g. 20 (Optional)"
             onChange={e => this.updateTicket('price', e)}
           />
 
-          <div className="input-label">Description</div>
-          <textarea
-            rows="5"
-            className="input"
-            value={ticket.description}
-            placeholder="Specific Requirements."
-            onChange={e => this.updateTicket('description', e)}
-          />
-
-          <button onClick={this.handleSubmit.bind(this)} className="submit">
-          {update?"Update":"Post"}</button>
+          <button onClick={this.handleSubmit.bind(this)} className="submit">Search</button>
         </div>
       </div>
     );
   }
-};
+}

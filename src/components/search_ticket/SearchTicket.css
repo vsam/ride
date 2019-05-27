@@ -86,7 +86,7 @@ button:active {
 .submit {
   font-size: 17px;
   color: white;
-  padding: 10px 40px;
+  padding: 15px 40px;
   background-color: rgb(27,42,73);
   border-radius: 6px;
   border: none;
@@ -94,4 +94,3 @@ button:active {
   width: 100%;
   margin-top: 20px;
 }
-

@@ -18,11 +18,6 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
-    this.onLoginSuccess = this.onLoginSuccess.bind(this);
-    this.onLoginFailed = this.onLoginFailed.bind(this);
-    this.displayEmailError = this.displayEmailError.bind(this);
-    this.displayPwdError = this.displayPwdError.bind(this);
-    this.displayVerifyError = this.displayVerifyError.bind(this);
   }
 
   componentWillUnmount() {
@@ -37,16 +32,18 @@ class Login extends Component {
       emailErr: false,
       pwdErr: false,
       loading: true
-    })
+    });
 
     const { email, password } = this.state;
-    let emailAddress = email + "@ucsd.edu"
-    firebase.auth().signInWithEmailAndPassword(emailAddress, password)
+    let emailAddress = email + "@ucsd.edu";
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        return firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+      })
       .then((result) => this.onLoginSuccess(result))
       .catch((error) => {
         this.onLoginFailed(error)
-      })
-
+      });
   }
 
   onLoginSuccess(result) {
@@ -58,8 +55,18 @@ class Login extends Component {
       })
       return;
     }
+    //store info in the local storage
 
-    console.log(result);
+    let curr = firebase.auth().currentUser
+    localStorage.setItem('uid',curr.uid);
+    localStorage.setItem('email', curr.email);
+    let docRef = firebase.firestore().collection('users').doc(curr.uid);
+      docRef.get().then((doc) => {
+        localStorage.setItem('firstName', doc.data().firstName);
+        localStorage.setItem('lastName', doc.data().lastName);
+        localStorage.setItem('userName', doc.data().userName);
+      });
+        
     this.setState({
       email: '',
       password: '',
@@ -69,9 +76,7 @@ class Login extends Component {
       loading: false
     })
 
-    setTimeout(() => {
-      this.props.history.push("/Home");
-    }, 500);
+    this.props.history.push("/Home");
   }
 
   onLoginFailed(error) {
