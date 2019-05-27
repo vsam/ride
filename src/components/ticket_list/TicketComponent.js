@@ -8,7 +8,6 @@ import "./TicketComponent.css"
  */
 class TicketComponent extends Component {
   handleClick() {
-    console.log(this.props.ticket.id);
     this.props.history.push('/TicketDetail', { ticketId: this.props.ticket.id });
   }
 

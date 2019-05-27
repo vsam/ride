@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar'
 
@@ -7,7 +6,7 @@ import pwdIcon from "./password_blue.png";
 
 import "./Profile.css";
 
-class Profile extends React.Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
 

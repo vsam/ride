@@ -55,9 +55,9 @@ class Login extends Component {
       })
       return;
     }
-    //store info in the local storage
 
-    let curr = firebase.auth().currentUser
+    //store info in the local storage
+    let curr = firebase.auth().currentUser;
     localStorage.setItem('uid',curr.uid);
     localStorage.setItem('email', curr.email);
     let docRef = firebase.firestore().collection('users').doc(curr.uid);
@@ -102,7 +102,7 @@ class Login extends Component {
   }
 
   disableBtn(){
-    if(this.state.email !=='' && this.state.password !== ''){
+    if(this.state.email !== '' && this.state.password !== ''){
       return false;
     }
     return true
@@ -170,11 +170,13 @@ class Login extends Component {
             </button>
           </div>
 
-          {/*<div className="btnGroup" id="forget">
+          {/*
+          <div className="btnGroup" id="forget">
             <button id="forgetBtn" onClick={this.resetPwd} >
               Forget Password
             </button>
-      </div>*/}
+          </div>
+          */}
 
           <div className="btnGroup" id="signup">
             <button id="signUpBtn" onClick={this.goToSignUp} >

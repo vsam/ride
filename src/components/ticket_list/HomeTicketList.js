@@ -11,7 +11,8 @@ export default class HomeTicketList extends Component {
     super();
     this.state = {
       tickets: [],
-      loading: true
+      loading: true,
+      fromUCSD: true
     };
   }
 
@@ -30,16 +31,17 @@ export default class HomeTicketList extends Component {
   }
 
   render() {
+    const { tickets, fromUCSD } = this.state;
     return (
       <div className="app">
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
-          <TicketSelector handleNavBarSelect={(fromUCSD) => {}}/>
+          <TicketSelector onSelect={fromUCSD => this.setState({ fromUCSD })}/>
         </NavBar>
 
         <div className="bodyContent">
           <ScrollableTicketList
-            tickets={this.state.tickets}
+            tickets={tickets.filter(e => e.fromUCSD === fromUCSD)}
             history={this.props.history}
           />
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
+import TicketSelector from '../common/TicketSelector';
 import Driver from '../../vectors/Driver button with Text.png';
 import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
@@ -40,15 +41,6 @@ export default class SearchTickets extends React.Component {
         fromUCSD
       }
     });
-
-    var buttons = document.getElementsByClassName("tab-button");
-    if (fromUCSD) {
-      buttons[0].classList.add("selected");
-      buttons[1].classList.remove("selected");
-    } else {
-      buttons[0].classList.remove("selected");
-      buttons[1].classList.add("selected");
-    }
   }
 
   handleRoleSelect(role) {
@@ -76,14 +68,31 @@ export default class SearchTickets extends React.Component {
 
   handleSubmit() {
     this.setState({ loading: true });
+    const { ticket } = this.state;
     var db = firebase.firestore();
-    db.collection('tickets')
-      .get().then(querySnapshot => {
+    var ref = db.collection('tickets').where("fromUCSD", "==", ticket.fromUCSD)
+      .where("isDriver", "==", ticket.isDriver);
+    
+    if (ticket.location.length) {
+      ref = ref.where("location", "==", ticket.location);
+    }
+    
+    if (ticket.date.length) {
+      ref = ref.where("date", "==", ticket.date);
+    }
+
+    if (ticket.numOfSeats.length) {
+      ref = ref.where("numOfSeats", "==", ticket.numOfSeats);
+    }
+
+    ref.get().then(querySnapshot => {
         var tickets = [];
         querySnapshot.forEach(doc => {
-          let ticket = doc.data();
-          ticket.id = doc.id;
-          tickets.push(ticket);
+          let data = doc.data();
+          data.id = doc.id;
+          if (!ticket.price.length || parseFloat(data.price) < parseFloat(ticket.price)) {
+            tickets.push(data);
+          }
         });
         this.props.history.push('/SearchResults', { tickets });
       });
@@ -97,18 +106,7 @@ export default class SearchTickets extends React.Component {
 
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
-          <button
-            className="tab-button selected"
-            onClick={() => this.handleNavBarSelect(true)}
-          >
-            From UCSD
-          </button>
-          <button
-            onClick={() => this.handleNavBarSelect(false)}
-            className="tab-button"
-          >
-            To UCSD
-          </button>
+          <TicketSelector onSelect={this.handleNavBarSelect.bind(this)}/>
         </NavBar>
 
         <div className="form">
