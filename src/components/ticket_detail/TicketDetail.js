@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
 import './TicketDetail.css';
-import { generateKeyPair } from 'crypto';
+//import { generateKeyPair } from 'crypto';
 
 export default class TicketDetail extends React.Component {
   constructor(props) {
