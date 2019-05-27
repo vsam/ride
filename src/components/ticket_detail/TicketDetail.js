@@ -44,7 +44,8 @@ export default class TicketDetail extends React.Component {
       this.archivedStyle={}
     }
     return (
-      <div className="ticket-content">
+      <div className="ticket-content"
+        style={this.archivedStyle}>
         <img
           alt="driver"
           src={require('../../vectors/driver button.png')}
