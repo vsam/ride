@@ -18,7 +18,8 @@ export default class TicketDetail extends React.Component {
       So if you want to go to LA, you are also welcomed. If you
       want to go to SF, you need to contact me to discuss about
       additional payment. I can take at most 3 people. My trunk
-      has no extra space so I basically cannot take large luggage.`
+      has no extra space so I basically cannot take large luggage.`,
+      uid: 'GZDbitIXleNpvTeetv7bJSA4o692'
     };
 
     /*
@@ -30,7 +31,10 @@ export default class TicketDetail extends React.Component {
   }
 
   render() {
+    //pull current uid 
+    var curruid = 'GZDbitIXleNpvTeetv7bJSA4o692'
     return (
+  
       <div>
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar> Ticket Detail </NavBar>
@@ -77,7 +81,9 @@ export default class TicketDetail extends React.Component {
             <div className="paragraph">Sam Vedernikoff</div>
           </div>
 
-          <button className="email">Email svederni@ucsd.edu</button>
+          <button className="email">
+            {(curruid === this.state.uid) ? "update" : "email"}
+          </button>
         </div>
       </div>
     );

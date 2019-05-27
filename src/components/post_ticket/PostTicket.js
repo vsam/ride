@@ -19,7 +19,7 @@ export default class PostTicket extends React.Component {
         date: '',
         numOfSeats: '',
         price: '',
-        description: '',
+        description: ''
       }
     };
   }
