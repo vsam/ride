@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from "firebase/app";
 import './App.css';
-import Home from './components/home/Home';
 import LaunchScreen from './components/login/LaunchScreen';
 import SearchTickets   from './components/home/SearchTickets';
 import ViewMyTickets   from './components/home/ViewMyTickets';
@@ -12,6 +11,7 @@ import PostTicket from './components/post_ticket/PostTicket';
 import TicketDetail from './components/ticket_detail/TicketDetail';
 import Profile from './components/profile/Profile';
 import TicketList from './components/ticketList/TicketList';
+import Search from './components/pages/Search';
 
 class App extends Component {
 	constructor(props){
@@ -37,11 +37,10 @@ class App extends Component {
 				<div className="App">
 					<Route exact path='/' component={LaunchScreen}/>
 					<Route exact path='/Home' component={TicketList}/>
-					<Route exact path='/SearchTickets' component={SearchTickets} />
+					<Route exact path='/SearchTickets' component={Search} />
 					<Route exact path='/PostTicket' component={PostTicket}/>
 					<Route exact path='/ViewMyTickets' component={ViewMyTickets} />
 					<Route exact path='/TicketDetail' component={TicketDetail} />
-					<Route exact path='/CheckInbox' component={Home}/>
 					<Route exact path='/Profile' component={Profile} />
 					<Route exact path='/Login' component={Login} />
 					<Route exact path='/SignUp' component={SignUp} />
