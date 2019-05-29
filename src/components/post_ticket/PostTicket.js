@@ -1,23 +1,29 @@
 import React from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import './PostTicket.css';
+//import {Calendar} from './Calendar';
+//import {Time} from './Time';
 
 class Post extends React.Component {
   constructor() {
-    super();
-    
+    super();    
     this.state = {
       rider: true,
       ticket: {
         fromUCSD: true,
         location: '',
-        date: '',
+        startDate: '',
+        time: '',
         numOfSeats: '',
         price: '',
         description: '',
       }
     };
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
   updateTicket(prop, event) {
@@ -54,6 +60,18 @@ class Post extends React.Component {
       default:
         console.error('Unknown role.')
     }
+  }
+
+  handleDateChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  handleTimeChange(time) {
+    this.setState({
+      time: time
+    });
   }
 
   handleSubmit() {
@@ -102,34 +120,49 @@ class Post extends React.Component {
             className="input"
             type="text"
             value={this.state.ticket.address}
-            placeholder="Address"
+            placeholder="Click to select an address"
             onChange={e => this.updateTicket('location', e)}
           />
 
-          <div className="input-label">Departed on</div>
-          <input
-            className="input"
-            type="text"
-            value={this.state.ticket.date}
-            placeholder="e.g. 5/13/19"
-            onChange={e => this.updateTicket('date', e)}
-          />
+          <div className="input-label">Date Leaving</div>
+          <DatePicker
+              placeholderText="Click to select a date"
+              selected={this.state.startDate}
+              onChange={this.handleDateChange}  
+              dateFormat="MMMM d, yyyy"
+              minDate={new Date()}
+              strictParsing
+            />
 
+          <div className="input-label">Time Leaving</div>
+          <DatePicker
+              placeholderText="Click to select a time"
+              selected={this.state.time}
+              onChange={this.handleTimeChange}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              dateFormat="h:mm aa"
+              timeCaption="Time"
+              strictParsing
+            
+          />
+        
           <div className="input-label"># of people</div>
           <input
             className="input"
             type="text"
             value={this.state.ticket.numOfSeats}
-            placeholder="e.g. 3"
+            placeholder="Click to select number of people"
             onChange={e => this.updateTicket('numOfSeats', e)}
           />
 
-          <div className="input-label">Designed Price</div>
+          <div className="input-label">Desired Price</div>
           <input
             className="input"
             type="text"
             value={this.state.ticket.price}
-            placeholder="e.g. 20"
+            placeholder="Click to select a dollar amount"
             onChange={e => this.updateTicket('price', e)}
           />
 
@@ -138,7 +171,7 @@ class Post extends React.Component {
             rows="5"
             className="input"
             value={this.state.ticket.description}
-            placeholder="Specific Requirements."
+            placeholder="Click to provide more information"
             onChange={e => this.updateTicket('description', e)}
           />
 

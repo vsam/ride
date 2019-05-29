@@ -14,7 +14,8 @@ class LaunchScreen extends Component {
           </button>
           <button id="home-signUpBtn"
             onClick={()=>this.props.history.push('/SignUp')}
-          >Sign Up</button>
+          >Sign Up
+          </button>
         </div>
       </div>
     )
