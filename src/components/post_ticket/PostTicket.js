@@ -7,6 +7,8 @@ import Driver from '../../vectors/Driver button with Text.png';
 import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
 import ArchivedPassenger from '../../vectors/Archived Passenger button with Text.png';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import './PostTicket.css';
 
 export default class PostTicket extends React.Component {
@@ -19,7 +21,8 @@ export default class PostTicket extends React.Component {
         fromUCSD: true,
         isDriver: true,
         location: '',
-        date: '',
+        startDate: '',
+        time: '',
         numOfSeats: '',
         price: '',
         description: '',
@@ -27,6 +30,9 @@ export default class PostTicket extends React.Component {
       },
       ...props.location.state
     };
+
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
   updateTicket(prop, event) {
@@ -55,6 +61,7 @@ export default class PostTicket extends React.Component {
       }
     });
 
+
     var images = document.getElementsByClassName("image-button");
     switch (role) {
       case 'driver':
@@ -68,6 +75,18 @@ export default class PostTicket extends React.Component {
       default:
         console.error('Unknown role.')
     }
+  }
+
+  handleDateChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  handleTimeChange(time) {
+    this.setState({
+      time: time
+    });
   }
 
   handleSubmit() {
@@ -133,13 +152,29 @@ export default class PostTicket extends React.Component {
             onChange={e => this.updateTicket('location', e)}
           />
 
-          <div className="input-label">Departed on</div>
-          <input
-            className="input"
-            type="text"
-            value={ticket.date}
-            placeholder="e.g. 5/13/19"
-            onChange={e => this.updateTicket('date', e)}
+          <div className="input-label">Date Leaving</div>
+          <DatePicker
+              className="input"
+              placeholderText="Click to select a date"
+              selected={this.state.startDate}
+              onChange={this.handleDateChange}  
+              dateFormat="MMMM d, yyyy"
+              minDate={new Date()}
+              strictParsing
+          />
+
+          <div className="input-label">Time Leaving</div>
+          <DatePicker
+              className="input"
+              placeholderText="Click to select a time"
+              selected={this.state.time}
+              onChange={this.handleTimeChange}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              dateFormat="h:mm aa"
+              timeCaption="Time"
+              strictParsing
           />
 
           <div className="input-label"># of people</div>

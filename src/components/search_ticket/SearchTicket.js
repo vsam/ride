@@ -8,6 +8,8 @@ import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
 import ArchivedPassenger from '../../vectors/Archived Passenger button with Text.png';
 import './SearchTicket.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class SearchTickets extends React.Component {
   constructor() {
@@ -18,11 +20,15 @@ export default class SearchTickets extends React.Component {
         fromUCSD: true,
         isDriver: true,
         location: '',
-        date: '',
+        startDate: '',
+        time: '',
         numOfSeats: '',
         price: '',
       }
     };
+
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
   updateTicket(prop, event) {
@@ -66,6 +72,18 @@ export default class SearchTickets extends React.Component {
     }
   }
 
+  handleDateChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  handleTimeChange(time) {
+    this.setState({
+      time: time
+    });
+  }
+
   handleSubmit() {
     this.setState({ loading: true });
     const { ticket } = this.state;
@@ -77,8 +95,8 @@ export default class SearchTickets extends React.Component {
       ref = ref.where("location", "==", ticket.location);
     }
     
-    if (ticket.date.length) {
-      ref = ref.where("date", "==", ticket.date);
+    if (ticket.startDate.length) {
+      ref = ref.where("date", "==", ticket.startDate);
     }
 
     if (ticket.numOfSeats.length) {
@@ -139,13 +157,29 @@ export default class SearchTickets extends React.Component {
             onChange={e => this.updateTicket('location', e)}
           />
 
-          <div className="input-label">Departed on</div>
-          <input
-            className="input"
-            type="text"
-            value={ticket.date}
-            placeholder="e.g. 5/13/19"
-            onChange={e => this.updateTicket('date', e)}
+          <div className="input-label">Date Leaving</div>
+          <DatePicker
+              className="input"
+              placeholderText="Click to select a date"
+              selected={this.state.startDate}
+              onChange={this.handleDateChange}  
+              dateFormat="MMMM d, yyyy"
+              minDate={new Date()}
+              strictParsing
+          />
+
+          <div className="input-label">Time Leaving</div>
+          <DatePicker
+              className="input"
+              placeholderText="Click to select a time"
+              selected={this.state.time}
+              onChange={this.handleTimeChange}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              dateFormat="h:mm aa"
+              timeCaption="Time"
+              strictParsing
           />
 
           <div className="input-label">Min # of Available Seats</div>
