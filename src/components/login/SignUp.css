@@ -87,7 +87,7 @@ div#submit {
 #signUpBtn:disabled{
   background-color: #cccccc;
 }
-#logInBtn, #signUpBtn{
+#logInBtn, #forgetBtn, #signUpBtn{
   background-color:#ffffff;
   color: black;
   border: 1px solid #000000;

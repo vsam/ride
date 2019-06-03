@@ -16,13 +16,16 @@ class Profile extends Component {
             newPwd: '',
             confirmPwd: '',
             pwdErr: false,
+            pwdFmt: false,
             confirmPwdError: false,
             firstName: '',
             lastName: '',
             email: '',
             userName: '',
+            edited_username:'',
             dataFetched: false,
-            loading:false
+            loading:false,
+            edit:false,
         };
 
         this.inputStyle={visibility:'hidden'};
@@ -30,6 +33,7 @@ class Profile extends Component {
         this.changePassword = this.changePassword.bind(this);
         this.onChangePwdSuccess = this.onChangePwdSuccess.bind(this);
         this.onChangePwdFailure = this.onChangePwdFailure.bind(this);
+        this.onEditClicked = this.onEditClicked.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.toggleFields = this.toggleFields.bind(this);
     }
@@ -49,22 +53,32 @@ class Profile extends Component {
     }
 
     displayPwdError() {
-        if (this.state.confirmPwdError) {
-            return (<div className="errorMsg">Password does not match</div>);
-        }
         if (this.state.pwdErr) {
-            return (<div className="errorMsg">Wrong password</div>)
+            return (<div className="errorMsg">Incorrect password.</div>)
         }
+        if (this.state.confirmPwdError) {
+            return (<div className="errorMsg">The password does not match.</div>);
+        }
+        if (this.state.pwdFmt) {
+            return (<div className="errorMsg">The password should contain at least one special character, one capital letter and shoule be of length 8-16.</div>);
+        }
+       
     }
 
     changePassword() {
         this.setState({loading:true})
         const { newPwd, confirmPwd } = this.state;
         if (confirmPwd !== newPwd) {
-            this.setState({ confirmPwdError: true });
+            this.setState({ confirmPwdError: true, loading: false});
             return;
         }
-        this.setState({ confirmPwdError: false });
+        let reg = /((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,16})/;
+        if(!reg.test(confirmPwd)){
+          this.setState({pwdFmt:true, loading: false});
+          return;
+        }
+    
+        this.setState({ confirmPwdError: false, pwdFmt: false });
         let user = firebase.auth().currentUser;
         let credential = firebase.auth.EmailAuthProvider.credential(
             firebase.auth().currentUser.email,
@@ -157,6 +171,7 @@ class Profile extends Component {
                             firstName: doc.data().firstName,
                             lastName: doc.data().lastName,
                             userName: doc.data().userName,
+                            edited_username: doc.data().userName,
                             email: doc.data().email,
                             dataFetched: true
                         })
@@ -174,6 +189,49 @@ class Profile extends Component {
 
     componentDidMount() {
         this.getUserInfo();
+    }
+
+    onEditClicked(){
+        if(this.state.edit){
+            this.setState({
+                userName: this.state.edited_username,
+                edit:!this.state.edit
+            })
+            let user = firebase.auth().currentUser;
+            let docRef = firebase.firestore().collection('users').doc(user.uid);
+            docRef.update({userName:this.state.edited_username})
+            .then(()=>console.log('succeess'))
+            .catch((error) => console.log(error))
+        }else{
+            this.setState({
+                edit:!this.state.edit
+            })
+        }  
+    }
+
+    renderUsername(){
+        if(this.state.edit){
+            return(
+                <div className="infoDiv" id="userNameDiv">
+                    <span className="inputLabel-name"> Username</span>
+                    <input type="text" placeholder="user name" id="userNameInput"
+                            name="edited_username" value={this.state.edited_username} onChange={this.handleChange} />
+                    <div className="editBtnDiv">
+                        <button id="editBtn" onClick={this.onEditClicked}>Edit</button>
+                </div>
+            </div>
+            )
+        }else{
+            return(
+                <div className="infoDiv">             
+                    <span className="inputLabel-name"> Username</span>
+                    <span>{this.state.userName}</span>
+                    <div className="editBtnDiv">
+                        <button id="editBtn" onClick={this.onEditClicked}>Edit</button>
+                    </div>
+                </div>)
+        }
+
     }
 
     render() {
@@ -200,6 +258,9 @@ class Profile extends Component {
                             <span className="inputLabel-name">Name</span>
                             <span>{this.state.firstName} {this.state.lastName}</span>
                         </div>
+                        
+                        {this.renderUsername()}
+                       
 
                         
                         <button id="changePwdBtn" onClick={this.toggleFields}>

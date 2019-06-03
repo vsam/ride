@@ -13,11 +13,13 @@ class Login extends Component {
       pwdErr: false,
       verifyErr: false,
       loading: false,
+      forgetPwd:false,
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
+    this.onForgetBtnClicked = this.onForgetBtnClicked.bind(this);
   }
 
   componentWillUnmount() {
@@ -31,10 +33,16 @@ class Login extends Component {
       emailFmtErr: false,
       emailErr: false,
       pwdErr: false,
-      loading: true
+      loading: true,
+      forgetPwd:false,
     });
 
     const { email, password } = this.state;
+    if(email.length === 0){
+      this.setState({emailFmtErr: true})
+      return;
+    }
+    
     let emailAddress = email + "@ucsd.edu";
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
@@ -73,7 +81,8 @@ class Login extends Component {
       emailFmtErr: false,
       emailErr: false,
       pwdErr: false,
-      loading: false
+      loading: false,
+      forgetPwd:false,
     })
 
     this.props.history.push("/Home");
@@ -97,8 +106,32 @@ class Login extends Component {
     }
   }
 
+  onForgetBtnClicked(e){
+    e.preventDefault();
+    const { email } = this.state;
+    if(email.length === 0){
+      this.setState({emailFmtErr: true})
+      return;
+    }
+
+    let auth = firebase.auth();
+    let emailAddress = this.state.email + "@ucsd.edu";
+    let actionCodeSettings = {
+      url: 'https://localhost:3000/Login',
+      handleCodeInApp: true,
+    };
+    auth.sendPasswordResetEmail(emailAddress, actionCodeSettings).then(()=>{
+      this.setState({
+        forgetPwd: true,
+        emailFmtErr: false
+      })
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   goToSignUp() {
-    this.props.history.push('/SignUp')
+    this.props.history.push('/SignUp');
   }
 
   disableBtn(){
@@ -111,26 +144,33 @@ class Login extends Component {
   //display email related error msg
   displayEmailError() {
     if (this.state.emailFmtErr) {
-      return (<div className="errorMsg">Email address is not valid</div>)
+      return (<div className="errorMsg">The email address you entered is not valid.</div>)
     }
     if (this.state.emailErr) {
-      return (<div className="errorMsg">User not found. Need a account?</div>)
+      return (<div className="errorMsg">The email address you entered cannot be identified.</div>)
     }
   }
 
   //display pwd related error msg
   displayPwdError() {
     if (this.state.pwdErr) {
-      return (<div className="errorMsg">Password does not match</div>)
+      return (<div className="errorMsg">Incorrect email or password.</div>)
     }
   }
 
   //display verification error msg
   displayVerifyError(){
     if (this.state.verifyErr) {
-      return (<div className="errorMsg">This account has not been verified</div>)
+      return (<div className="errorMsg">The account has not been verified.</div>)
     }
   }
+
+  displayForgetPwd(){
+    if (this.state.forgetPwd) {
+      return (<div className="errorMsg">The reset password email has been sent to your email</div>)
+    }
+  }
+
 
   handleChange(event) {
     let key = event.target.name;
@@ -160,6 +200,7 @@ class Login extends Component {
           </div>
           {this.displayPwdError()}
           {this.displayVerifyError()}
+          {this.displayForgetPwd()}
 
           <div className="btnGroup" id="submit">
             <button
@@ -170,14 +211,12 @@ class Login extends Component {
             </button>
           </div>
 
-          {/*
-          <div className="btnGroup" id="forget">
-            <button id="forgetBtn" onClick={this.resetPwd} >
+          {/* <div className="btnGroup" id="forget">
+            <button id="forgetBtn" onClick={this.onForgetBtnClicked} >
               Forget Password
             </button>
-          </div>
-          */}
-
+          </div> */}
+         
           <div className="btnGroup" id="signup">
             <button id="signUpBtn" onClick={this.goToSignUp} >
               Need an account?

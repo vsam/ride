@@ -2,6 +2,12 @@ import React, {Component}from 'react';
 import './WelcomeScreen.css'
 
 class Welcome extends Component {
+  componentWillMount(){
+    setTimeout(() =>{
+      this.props.history.push('/Login')
+      }, 10000)
+  }
+  
   render(){
     return(
       <div className="welcome-container">
@@ -41,9 +47,6 @@ class Welcome extends Component {
           A confirmation email has been sent to your UCSD email address. 
           Please use the link in the email to complete the registration
         </div>
-        {setTimeout(() =>{
-          this.props.history.push('/Login')
-          }, 10000)}
       </div>
     )
   }

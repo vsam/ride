@@ -107,7 +107,7 @@ class SignUp extends Component {
   onSignUpSuccess(emailAddress) {
     //reset state
     let actionCodeSettings = {
-      url: 'http://localhost:3000/LogIn',
+      url: 'https://ride-f1e96.firebaseapp.com/LogIn',
       handleCodeInApp: true,
     };
     //send verification
@@ -172,43 +172,40 @@ class SignUp extends Component {
 
   displayFirstNameError() {
     if (this.state.firstNameErr) {
-      return (<div className="errorMsg">Please enter a valid firstname</div>)
+      return (<div className="errorMsg">Please enter a valid firstname.</div>)
     }
   }
 
   displayLastNameError() {
     if (this.state.lastNameErr) {
-      return (<div className="errorMsg">Please enter a valid lastname</div>)
+      return (<div className="errorMsg">Please enter a valid lastname.</div>)
     }
   }
 
   displayUserNameError() {
     if (this.state.userNameErr) {
-      return (<div className="errorMsg">Please enter a valid lastname</div>)
+      return (<div className="errorMsg">Please enter a valid lastname.</div>)
     }
   }
 
   displayEmailError() {
     if (this.state.emailFmtErr) {
-      return (<div className="errorMsg">Email address is not valid</div>)
+      return (<div className="errorMsg">The email address is not valid.</div>)
     }
     if (this.state.emailInUse) {
-      return (<div className="errorMsg">Email is already registered</div>)
-    }
-    if (this.state.emailNotUcsd) {
-      return (<div className="errorMsg">Please enter ucsd email</div>)
+      return (<div className="errorMsg">The email address is already registered.</div>)
     }
   }
 
   displayPwdError() {
     if (this.state.pwdErr) {
-      return (<div className="errorMsg">Password should contain at least special character, one capital letter and of length 8-16</div>)
+      return (<div className="errorMsg">The password should contain at least one special character, one capital letter and shoule be of length 8-16.</div>)
     }
   }
 
   displayConfirmPwdError() {
     if (this.state.pwdNotMatch) {
-      return (<div className="errorMsg">Password does not match</div>)
+      return (<div className="errorMsg">The password does not match.</div>)
     }
   }
 
@@ -242,7 +239,6 @@ class SignUp extends Component {
           {this.displayEmailError()}
 
           <div className="inputGroup" id="firstName">
-            {/*<Form.Label>First Name</Form.Label>*/}
             <input type="text" placeholder="First Name"
               name="firstName" value={this.state.firstName} onChange={this.handleChange}
             />
@@ -250,28 +246,24 @@ class SignUp extends Component {
           {this.displayFirstNameError()}
 
           <div className="inputGroup" id="lastName">
-            {/*<Form.Label>Last Name</Form.Label>*/}
             <input type="text" placeholder="Last Name"
               name="lastName" value={this.state.lastName} onChange={this.handleChange} />
           </div>
           {this.displayLastNameError()}
 
           <div className="inputGroup" id="userName">
-            {/*<Form.Label>Last Name</Form.Label>*/}
             <input type="text" placeholder="User Name"
               name="userName" value={this.state.userName} onChange={this.handleChange} />
           </div>
           {this.displayUserNameError()}
 
           <div className="inputGroup" id="pwd">
-            {/*<Form.Label>Password</Form.Label>*/}
             <input type="password" placeholder="Password"
               name="password" value={this.state.password} onChange={this.handleChange} />
           </div>
           {this.displayPwdError()}
 
           <div className="inputGroup" id="confirmPwd">
-            {/*<Form.Label>Confirm Password</Form.Label>*/}
             <input type="password" placeholder="Confirm Password"
               name="confirmPwd" value={this.state.confirmPwd} onChange={this.handleChange} />
           </div>

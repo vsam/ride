@@ -21,8 +21,8 @@ export default class TicketDetail extends React.Component {
   }
 
   updateTicket() {
-    this.props.history.push('/PostTicket',
-      { ticket: this.state.ticket, ticketId: this.state.ticketId, update:true});
+    const { ticket, ticketId } = this.state;
+    this.props.history.push('/PostTicket', { ticket, ticketId });
   }
 
   archiveTicket() {
@@ -49,7 +49,7 @@ export default class TicketDetail extends React.Component {
     if (this.state.ticket.archived) {
       return (
         <button className="unarchive" onClick={this.archiveTicket.bind(this)}>
-        Unarchive
+          Unarchive
         </button>
       );
     }
@@ -66,53 +66,53 @@ export default class TicketDetail extends React.Component {
 
   renderTicket() {
     const { ticket } = this.state;
-    let archivedStyle={}
+    let archivedStyle = {};
     if (ticket.archived) {
-      archivedStyle = {backgroundColor:'gray'}
+      archivedStyle = { backgroundColor: 'gray' }
     }
     return (
       <div className="ticket-content" style={archivedStyle}>
         <div >
-        <img
-          alt="driver"
-          src={ticket.isDriver ? driver : passenger}
-          className="logo"
-        />
+          <img
+            alt="driver"
+            src={ticket.isDriver ? driver : passenger}
+            className="logo"
+          />
 
-        <div className="info">
-          <div className="col info-left-col">
-            <span className="elevated">{ticket.date}</span>
-            <span className="reduced">{`${ticket.numOfSeats} seats available`}</span>
+          <div className="info">
+            <div className="col info-left-col">
+              <span className="elevated">{ticket.date}</span>
+              <span className="reduced">{`${ticket.numOfSeats} seats available`}</span>
+            </div>
+
+            <div className="col info-right-col">
+              <span className="eyebrow-elevated">{`$${ticket.price}`}</span>
+              <span className="reduced">per person</span>
+            </div>
           </div>
 
-          <div className="col info-right-col">
-            <span className="eyebrow-elevated">{`$${ticket.price}`}</span>
-            <span className="reduced">per person</span>
+          <div className="route">
+            <div className="address">
+              <span className="marker circle"></span>
+              <span>{ticket.fromUCSD ? 'UCSD' : ticket.location}</span>
+              <div className="separator"></div>
+            </div>
+
+            <div className="address">
+              <span className="marker"></span>
+              <span>{ticket.fromUCSD ? ticket.location : 'UCSD'}</span>
+            </div>
           </div>
-        </div>
 
-        <div className="route">
-          <div className="address">
-            <span className="marker circle"></span>
-            <span>{ticket.fromUCSD ? 'UCSD' : ticket.location}</span>
-            <div className="separator"></div>
+          <div className="detail-info">
+            <div className="eyebrow-elevated">Description</div>
+            <div className="paragraph">{ticket.description}</div>
           </div>
 
-          <div className="address">
-            <span className="marker"></span>
-            <span>{ticket.fromUCSD ? ticket.location : 'UCSD'}</span>
+          <div className="detail-info">
+            <div className="eyebrow-elevated">Author</div>
+            <div className="paragraph">{this.state.ticket.userName}</div>
           </div>
-        </div>
-
-        <div className="detail-info">
-          <div className="eyebrow-elevated">Description</div>
-          <div className="paragraph">{ticket.description}</div>
-        </div>
-
-        <div className="detail-info">
-          <div className="eyebrow-elevated">Author</div>
-          <div className="paragraph">{this.state.ticket.userName}</div>
-        </div>
         </div>
         {this.renderButton()}
       </div>
