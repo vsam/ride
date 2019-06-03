@@ -168,7 +168,7 @@ export default class PostTicket extends React.Component {
             strictParsing
           />
 
-          <div className="input-label"># of people</div>
+          <div className="input-label"># of People</div>
           <input
             className="input"
             type="text"
@@ -177,7 +177,7 @@ export default class PostTicket extends React.Component {
             onChange={e => this.updateTicket('numOfSeats', e.target.value)}
           />
 
-          <div className="input-label">Designed Price</div>
+          <div className="input-label">Designated Price</div>
           <input
             className="input"
             type="text"
