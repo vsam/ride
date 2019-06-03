@@ -193,15 +193,18 @@ class Profile extends Component {
 
     onEditClicked(){
         if(this.state.edit){
-            this.setState({
-                userName: this.state.edited_username,
-                edit:!this.state.edit
-            })
-            let user = firebase.auth().currentUser;
-            let docRef = firebase.firestore().collection('users').doc(user.uid);
-            docRef.update({userName:this.state.edited_username})
-            .then(()=>console.log('succeess'))
-            .catch((error) => console.log(error))
+            if(this.state.edited_username !== this.state.userName){
+                this.setState({
+                    userName: this.state.edited_username,
+                    edit:!this.state.edit
+                })
+                let user = firebase.auth().currentUser;
+                let docRef = firebase.firestore().collection('users').doc(user.uid);
+                docRef.update({userName:this.state.edited_username})
+                .then(()=>console.log('succeess'))
+                .catch((error) => console.log(error))
+            }
+            
         }else{
             this.setState({
                 edit:!this.state.edit
