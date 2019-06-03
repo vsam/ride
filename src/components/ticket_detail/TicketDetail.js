@@ -36,13 +36,18 @@ export default class TicketDetail extends React.Component {
         ...ticket,
         archived: !ticket.archived
       }
-    })
+    });
   }
 
   renderButton() {
-    if (localStorage.getItem("email") !== this.state.ticket.email) {
+    const { email } = this.state.ticket;
+    if (localStorage.getItem("email") !== email) {
       return (
-        <button className="email">Email {this.state.ticket.email}</button>
+        <button className="email">
+          <a href={"mailto:" + email}>
+            Email {email}
+          </a>
+        </button>
       );
     }
 
@@ -81,12 +86,12 @@ export default class TicketDetail extends React.Component {
 
           <div className="info">
             <div className="col info-left-col">
-              <span className="elevated">{ticket.date}</span>
-              <span className="reduced">{`${ticket.numOfSeats} seats available`}</span>
+              <span className="elevated">{ticket.date} {ticket.time}</span>
+              <span className="reduced">{ticket.numOfSeats} seats available</span>
             </div>
 
             <div className="col info-right-col">
-              <span className="eyebrow-elevated">{`$${ticket.price}`}</span>
+              <span className="eyebrow-elevated">${ticket.price}</span>
               <span className="reduced">per person</span>
             </div>
           </div>

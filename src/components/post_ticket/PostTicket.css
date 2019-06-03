@@ -95,3 +95,6 @@ button:active {
   margin-top: 20px;
 }
 
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  width: 100%
+}

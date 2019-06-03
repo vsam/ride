@@ -61,7 +61,6 @@ export default class PostTicket extends React.Component {
       }
     });
 
-
     var images = document.getElementsByClassName("image-button");
     switch (role) {
       case 'driver':
@@ -99,9 +98,9 @@ export default class PostTicket extends React.Component {
         email: firebase.auth().currentUser.email,
         userName: localStorage.getItem('userName')
       })
-      .then(() => {
-        this.props.history.push('/MyTickets');
-      });
+        .then(() => {
+          this.props.history.push('/MyTickets');
+        });
     } else {
       ref.doc(this.props.location.state.ticketId)
         .update({ ...this.state.ticket })
@@ -142,7 +141,7 @@ export default class PostTicket extends React.Component {
 
           <div className="input-label">
             {(ticket.isDriver ? "Driving " : "Traveling ") +
-            (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
+              (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
           </div>
           <input
             className="input"
@@ -154,27 +153,27 @@ export default class PostTicket extends React.Component {
 
           <div className="input-label">Date Leaving</div>
           <DatePicker
-              className="input"
-              placeholderText="Click to select a date"
-              selected={this.state.startDate}
-              onChange={this.handleDateChange}  
-              dateFormat="MMMM d, yyyy"
-              minDate={new Date()}
-              strictParsing
+            className="input"
+            placeholderText="Click to select a date"
+            selected={this.state.startDate}
+            onChange={this.handleDateChange}
+            dateFormat="MMMM d, yyyy"
+            minDate={new Date()}
+            strictParsing
           />
 
           <div className="input-label">Time Leaving</div>
           <DatePicker
-              className="input"
-              placeholderText="Click to select a time"
-              selected={this.state.time}
-              onChange={this.handleTimeChange}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="h:mm aa"
-              timeCaption="Time"
-              strictParsing
+            className="input"
+            placeholderText="Click to select a time"
+            selected={this.state.time}
+            onChange={this.handleTimeChange}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            dateFormat="h:mm aa"
+            timeCaption="Time"
+            strictParsing
           />
 
           <div className="input-label"># of people</div>

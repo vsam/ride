@@ -22,7 +22,6 @@ class TicketComponent extends Component {
       seatDescriptor = (ticket.seats === 1 ? "person" : "people");
     }
 
-
     return (
       <div
         key={this.props.index}
@@ -48,7 +47,7 @@ class TicketComponent extends Component {
               {ticket.isDriver ? "Driving with open seats" : "Buying a ride"}
             </div>
             <div className="ticketInfoSub">
-              {`${ticket.date}, ${ticket.numOfSeats} ${seatDescriptor}`}
+              {ticket.date}, {ticket.numOfSeats} {seatDescriptor}
             </div>
           </div>
 

@@ -88,7 +88,8 @@ export default class SearchTickets extends React.Component {
     this.setState({ loading: true });
     const { ticket } = this.state;
     var db = firebase.firestore();
-    var ref = db.collection('tickets').where("fromUCSD", "==", ticket.fromUCSD)
+    var ref = db.collection('tickets').where("archived", "==", false)
+      .where("fromUCSD", "==", ticket.fromUCSD)
       .where("isDriver", "==", ticket.isDriver);
     
     if (ticket.location.length) {
