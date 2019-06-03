@@ -1,0 +1,35 @@
+[debug] [2019-05-27T22:13:41.426Z] ----------------------------------------------------------------------
+[debug] [2019-05-27T22:13:41.429Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-05-27T22:13:41.429Z] CLI Version:   6.9.2
+[debug] [2019-05-27T22:13:41.429Z] Platform:      darwin
+[debug] [2019-05-27T22:13:41.429Z] Node Version:  v11.6.0
+[debug] [2019-05-27T22:13:41.430Z] Time:          Mon May 27 2019 15:13:41 GMT-0700 (Pacific Daylight Time)
+[debug] [2019-05-27T22:13:41.430Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-05-27T22:13:41.444Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-05-27T22:13:41.444Z] > authorizing via signed-in user
+[debug] [2019-05-27T22:13:41.444Z] [iam] checking project ride-f1e96 for permissions ["firebase.projects.get"]
+[debug] [2019-05-27T22:13:41.446Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ride-f1e96:testIamPermissions  
+
+[debug] [2019-05-27T22:13:41.891Z] <<< HTTP RESPONSE 200
+[debug] [2019-05-27T22:13:41.894Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/ride-f1e96  
+ 
+[debug] [2019-05-27T22:13:42.296Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/hyt/UCSD/19SP/CSE 110/ride'...
+[info] 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "11"
+[debug] [2019-05-27T22:13:42.308Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/499959516483/clients/_:getWebAppConfig  
+ 
+[debug] [2019-05-27T22:13:42.309Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/499959516483:getServerAppConfig  
+ 
+[debug] [2019-05-27T22:13:42.808Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-05-27T22:13:42.818Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/Users/hyt/UCSD/19SP/CSE 110/ride/functions" for Cloud Functions...
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-05-27T22:13:43.815Z] Functions runtime initialized.
+[debug] [2019-05-27T22:13:43.815Z] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-functions-test" to be installed as a development dependency. To fix this, run "npm install --save-dev firebase-functions-test" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
