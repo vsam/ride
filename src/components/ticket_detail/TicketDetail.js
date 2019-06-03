@@ -9,7 +9,6 @@ import './TicketDetail.css';
 export default class TicketDetail extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       ticket: null
     };
@@ -22,6 +21,8 @@ export default class TicketDetail extends React.Component {
 
   updateTicket() {
     const { ticket, ticketId } = this.state;
+    ticket.date = ticket.date.toDate();
+    ticket.time = ticket.time.toDate();
     this.props.history.push('/PostTicket', { ticket, ticketId });
   }
 
@@ -75,6 +76,18 @@ export default class TicketDetail extends React.Component {
     if (ticket.archived) {
       archivedStyle = { backgroundColor: 'gray' }
     }
+
+    var date = ticket.date.toDate().toLocaleDateString(navigator.language, {
+      month: '2-digit',
+      day:'2-digit',
+      year: '2-digit'
+    });
+
+    var time = ticket.time.toDate().toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute:'2-digit'
+    });
+
     return (
       <div className="ticket-content" style={archivedStyle}>
         <div >
@@ -86,7 +99,7 @@ export default class TicketDetail extends React.Component {
 
           <div className="info">
             <div className="col info-left-col">
-              <span className="elevated">{ticket.date} {ticket.time}</span>
+              <span className="elevated">{date} {time}</span>
               <span className="reduced">{ticket.numOfSeats} seats available</span>
             </div>
 
@@ -116,7 +129,7 @@ export default class TicketDetail extends React.Component {
 
           <div className="detail-info">
             <div className="eyebrow-elevated">Author</div>
-            <div className="paragraph">{this.state.ticket.userName}</div>
+            <div className="paragraph">{ticket.userName}</div>
           </div>
         </div>
         {this.renderButton()}

@@ -9,6 +9,10 @@ input, button, textarea {
   border: none;
 }
 
+.warning input:placeholder-shown {
+  border: 1px solid red; /* Red border only if the input is empty */
+}
+
 input::placeholder, textarea::placeholder {
   color: #bbb;
 }

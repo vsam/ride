@@ -20,22 +20,19 @@ export default class SearchTickets extends React.Component {
         fromUCSD: true,
         isDriver: true,
         location: '',
-        startDate: '',
-        time: '',
+        date: null,
+        time: null,
         numOfSeats: '',
         price: '',
       }
     };
-
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
-  updateTicket(prop, event) {
+  updateTicket(prop, value) {
     this.setState({
       ticket: {
         ...this.state.ticket,
-        [prop]: event.target.value
+        [prop]: value
       }
     });
   }
@@ -72,18 +69,6 @@ export default class SearchTickets extends React.Component {
     }
   }
 
-  handleDateChange(date) {
-    this.setState({
-      startDate: date
-    });
-  }
-
-  handleTimeChange(time) {
-    this.setState({
-      time: time
-    });
-  }
-
   handleSubmit() {
     this.setState({ loading: true });
     const { ticket } = this.state;
@@ -91,13 +76,17 @@ export default class SearchTickets extends React.Component {
     var ref = db.collection('tickets').where("archived", "==", false)
       .where("fromUCSD", "==", ticket.fromUCSD)
       .where("isDriver", "==", ticket.isDriver);
-    
+
     if (ticket.location.length) {
       ref = ref.where("location", "==", ticket.location);
     }
+
+    if (ticket.date) {
+      ref = ref.where("date", "==", ticket.date);
+    }
     
-    if (ticket.startDate.length) {
-      ref = ref.where("date", "==", ticket.startDate);
+    if (ticket.time) {
+      ref = ref.where("time", "==", ticket.time);
     }
 
     if (ticket.numOfSeats.length) {
@@ -105,16 +94,16 @@ export default class SearchTickets extends React.Component {
     }
 
     ref.get().then(querySnapshot => {
-        var tickets = [];
-        querySnapshot.forEach(doc => {
-          let data = doc.data();
-          data.id = doc.id;
-          if (!ticket.price.length || parseFloat(data.price) < parseFloat(ticket.price)) {
-            tickets.push(data);
-          }
-        });
-        this.props.history.push('/SearchResults', { tickets });
+      var tickets = [];
+      querySnapshot.forEach(doc => {
+        let data = doc.data();
+        data.id = doc.id;
+        if (!ticket.price.length || parseFloat(data.price) < parseFloat(ticket.price)) {
+          tickets.push(data);
+        }
       });
+      this.props.history.push('/SearchResults', { tickets });
+    });
   }
 
   render() {
@@ -125,7 +114,7 @@ export default class SearchTickets extends React.Component {
 
         <input type="checkbox" id="menustate" className="menustate" />
         <NavBar>
-          <TicketSelector onSelect={this.handleNavBarSelect.bind(this)}/>
+          <TicketSelector onSelect={this.handleNavBarSelect.bind(this)} />
         </NavBar>
 
         <div className="form">
@@ -155,32 +144,32 @@ export default class SearchTickets extends React.Component {
             type="text"
             value={ticket.address}
             placeholder="Address"
-            onChange={e => this.updateTicket('location', e)}
+            onChange={e => this.updateTicket('location', e.target.value)}
           />
 
           <div className="input-label">Date Leaving</div>
           <DatePicker
-              className="input"
-              placeholderText="Click to select a date"
-              selected={this.state.startDate}
-              onChange={this.handleDateChange}  
-              dateFormat="MMMM d, yyyy"
-              minDate={new Date()}
-              strictParsing
+            className="input"
+            placeholderText="Click to select a date"
+            selected={ticket.date}
+            onChange={e => this.updateTicket('date', e)}
+            dateFormat="MMMM d, yyyy"
+            minDate={new Date()}
+            strictParsing
           />
 
           <div className="input-label">Time Leaving</div>
           <DatePicker
-              className="input"
-              placeholderText="Click to select a time"
-              selected={this.state.time}
-              onChange={this.handleTimeChange}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="h:mm aa"
-              timeCaption="Time"
-              strictParsing
+            className="input"
+            placeholderText="Click to select a time"
+            selected={ticket.time}
+            onChange={e => this.updateTicket('time', e)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={30}
+            dateFormat="h:mm aa"
+            timeCaption="Time"
+            strictParsing
           />
 
           <div className="input-label">Min # of Available Seats</div>
@@ -189,7 +178,7 @@ export default class SearchTickets extends React.Component {
             type="text"
             value={ticket.numOfSeats}
             placeholder="e.g. 3"
-            onChange={e => this.updateTicket('numOfSeats', e)}
+            onChange={e => this.updateTicket('numOfSeats', e.target.value)}
           />
 
           <div className="input-label">Max Acceptable Price</div>
@@ -197,8 +186,8 @@ export default class SearchTickets extends React.Component {
             className="input"
             type="text"
             value={ticket.price}
-            placeholder="e.g. 20 (Optional)"
-            onChange={e => this.updateTicket('price', e)}
+            placeholder="e.g. 20"
+            onChange={e => this.updateTicket('price', e.target.value)}
           />
 
           <button onClick={this.handleSubmit.bind(this)} className="submit">Search</button>

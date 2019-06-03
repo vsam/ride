@@ -22,6 +22,17 @@ class TicketComponent extends Component {
       seatDescriptor = (ticket.seats === 1 ? "person" : "people");
     }
 
+    var date = ticket.date.toDate().toLocaleDateString(navigator.language, {
+      month: '2-digit',
+      day:'2-digit',
+      year: '2-digit'
+    });
+
+    var time = ticket.time.toDate().toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute:'2-digit'
+    });
+
     return (
       <div
         key={this.props.index}
@@ -47,7 +58,7 @@ class TicketComponent extends Component {
               {ticket.isDriver ? "Driving with open seats" : "Buying a ride"}
             </div>
             <div className="ticketInfoSub">
-              {ticket.date}, {ticket.numOfSeats} {seatDescriptor}
+              {date} {time}, {ticket.numOfSeats} {seatDescriptor}
             </div>
           </div>
 

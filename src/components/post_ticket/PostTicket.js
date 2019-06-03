@@ -21,8 +21,8 @@ export default class PostTicket extends React.Component {
         fromUCSD: true,
         isDriver: true,
         location: '',
-        startDate: '',
-        time: '',
+        date: new Date(),
+        time: new Date(),
         numOfSeats: '',
         price: '',
         description: '',
@@ -30,16 +30,13 @@ export default class PostTicket extends React.Component {
       },
       ...props.location.state
     };
-
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
-  updateTicket(prop, event) {
+  updateTicket(prop, value) {
     this.setState({
       ticket: {
         ...this.state.ticket,
-        [prop]: event.target.value
+        [prop]: value
       }
     });
   }
@@ -76,19 +73,14 @@ export default class PostTicket extends React.Component {
     }
   }
 
-  handleDateChange(date) {
-    this.setState({
-      startDate: date
-    });
-  }
-
-  handleTimeChange(time) {
-    this.setState({
-      time: time
-    });
-  }
-
   handleSubmit() {
+    const { ticket } = this.state;
+    if (!ticket.location.length || !ticket.numOfSeats.length || !ticket.price.length) {
+      var el = document.getElementById("warning-container");
+      el.classList.add("warning");
+      return;
+    }
+
     this.setState({ loading: true });
     var db = firebase.firestore();
     var ref = db.collection('tickets');
@@ -113,7 +105,7 @@ export default class PostTicket extends React.Component {
   render() {
     const { ticket, loading, update } = this.state;
     return (
-      <div>
+      <div id="warning-container">
         <Loader loading={loading} />
 
         <input type="checkbox" id="menustate" className="menustate" />
@@ -140,23 +132,23 @@ export default class PostTicket extends React.Component {
           </div>
 
           <div className="input-label">
-            {(ticket.isDriver ? "Driving " : "Traveling ") +
-              (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
+            {(ticket.isDriver ? "Driving " : "Traveling ")
+              + (ticket.fromUCSD ? "from UCSD to" : "to UCSD from")}
           </div>
           <input
             className="input"
             type="text"
             value={ticket.location}
             placeholder="Address"
-            onChange={e => this.updateTicket('location', e)}
+            onChange={e => this.updateTicket('location', e.target.value)}
           />
 
           <div className="input-label">Date Leaving</div>
           <DatePicker
             className="input"
             placeholderText="Click to select a date"
-            selected={this.state.startDate}
-            onChange={this.handleDateChange}
+            selected={ticket.date}
+            onChange={e => this.updateTicket('date', e)}
             dateFormat="MMMM d, yyyy"
             minDate={new Date()}
             strictParsing
@@ -166,8 +158,8 @@ export default class PostTicket extends React.Component {
           <DatePicker
             className="input"
             placeholderText="Click to select a time"
-            selected={this.state.time}
-            onChange={this.handleTimeChange}
+            selected={ticket.time}
+            onChange={e => this.updateTicket('time', e)}
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={30}
@@ -182,7 +174,7 @@ export default class PostTicket extends React.Component {
             type="text"
             value={ticket.numOfSeats}
             placeholder="e.g. 3"
-            onChange={e => this.updateTicket('numOfSeats', e)}
+            onChange={e => this.updateTicket('numOfSeats', e.target.value)}
           />
 
           <div className="input-label">Designed Price</div>
@@ -191,7 +183,7 @@ export default class PostTicket extends React.Component {
             type="text"
             value={ticket.price}
             placeholder="e.g. 20"
-            onChange={e => this.updateTicket('price', e)}
+            onChange={e => this.updateTicket('price', e.target.value)}
           />
 
           <div className="input-label">Description</div>
@@ -199,8 +191,8 @@ export default class PostTicket extends React.Component {
             rows="5"
             className="input"
             value={ticket.description}
-            placeholder="Specific Requirements."
-            onChange={e => this.updateTicket('description', e)}
+            placeholder="Specific Requirements (Optional)."
+            onChange={e => this.updateTicket('description', e.target.value)}
           />
 
           <button onClick={this.handleSubmit.bind(this)} className="submit">
