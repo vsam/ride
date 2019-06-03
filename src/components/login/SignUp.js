@@ -107,7 +107,7 @@ class SignUp extends Component {
   onSignUpSuccess(emailAddress) {
     //reset state
     let actionCodeSettings = {
-      url: 'https://ride-f1e96.firebaseapp.com/LogIn',
+      url: 'https://ride-f1e96.firebaseapp.com/Login',
       handleCodeInApp: true,
     };
     //send verification
