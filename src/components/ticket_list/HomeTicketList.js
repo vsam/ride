@@ -18,7 +18,7 @@ export default class HomeTicketList extends Component {
 
   async componentDidMount() {
     var db = firebase.firestore();
-    db.collection('tickets')
+    db.collection('tickets').orderBy('date')
       .get().then(querySnapshot => {
         var tickets = [];
         querySnapshot.forEach(doc => {

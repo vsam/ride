@@ -27,6 +27,7 @@ export default class MyTickets extends Component {
               ticket.id = doc.id;
               tickets.push(ticket);
             });
+            tickets.sort((a, b) => a.date < b.date)
             this.setState({ tickets, loading: false });
           });
         clearTimeout(timer);

@@ -9,7 +9,6 @@ import './TicketDetail.css';
 export default class TicketDetail extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       ticket: null
     };
@@ -22,6 +21,8 @@ export default class TicketDetail extends React.Component {
 
   updateTicket() {
     const { ticket, ticketId } = this.state;
+    ticket.date = ticket.date.toDate();
+    ticket.time = ticket.time.toDate();
     this.props.history.push('/PostTicket', { ticket, ticketId });
   }
 
@@ -36,13 +37,18 @@ export default class TicketDetail extends React.Component {
         ...ticket,
         archived: !ticket.archived
       }
-    })
+    });
   }
 
   renderButton() {
-    if (localStorage.getItem("email") !== this.state.ticket.email) {
+    const { email } = this.state.ticket;
+    if (localStorage.getItem("email") !== email) {
       return (
-        <button className="email">Email {this.state.ticket.email}</button>
+        <button className="email">
+          <a href={"mailto:" + email}>
+            Email {email}
+          </a>
+        </button>
       );
     }
 
@@ -70,6 +76,18 @@ export default class TicketDetail extends React.Component {
     if (ticket.archived) {
       archivedStyle = { backgroundColor: 'gray' }
     }
+
+    var date = ticket.date.toDate().toLocaleDateString(navigator.language, {
+      month: '2-digit',
+      day:'2-digit',
+      year: '2-digit'
+    });
+
+    var time = ticket.time.toDate().toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute:'2-digit'
+    });
+
     return (
       <div className="ticket-content" style={archivedStyle}>
         <div >
@@ -81,12 +99,12 @@ export default class TicketDetail extends React.Component {
 
           <div className="info">
             <div className="col info-left-col">
-              <span className="elevated">{ticket.date}</span>
-              <span className="reduced">{`${ticket.numOfSeats} seats available`}</span>
+              <span className="elevated">{date} {time}</span>
+              <span className="reduced">{ticket.numOfSeats} seats available</span>
             </div>
 
             <div className="col info-right-col">
-              <span className="eyebrow-elevated">{`$${ticket.price}`}</span>
+              <span className="eyebrow-elevated">${ticket.price}</span>
               <span className="reduced">per person</span>
             </div>
           </div>
@@ -111,7 +129,7 @@ export default class TicketDetail extends React.Component {
 
           <div className="detail-info">
             <div className="eyebrow-elevated">Author</div>
-            <div className="paragraph">{this.state.ticket.userName}</div>
+            <div className="paragraph">{ticket.userName}</div>
           </div>
         </div>
         {this.renderButton()}
