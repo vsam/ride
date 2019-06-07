@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
 import './SignUp.css'
 import LoginModel from "./LoginModel";
 import LoginController from "./LoginController";
@@ -34,7 +33,7 @@ class Login extends Component {
     this.controller.login(event);
 
     if(this.state.email.length === 0){
-      this.model.setState({emailFmtErr: true});
+      this.controller.setEmailFmtErr();
       return;
     }
 
@@ -54,7 +53,7 @@ class Login extends Component {
     e.preventDefault();
 
     if(this.state.email.length === 0){
-      this.model.setState({emailFmtErr: true});
+      this.controller.setEmailFmtErr();
       return;
     }
   }
@@ -72,17 +71,16 @@ class Login extends Component {
 
   //display email related error msg
   displayEmailError() {
-    if (this.model.state.emailFmtErr) {
+    if (this.model.queryEmailFmtErr()) {
       return (<div className="errorMsg">The email address you entered is not valid.</div>)
     }
-    if (this.model.state.emailErr) {
+    if (this.model.queryEmailErr()) {
       return (<div className="errorMsg">The email address you entered cannot be identified.</div>)
     }
   }
 
   //display pwd related error msg
   displayPwdError() {
-    console.log("view: displayPwdErr");
     if (this.model.queryPwdErr()) {
       return (<div className="errorMsg">Incorrect email or password.</div>)
     }
@@ -90,17 +88,16 @@ class Login extends Component {
 
   //display verification error msg
   displayVerifyError(){
-    if (this.model.state.verifyErr) {
+    if (this.model.queryVerifyErr()) {
       return (<div className="errorMsg">The account has not been verified.</div>)
     }
   }
 
   displayForgetPwd(){
-    if (this.model.state.forgetPwd) {
+    if (this.model.queryForgetPwd()) {
       return (<div className="errorMsg">The reset password email has been sent to your email</div>)
     }
   }
-
 
   handleChange(event) {
     let key = event.target.name;

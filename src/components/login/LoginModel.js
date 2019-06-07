@@ -14,27 +14,12 @@ class LoginModel {
             forgetPwd:false,
             loginSuccess: false,
         }
-
-        this.updateLogin = this.updateLogin.bind(this);
+        this.controller = null;
         this.login = this.login.bind(this);
     }
 
-    updateLogin() {
-        this.state.emailFmtErr = false;
-        this.state.emailErr = false;
-        this.state.pwdErr = false;
-        this.state.loading = true;
-        this.forgetPwd = false;
-    }
-
-    clearStates() {
-        this.state.email = ''
-        this.state.password = '';
-        this.state.emailFmtErr = false;
-        this.state.emailErr = false;
-        this.state.pwdErr = false;
-        this.state.loading = false;
-        this.forgetPwd = false;
+    setController(controller){
+        this.controller = controller;
     }
 
     login(email, password, success, failed) {
@@ -70,14 +55,12 @@ class LoginModel {
             localStorage.setItem('userName', doc.data().userName);
         });
 
-        this.clearStates();
+        this.controller.reset();
         this.state.loginSuccess = true;
         success && success();
     }
 
     onLoginFailed(error, failed) {
-        console.log("model: login failed");
-
         switch (error.code) {
             case 'auth/invalid-email':
                 this.state.emailFmtErr = true;
@@ -114,13 +97,27 @@ class LoginModel {
         });
     }
 
+    queryEmailFmtErr() {
+        return this.state.emailFmtErr;
+    }
+
+    queryEmailErr() {
+        return this.state.emailErr;
+    }
+
+    queryVerifyErr() {
+        return this.state.verifyErr;
+    }
+
     queryPwdErr() {
-        console.log("model: queryPwdErr");
         return this.state.pwdErr;
     }
 
-    queryLoading() {
+    queryForgetPwd() {
+        return this.state.forgetPwd;
+    }
 
+    queryLoading() {
         return this.state.loading;
     }
 
