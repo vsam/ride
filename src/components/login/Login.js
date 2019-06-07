@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './SignUp.css'
+import LoginModel from "./LoginModel";
+import LoginController from "./LoginController";
 
 class Login extends Component {
   constructor(props) {
@@ -8,18 +10,18 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      emailFmtErr: false,
-      emailErr: false,
-      pwdErr: false,
-      verifyErr: false,
-      loading: false,
-      forgetPwd:false,
+      login: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
     this.onForgetBtnClicked = this.onForgetBtnClicked.bind(this);
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
+    this.onLoginFailed = this.onLoginFailed.bind(this);
+
+    this.model = new LoginModel();
+    this.controller = new LoginController(this.model);
   }
 
   componentWillUnmount() {
@@ -28,106 +30,33 @@ class Login extends Component {
 
   login(event) {
     event.preventDefault();
-    //reset error conditions
-    this.setState({
-      emailFmtErr: false,
-      emailErr: false,
-      pwdErr: false,
-      loading: true,
-      forgetPwd:false,
-    });
 
-    const { email, password } = this.state;
-    if(email.length === 0){
-      this.setState({emailFmtErr: true})
+    this.controller.login(event);
+
+    if(this.state.email.length === 0){
+      this.model.setState({emailFmtErr: true});
       return;
     }
-    
-    let emailAddress = email + "@ucsd.edu";
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        return firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-      })
-      .then((result) => this.onLoginSuccess(result))
-      .catch((error) => {
-        this.onLoginFailed(error)
-      });
+
+    this.model.login(this.state.email, this.state.password, this.onLoginSuccess, this.onLoginFailed);
   }
 
-  onLoginSuccess(result) {
-    //user not verify email
-    if(!firebase.auth().currentUser.emailVerified){
-      this.setState({
-        verifyErr: true, 
-        loading: false
-      })
-      return;
-    }
-
-    //store info in the local storage
-    let curr = firebase.auth().currentUser;
-    localStorage.setItem('uid',curr.uid);
-    localStorage.setItem('email', curr.email);
-    let docRef = firebase.firestore().collection('users').doc(curr.uid);
-      docRef.get().then((doc) => {
-        localStorage.setItem('firstName', doc.data().firstName);
-        localStorage.setItem('lastName', doc.data().lastName);
-        localStorage.setItem('userName', doc.data().userName);
-      });
-        
-    this.setState({
-      email: '',
-      password: '',
-      emailFmtErr: false,
-      emailErr: false,
-      pwdErr: false,
-      loading: false,
-      forgetPwd:false,
-    })
-
+  onLoginSuccess() {
     this.props.history.push("/Home");
   }
 
   onLoginFailed(error) {
-    // alert(error);
+    this.setState({login: !this.state.login});
     console.log(error);
-    switch (error.code) {
-      case 'auth/invalid-email':
-        this.setState({ emailFmtErr: true, loading: false});
-        break;
-      case 'auth/user-not-found':
-        this.setState({ emailErr: true, loading: false});
-        break;
-      case 'auth/wrong-password':
-        this.setState({ pwdErr: true, loading: false});
-        break;
-      default:
-        break;
-    }
   }
 
   onForgetBtnClicked(e){
     e.preventDefault();
-    const { email } = this.state;
-    if(email.length === 0){
-      this.setState({emailFmtErr: true})
+
+    if(this.state.email.length === 0){
+      this.model.setState({emailFmtErr: true});
       return;
     }
-
-    let auth = firebase.auth();
-    let emailAddress = this.state.email + "@ucsd.edu";
-    let actionCodeSettings = {
-      url: 'https://localhost:3000/Login',
-      handleCodeInApp: true,
-    };
-    auth.sendPasswordResetEmail(emailAddress, actionCodeSettings).then(()=>{
-      this.setState({
-        forgetPwd: true,
-        emailFmtErr: false
-      })
-    }).catch((error) => {
-      console.log(error);
-    });
   }
 
   goToSignUp() {
@@ -143,30 +72,31 @@ class Login extends Component {
 
   //display email related error msg
   displayEmailError() {
-    if (this.state.emailFmtErr) {
+    if (this.model.state.emailFmtErr) {
       return (<div className="errorMsg">The email address you entered is not valid.</div>)
     }
-    if (this.state.emailErr) {
+    if (this.model.state.emailErr) {
       return (<div className="errorMsg">The email address you entered cannot be identified.</div>)
     }
   }
 
   //display pwd related error msg
   displayPwdError() {
-    if (this.state.pwdErr) {
+    console.log("view: displayPwdErr");
+    if (this.model.queryPwdErr()) {
       return (<div className="errorMsg">Incorrect email or password.</div>)
     }
   }
 
   //display verification error msg
   displayVerifyError(){
-    if (this.state.verifyErr) {
+    if (this.model.state.verifyErr) {
       return (<div className="errorMsg">The account has not been verified.</div>)
     }
   }
 
   displayForgetPwd(){
-    if (this.state.forgetPwd) {
+    if (this.model.state.forgetPwd) {
       return (<div className="errorMsg">The reset password email has been sent to your email</div>)
     }
   }
@@ -179,7 +109,7 @@ class Login extends Component {
 
   render() {
     return (
-      !this.state.loading?(
+      !this.model.queryLoading()?(
       <div className="container">
         <form>
           <div className="title">

@@ -84,7 +84,7 @@ class Profile extends Component {
             firebase.auth().currentUser.email,
             this.state.oldPwd
         );
-        
+
         user.reauthenticateWithCredential(credential)
         .then((result) => this.onChangePwdSuccess(result))
         .catch((error) => this.onChangePwdFailure(error));
