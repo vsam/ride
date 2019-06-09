@@ -20,11 +20,6 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
-    this.onForgetBtnClicked = this.onForgetBtnClicked.bind(this);
-  }
-
-  componentWillUnmount() {
-    //firebase.off();
   }
 
   login(event) {
@@ -107,30 +102,6 @@ class Login extends Component {
     }
   }
 
-  onForgetBtnClicked(e){
-    e.preventDefault();
-    const { email } = this.state;
-    if(email.length === 0){
-      this.setState({emailFmtErr: true})
-      return;
-    }
-
-    let auth = firebase.auth();
-    let emailAddress = this.state.email + "@ucsd.edu";
-    let actionCodeSettings = {
-      url: 'https://localhost:3000/Login',
-      handleCodeInApp: true,
-    };
-    auth.sendPasswordResetEmail(emailAddress, actionCodeSettings).then(()=>{
-      this.setState({
-        forgetPwd: true,
-        emailFmtErr: false
-      })
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
   goToSignUp() {
     this.props.history.push('/SignUp');
   }
@@ -166,13 +137,6 @@ class Login extends Component {
     }
   }
 
-  displayForgetPwd(){
-    if (this.state.forgetPwd) {
-      return (<div className="errorMsg">The reset password email has been sent to your email</div>)
-    }
-  }
-
-
   handleChange(event) {
     let key = event.target.name;
     this.setState({ [key]: event.target.value });
@@ -201,7 +165,6 @@ class Login extends Component {
           </div>
           {this.displayPwdError()}
           {this.displayVerifyError()}
-          {this.displayForgetPwd()}
 
           <div className="btnGroup" id="submit">
             <button
