@@ -29,7 +29,6 @@ class Profile extends Component {
         };
 
         this.inputStyle={visibility:'hidden'};
-
         this.changePassword = this.changePassword.bind(this);
         this.onChangePwdSuccess = this.onChangePwdSuccess.bind(this);
         this.onChangePwdFailure = this.onChangePwdFailure.bind(this);
@@ -60,7 +59,7 @@ class Profile extends Component {
             return (<div className="errorMsg">The password does not match.</div>);
         }
         if (this.state.pwdFmt) {
-            return (<div className="errorMsg">The password should include both lower and upper case characters, include at least one special characters, and be 8-16 characters long.</div>);
+            return (<div className="errorMsg">The password should include numbers, both lower and upper case characters, include at least one special characters, and be 8-16 characters long.</div>);
         }
        
     }
@@ -72,7 +71,8 @@ class Profile extends Component {
             this.setState({ confirmPwdError: true, loading: false});
             return;
         }
-        let reg = /((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,16})/;
+        
+        const reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=..*[0-9])(?=.*[!@#$%^&+=]).{8,16}$");
         if(!reg.test(confirmPwd)){
           this.setState({pwdFmt:true, loading: false});
           return;

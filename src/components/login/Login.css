@@ -1,5 +1,4 @@
 .formContainer {
-  /*position: relative;*/
   color: #212529;
   padding: 1rem;
   margin-right: 0;
@@ -7,6 +6,4 @@
   margin-top: 50px;
   padding-left: 40px;
   padding-right: 40px;
-  /*border: .2rem solid #ececec;
-  border-radius: 8px;*/
 }

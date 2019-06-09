@@ -1,5 +1,4 @@
 .container {
-  /*position: relative;*/
   color: #212529;
   padding: 1rem;
   margin-right: 0;
@@ -7,8 +6,6 @@
   margin-top: 40px;
   padding-left: 40px;
   padding-right: 40px;
-  /*border: .2rem solid #ececec;
-  border-radius: 8px;*/
 }
 
 .title {
@@ -16,11 +13,6 @@
 }
 
 div.inputGroup {
-  /* display: flex;
-  overflow: auto;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center; */
   margin-bottom: 10px;
 } 
 
