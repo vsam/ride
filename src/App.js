@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import firebase from "firebase/app";
+import firebase from 'firebase/app';
 import './App.css';
 import LaunchScreen from './components/login/LaunchScreen';
 import Login from './components/login/Login';
@@ -29,11 +29,10 @@ export default class App extends Component {
     firebase.initializeApp(firebaseConfig);
   }
 
-
   render() {
     return (
       <div className="App">
-        <Router onUpdate={() => window.scrollTo(0, 0)}>
+        <Router>
           <Route exact path='/' component={LaunchScreen} />
           <Route exact path='/WelcomeScreen' component={WelcomeScreen} />
           <Route exact path='/Login' component={Login} />

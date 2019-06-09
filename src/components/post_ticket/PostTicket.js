@@ -1,5 +1,7 @@
 import React from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
 import TicketSelector from '../common/TicketSelector';
@@ -86,7 +88,7 @@ export default class PostTicket extends React.Component {
     if (!this.state.ticketId) {
       ref.add({
         ...this.state.ticket,
-        email: firebase.auth().currentUser.email,
+        email: localStorage.getItem('email'),
         userName: localStorage.getItem('userName')
       })
         .then(() => {
@@ -102,7 +104,7 @@ export default class PostTicket extends React.Component {
   }
 
   render() {
-    const { ticket, loading, update } = this.state;
+    const { ticket, ticketId, loading } = this.state;
     return (
       <div id="warning-container">
         <Loader loading={loading} />
@@ -195,7 +197,7 @@ export default class PostTicket extends React.Component {
           />
 
           <button onClick={this.handleSubmit.bind(this)} className="submit">
-            {update ? "Update" : "Post"}
+            {ticketId ? "Update" : "Post"}
           </button>
         </div>
       </div>

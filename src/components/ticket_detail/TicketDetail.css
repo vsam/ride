@@ -33,7 +33,6 @@
 }
 
 .eyebrow-elevated {
-  letter-spacing: -1px;
   font-size: 20px;
   font-weight: 700;
   color: black;
@@ -106,11 +105,11 @@
   border-left: 1px solid;
 }
 
-.email,.update,.archive, .unarchive {
+.email,.update,.archive,.unarchive {
   font-size: 17px;
   color: white;
   width: 100%;
-  padding: 15px 0px;
+  height: 45px;
   background-color: rgb(27,42,73);
   border-radius: 6px;
   border: none;

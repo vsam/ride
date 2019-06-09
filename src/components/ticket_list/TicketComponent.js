@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import driverIcon from "../../vectors/driver button.svg";
 import passengerIcon from "../../vectors/passenger button.svg";
 import "./TicketComponent.css"

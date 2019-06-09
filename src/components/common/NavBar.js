@@ -1,6 +1,7 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import './NavBar.css';
-import firebase from 'firebase';
 
 const hideMenu = () => {
   document.getElementById('menustate').checked = false;
@@ -52,7 +53,7 @@ export default function NavBar(props) {
             <a href='/Profile' onClick={hideMenu}>Profile</a>
           </li>
           <li className="item-menu">
-            <a href='/Login' onClick={logOut}>Log Out</a>
+            <a href='/' onClick={logOut}>Log Out</a>
           </li>
         </ul>
       </div>

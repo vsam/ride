@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import './SignUp.css'
 
 class Login extends Component {
@@ -210,12 +211,6 @@ class Login extends Component {
               Log In
             </button>
           </div>
-
-          {/* <div className="btnGroup" id="forget">
-            <button id="forgetBtn" onClick={this.onForgetBtnClicked} >
-              Forget Password
-            </button>
-          </div> */}
          
           <div className="btnGroup" id="signup">
             <button id="signUpBtn" onClick={this.goToSignUp} >
