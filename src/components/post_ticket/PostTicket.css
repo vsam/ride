@@ -98,7 +98,8 @@ button:active {
   border-radius: 6px;
   border: none;
   box-sizing: border-box;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .react-datepicker-wrapper, .react-datepicker__input-container {

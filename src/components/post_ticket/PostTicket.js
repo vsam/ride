@@ -1,6 +1,4 @@
 import React from 'react';
-//import firebase from 'firebase/app';
-//import 'firebase/firestore';
 import TicketService from '../../services/TicketService';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
@@ -93,26 +91,6 @@ export default class PostTicket extends React.Component {
           this.props.history.push('/MyTickets');
         });
     }
-    /*
-    var db = firebase.firestore();
-    var ref = db.collection('tickets');
-    if (!this.state.ticketId) {
-      ref.add({
-        ...this.state.ticket,
-        email: localStorage.getItem('email'),
-        userName: localStorage.getItem('userName')
-      })
-      .then(() => {
-        this.props.history.push('/MyTickets');
-      });
-    } else {
-      ref.doc(this.props.location.state.ticketId)
-        .update({ ...this.state.ticket })
-        .then(() => {
-          this.props.history.push('/MyTickets');
-        });
-    }
-    */
   }
 
   render() {

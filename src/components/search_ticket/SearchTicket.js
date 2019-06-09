@@ -82,10 +82,6 @@ export default class SearchTickets extends React.Component {
       ref = ref.where("location", "==", ticket.location);
     }
 
-    if (ticket.numOfSeats.length) {
-      ref = ref.where("numOfSeats", "==", ticket.numOfSeats);
-    }
-
     ref.get().then(querySnapshot => {
       var tickets = [];
       querySnapshot.forEach(doc => {
@@ -122,6 +118,9 @@ export default class SearchTickets extends React.Component {
           });
           if (inputHour !== ticketHour) return;
         }
+
+        if (ticket.numOfSeats.length && data.numOfSeats < parseInt(ticket.numOfSeats))
+        return
 
         tickets.push(data);
       });
