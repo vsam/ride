@@ -18,6 +18,9 @@ export default class TicketDetail extends React.Component {
       .get().then(doc => {
         this.setState({ ticket: doc.data(), ticketId: doc.id });
       });
+
+    this.archiveTicket = this.archiveTicket.bind(this);
+    this.updateTicket = this.updateTicket.bind(this);
   }
 
   updateTicket() {
@@ -52,18 +55,14 @@ export default class TicketDetail extends React.Component {
 
     if (this.state.ticket.archived) {
       return (
-        <button className="unarchive" onClick={this.archiveTicket.bind(this)}>
-          Unarchive
-        </button>
+        <button className="unarchive" onClick={this.archiveTicket}>Unarchive</button>
       );
     }
 
     return (
       <div className="authorBtns">
-        <button className="update" onClick={this.updateTicket.bind(this)}>Update</button>
-        <button className="archive" onClick={this.archiveTicket.bind(this)}>
-          Archive
-        </button>
+        <button className="update" onClick={this.updateTicket}>Update</button>
+        <button className="archive" onClick={this.archiveTicket}>Archive</button>
       </div>
     )
   }
@@ -99,7 +98,9 @@ export default class TicketDetail extends React.Component {
           <div className="info">
             <div className="col info-left-col">
               <span className="elevated">{date} {time}</span>
-              <span className="reduced">{ticket.numOfSeats} seats available</span>
+              <span className="reduced">
+                {ticket.numOfSeats} {ticket.isDriver ? 'seats available' : 'people'}
+              </span>
             </div>
 
             <div className="col info-right-col">

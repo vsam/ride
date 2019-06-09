@@ -1,7 +1,7 @@
 import React from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+//import firebase from 'firebase/app';
+//import 'firebase/firestore';
+import TicketService from '../../services/TicketService';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
 import TicketSelector from '../common/TicketSelector';
@@ -83,6 +83,17 @@ export default class PostTicket extends React.Component {
     }
 
     this.setState({ loading: true });
+    if (!this.state.ticketId) {
+      TicketService.postTicket(this.state.ticket, () => {
+        this.props.history.push('/MyTickets');
+      });
+    } else {
+      TicketService.updateTicket(this.state.ticket,
+        this.state.ticketId, () => {
+          this.props.history.push('/MyTickets');
+        });
+    }
+    /*
     var db = firebase.firestore();
     var ref = db.collection('tickets');
     if (!this.state.ticketId) {
@@ -91,9 +102,9 @@ export default class PostTicket extends React.Component {
         email: localStorage.getItem('email'),
         userName: localStorage.getItem('userName')
       })
-        .then(() => {
-          this.props.history.push('/MyTickets');
-        });
+      .then(() => {
+        this.props.history.push('/MyTickets');
+      });
     } else {
       ref.doc(this.props.location.state.ticketId)
         .update({ ...this.state.ticket })
@@ -101,6 +112,7 @@ export default class PostTicket extends React.Component {
           this.props.history.push('/MyTickets');
         });
     }
+    */
   }
 
   render() {
