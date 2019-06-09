@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import './SignUp.css';
 
 class SignUp extends Component {
@@ -199,7 +200,7 @@ class SignUp extends Component {
 
   displayPwdError() {
     if (this.state.pwdErr) {
-      return (<div className="errorMsg">The password should include numbers, both lower and upper case characters, include at least one special characters, and be 8-16 characters long.</div>)
+      return (<div className="errorMsg">The password should include numbers, both lower and upper case characters, include at least one special character, and be 8-16 characters long.</div>)
     }
   }
 

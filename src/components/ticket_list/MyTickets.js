@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
 import ScrollableTicketList from "./ScrollableTicketList";
@@ -14,26 +16,21 @@ export default class MyTickets extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
-    var timer = setInterval(() => {
-      if (firebase.auth().currentUser) {
-        var db = firebase.firestore();
-        var ref = db.collection('tickets');
-        ref.where("email", "==", firebase.auth().currentUser.email)
-          .get().then(querySnapshot => {
-            var tickets = [];
-            querySnapshot.forEach(doc => {
-              let ticket = doc.data();
-              ticket.id = doc.id;
-              tickets.push(ticket);
-            });
-            tickets.sort((a, b) => a.date < b.date)
-            this.setState({ tickets, loading: false });
-          });
-        clearTimeout(timer);
-      }
-    }, 500);
+    var db = firebase.firestore();
+    var ref = db.collection('tickets');
+    ref.where("email", "==", localStorage.getItem('email'))
+      .get().then(querySnapshot => {
+        var tickets = [];
+        querySnapshot.forEach(doc => {
+          let ticket = doc.data();
+          ticket.id = doc.id;
+          tickets.push(ticket);
+        });
+        tickets.sort((a, b) => a.date < b.date)
+        this.setState({ tickets, loading: false });
+      });
   }
 
   render() {

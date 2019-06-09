@@ -1,6 +1,7 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import './NavBar.css';
-import firebase from 'firebase';
 
 const hideMenu = () => {
   document.getElementById('menustate').checked = false;

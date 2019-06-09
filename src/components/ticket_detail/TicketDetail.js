@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import driver from '../../vectors/driver button.png';
 import passenger from '../../vectors/passenger button.png';
 import NavBar from '../common/NavBar';
@@ -22,7 +23,6 @@ export default class TicketDetail extends React.Component {
   updateTicket() {
     const { ticket, ticketId } = this.state;
     ticket.date = ticket.date.toDate();
-    ticket.time = ticket.time.toDate();
     this.props.history.push('/PostTicket', { ticket, ticketId });
   }
 
@@ -45,9 +45,7 @@ export default class TicketDetail extends React.Component {
     if (localStorage.getItem("email") !== email) {
       return (
         <button className="email">
-          <a href={"mailto:" + email}>
-            Email {email}
-          </a>
+          <a href={"mailto:" + email}>Email {email}</a>
         </button>
       );
     }
@@ -81,12 +79,12 @@ export default class TicketDetail extends React.Component {
     var timestamp = new firebase.firestore.Timestamp(seconds, nanoseconds);
     var date = timestamp.toDate().toLocaleDateString(navigator.language, {
       month: '2-digit',
-      day:'2-digit',
+      day: '2-digit',
       year: '2-digit'
     });
     var time = timestamp.toDate().toLocaleTimeString(navigator.language, {
       hour: '2-digit',
-      minute:'2-digit'
+      minute: '2-digit'
     });
 
     return (
@@ -125,10 +123,12 @@ export default class TicketDetail extends React.Component {
             </div>
           </div>
 
-          <div className="detail-info">
-            <div className="eyebrow-elevated">Description</div>
-            <div className="paragraph">{ticket.description}</div>
-          </div>
+          {ticket.description.length > 0 &&
+            <div className="detail-info">
+              <div className="eyebrow-elevated">Description</div>
+              <div className="paragraph">{ticket.description}</div>
+            </div>
+          }
 
           <div className="detail-info">
             <div className="eyebrow-elevated">Author</div>

@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import NavBar from '../common/NavBar';
 import Loader from '../common/Loader';
 import TicketSelector from '../common/TicketSelector';

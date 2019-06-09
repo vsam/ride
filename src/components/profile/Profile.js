@@ -71,7 +71,6 @@ class Profile extends Component {
             this.setState({ confirmPwdError: true, loading: false});
             return;
         }
-        
         const reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=..*[0-9])(?=.*[!@#$%^&+=]).{8,16}$");
         if(!reg.test(confirmPwd)){
           this.setState({pwdFmt:true, loading: false});
