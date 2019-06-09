@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import NavBar from '../common/NavBar'
-
 import pwdIcon from "./password_blue.png";
-
+import ProfileLayer from './ProfileLayer';
 import "./Profile.css";
 
 class Profile extends Component {
@@ -22,13 +21,13 @@ class Profile extends Component {
             lastName: '',
             email: '',
             userName: '',
-            edited_username:'',
+            edited_username: '',
             dataFetched: false,
-            loading:false,
-            edit:false,
+            loading: false,
+            edit: false,
         };
 
-        this.inputStyle={visibility:'hidden'};
+        this.inputStyle = { visibility: 'hidden' };
         this.changePassword = this.changePassword.bind(this);
         this.onChangePwdSuccess = this.onChangePwdSuccess.bind(this);
         this.onChangePwdFailure = this.onChangePwdFailure.bind(this);
@@ -41,11 +40,11 @@ class Profile extends Component {
         let key = event.target.name;
         let value = event.target.value;
         this.setState({ [key]: value });
-        
+
     }
 
-    disableBtn(){
-        if(this.state.oldPwd !=='' && this.state.newPwd !== '' && this.state.confirmPwd !== ''){
+    disableBtn() {
+        if (this.state.oldPwd !== '' && this.state.newPwd !== '' && this.state.confirmPwd !== '') {
             return false;
         }
         return true;
@@ -59,49 +58,51 @@ class Profile extends Component {
             return (<div className="errorMsg">The password does not match.</div>);
         }
         if (this.state.pwdFmt) {
-            return (<div className="errorMsg">The password should include numbers, both lower and upper case characters, include at least one special characters, and be 8-16 characters long.</div>);
+            return (
+            <div className="errorMsg">The password should include numbers, 
+            both lower and upper case characters, include at least one special characters, 
+            and be 8-16 characters long.</div>
+            );
         }
-       
+
     }
 
     changePassword() {
-        this.setState({loading:true})
-        const { newPwd, confirmPwd } = this.state;
-        if (confirmPwd !== newPwd) {
-            this.setState({ confirmPwdError: true, loading: false});
-            return;
-        }
-        const reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=..*[0-9])(?=.*[!@#$%^&+=]).{8,16}$");
-        if(!reg.test(confirmPwd)){
-          this.setState({pwdFmt:true, loading: false});
-          return;
-        }
-    
-        this.setState({ confirmPwdError: false, pwdFmt: false });
+        this.setState({ loading: true })
+        const { newPwd, confirmPwd, oldPwd} = this.state;
+        let userEmail = localStorage.getItem('email');
         let user = firebase.auth().currentUser;
-        let credential = firebase.auth.EmailAuthProvider.credential(
-            firebase.auth().currentUser.email,
-            this.state.oldPwd
-        );
-        
-        user.reauthenticateWithCredential(credential)
-        .then((result) => this.onChangePwdSuccess(result))
-        .catch((error) => this.onChangePwdFailure(error));
-        this.setState({loading:false})
+
+        //presentation layer, check for validation of new pwd
+        let error = ProfileLayer.passwordForm(confirmPwd, newPwd);
+
+        if(error !== ""){
+            this.setState({
+                [error]:true, 
+                loading:false
+            })
+        }
+        //bussiness layer, get the credibility of the user
+        let credential = ProfileLayer.passwordDispatch(userEmail, oldPwd );
+
+        //database access layer, update the database
+        ProfileLayer.passwordDb(user, credential, newPwd, this.onChangePwdSuccess, this.onChangePwdFailure);
     }
 
-    onChangePwdSuccess(result) {
+    //callback for the change pwd success action
+    onChangePwdSuccess() {
         let user = firebase.auth().currentUser;
         user.updatePassword(this.state.newPwd)
-        .then(()=>{
-            firebase.auth().signOut().then(() =>{
-                this.props.history.push("/Login")
-              });
-        }).catch((error) => {
-            this.onChangePwdFailure(error)
-        });
+            .then(() => {
+                firebase.auth().signOut().then(() => {
+                    this.props.history.push("/Login")
+                });
+            }).catch((error) => {
+                this.onChangePwdFailure(error)
+            });
     }
 
+    //callback for the error-checking
     onChangePwdFailure(error) {
         switch (error.code) {
             case 'auth/weak-password':
@@ -135,18 +136,18 @@ class Profile extends Component {
         }
     }
 
-    toggleFields() { 
-        if(this.state.changePwd){
-            this.inputStyle={visibility:'hidden'};
-        } else{
-            this.inputStyle={visibility:'visible'};
+    toggleFields() {
+        if (this.state.changePwd) {
+            this.inputStyle = { visibility: 'hidden' };
+        } else {
+            this.inputStyle = { visibility: 'visible' };
         }
         this.setState({ changePwd: !this.state.changePwd });
     }
 
 
     clearFields() {
-        this.setState({ 
+        this.setState({
             oldPwd: '',
             newPwd: '',
             confirmPwd: '',
@@ -190,43 +191,43 @@ class Profile extends Component {
         this.getUserInfo();
     }
 
-    onEditClicked(){
-        if(this.state.edit){
-            if(this.state.edited_username !== this.state.userName){
+    onEditClicked() {
+        if (this.state.edit) {
+            if (this.state.edited_username !== this.state.userName) {
                 this.setState({
                     userName: this.state.edited_username,
-                    edit:!this.state.edit
+                    edit: !this.state.edit
                 })
                 let user = firebase.auth().currentUser;
                 let docRef = firebase.firestore().collection('users').doc(user.uid);
-                docRef.update({userName:this.state.edited_username})
-                .then(()=>console.log('succeess'))
-                .catch((error) => console.log(error))
+                docRef.update({ userName: this.state.edited_username })
+                    .then(() => console.log('succeess'))
+                    .catch((error) => console.log(error))
                 localStorage.setItem('userName', this.state.edited_username);
             }
-            
-        }else{
+
+        } else {
             this.setState({
-                edit:!this.state.edit
+                edit: !this.state.edit
             })
-        }  
+        }
     }
 
-    renderUsername(){
-        if(this.state.edit){
-            return(
+    renderUsername() {
+        if (this.state.edit) {
+            return (
                 <div className="infoDiv" id="userNameDiv">
                     <span className="inputLabel-name"> Username</span>
                     <input type="text" placeholder="user name" id="userNameInput"
-                            name="edited_username" value={this.state.edited_username} onChange={this.handleChange} />
+                        name="edited_username" value={this.state.edited_username} onChange={this.handleChange} />
                     <div className="editBtnDiv">
                         <button id="editBtn" onClick={this.onEditClicked}>Edit</button>
+                    </div>
                 </div>
-            </div>
             )
-        }else{
-            return(
-                <div className="infoDiv">             
+        } else {
+            return (
+                <div className="infoDiv">
                     <span className="inputLabel-name"> Username</span>
                     <span>{this.state.userName}</span>
                     <div className="editBtnDiv">
@@ -239,7 +240,7 @@ class Profile extends Component {
 
     render() {
         return (
-            this.state.dataFetched && !this.state.loading? (
+            this.state.dataFetched && !this.state.loading ? (
                 <div>
                     <input className="menustate" type="checkbox" id="menustate" />
                     <NavBar> Profile </NavBar>
@@ -261,18 +262,15 @@ class Profile extends Component {
                             <span className="inputLabel-name">Name</span>
                             <span>{this.state.firstName} {this.state.lastName}</span>
                         </div>
-                        
-                        {this.renderUsername()}
-                       
 
-                        
+                        {this.renderUsername()}
+
                         <button id="changePwdBtn" onClick={this.toggleFields}>
                             <img id="pwdImg" src={pwdIcon} alt="pwdIcon" />
                             <span>Change Password</span>
                         </button>
-                       
 
-                        <div className="pwdGroup" 
+                        <div className="pwdGroup"
                             style={this.inputStyle}
                         >
                             <div className="inputGroup" id="pwd">
@@ -288,7 +286,7 @@ class Profile extends Component {
                                     name="confirmPwd" value={this.state.confirmPwd} onChange={this.handleChange} />
                             </div>
 
-                             <button
+                            <button
                                 id="confirmBtn"
                                 disabled={this.disableBtn()}
                                 onClick={this.changePassword}>
