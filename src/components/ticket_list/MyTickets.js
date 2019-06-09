@@ -14,7 +14,8 @@ export default class MyTickets extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    window.scrollTo(0, 0);
     var timer = setInterval(() => {
       if (firebase.auth().currentUser) {
         var db = firebase.firestore();

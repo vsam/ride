@@ -7,8 +7,8 @@ import Driver from '../../vectors/Driver button with Text.png';
 import ArchivedDriver from '../../vectors/Archived Driver button with Text.png';
 import Passenger from '../../vectors/Passenger button with Text.png';
 import ArchivedPassenger from '../../vectors/Archived Passenger button with Text.png';
-import './SearchTicket.css';
 import DatePicker from "react-datepicker";
+import './SearchTicket.css';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class SearchTickets extends React.Component {
@@ -81,14 +81,6 @@ export default class SearchTickets extends React.Component {
       ref = ref.where("location", "==", ticket.location);
     }
 
-    if (ticket.date) {
-      ref = ref.where("date", "==", ticket.date);
-    }
-    
-    if (ticket.time) {
-      ref = ref.where("time", "==", ticket.time);
-    }
-
     if (ticket.numOfSeats.length) {
       ref = ref.where("numOfSeats", "==", ticket.numOfSeats);
     }
@@ -98,9 +90,39 @@ export default class SearchTickets extends React.Component {
       querySnapshot.forEach(doc => {
         let data = doc.data();
         data.id = doc.id;
-        if (!ticket.price.length || parseFloat(data.price) < parseFloat(ticket.price)) {
-          tickets.push(data);
+
+        if (ticket.price.length && parseFloat(data.price) > parseFloat(ticket.price))
+          return
+
+        if (ticket.date) {
+          let timestamp = firebase.firestore.Timestamp.fromDate(ticket.date);
+          let inputDate = timestamp.toDate().toLocaleDateString(navigator.language, {
+            month: '2-digit',
+            day:'2-digit',
+            year: '2-digit'
+          });
+          let ticketDate = data.date.toDate().toLocaleDateString(navigator.language, {
+            month: '2-digit',
+            day:'2-digit',
+            year: '2-digit'
+          });
+          if (inputDate !== ticketDate) return;
         }
+
+        if (ticket.time) {
+          let timestamp = firebase.firestore.Timestamp.fromDate(ticket.time);
+          let inputHour = timestamp.toDate().toLocaleTimeString(navigator.language, {
+            hour: '2-digit',
+            minute:'2-digit'
+          });
+          let ticketHour = data.date.toDate().toLocaleTimeString(navigator.language, {
+            hour: '2-digit',
+            minute:'2-digit'
+          });
+          if (inputHour !== ticketHour) return;
+        }
+
+        tickets.push(data);
       });
       this.props.history.push('/SearchResults', { tickets });
     });

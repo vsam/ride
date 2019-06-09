@@ -32,10 +32,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div className="App">
-					<Route exact path='/' component={LaunchScreen} />
-					<Route exact path='/WelcomeScreen' component={WelcomeScreen}/>
+      <div className="App">
+        <Router onUpdate={() => window.scrollTo(0, 0)}>
+          <Route exact path='/' component={LaunchScreen} />
+          <Route exact path='/WelcomeScreen' component={WelcomeScreen} />
           <Route exact path='/Login' component={Login} />
           <Route exact path='/SignUp' component={SignUp} />
           <Route exact path='/Home' component={HomeTicketList} />
@@ -45,8 +45,8 @@ export default class App extends Component {
           <Route exact path='/Profile' component={Profile} />
           <Route exact path='/SearchResults' component={SearchResultList} />
           <Route exact path='/TicketDetail' component={TicketDetail} />
-        </div>
-      </Router>
+        </Router>
+      </div>
     );
   }
 };

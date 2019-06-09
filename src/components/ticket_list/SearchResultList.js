@@ -4,6 +4,7 @@ import ScrollableTicketList from "./ScrollableTicketList";
 import "./TicketList.css";
 
 export default function SearchResultList(props) {
+  window.scrollTo(0, 0);
   const { tickets } = props.location.state;
   return (
     <div className="app">

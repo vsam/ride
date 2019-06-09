@@ -22,7 +22,6 @@ export default class PostTicket extends React.Component {
         isDriver: true,
         location: '',
         date: new Date(),
-        time: new Date(),
         numOfSeats: '',
         price: '',
         description: '',
@@ -158,8 +157,8 @@ export default class PostTicket extends React.Component {
           <DatePicker
             className="input"
             placeholderText="Click to select a time"
-            selected={ticket.time}
-            onChange={e => this.updateTicket('time', e)}
+            selected={ticket.date}
+            onChange={e => this.updateTicket('date', e)}
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={30}

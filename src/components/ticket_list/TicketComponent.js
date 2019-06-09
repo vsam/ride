@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import firebase from 'firebase';
 import driverIcon from "../../vectors/driver button.svg";
 import passengerIcon from "../../vectors/passenger button.svg";
 import "./TicketComponent.css"
@@ -21,14 +22,15 @@ class TicketComponent extends Component {
     } else {
       seatDescriptor = (ticket.seats === 1 ? "person" : "people");
     }
-
-    var date = ticket.date.toDate().toLocaleDateString(navigator.language, {
+    
+    var { seconds, nanoseconds } = ticket.date;
+    var timestamp = new firebase.firestore.Timestamp(seconds, nanoseconds);
+    var date = timestamp.toDate().toLocaleDateString(navigator.language, {
       month: '2-digit',
       day:'2-digit',
       year: '2-digit'
     });
-
-    var time = ticket.time.toDate().toLocaleTimeString(navigator.language, {
+    var time = timestamp.toDate().toLocaleTimeString(navigator.language, {
       hour: '2-digit',
       minute:'2-digit'
     });
