@@ -42,6 +42,7 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow: auto;
 }
 
 .headline {

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
-class ProfileLayer extends Component {
+class ProfileLayer {
   //presentation layer
   static passwordForm(confirmPwd, newPwd){
     if (confirmPwd !== newPwd) {
