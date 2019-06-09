@@ -78,9 +78,9 @@ class SignUp extends Component {
       this.setState({ userNameErr: true, loading: false});
       return;
     }
-    //password check
-    //one special character, one uppper, 8-16 length
-    let reg = /((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,16})/;
+    //password check-numbers, one special character, one uppper, 8-16 length
+    const reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=..*[0-9])(?=.*[!@#$%^&+=]).{8,16}$");
+    console.log(password.length)
     if(!reg.test(password)){
       this.setState({pwdErr: true, loading: false});
       return;
@@ -199,7 +199,7 @@ class SignUp extends Component {
 
   displayPwdError() {
     if (this.state.pwdErr) {
-      return (<div className="errorMsg">The password should contain at least one special character, one capital letter and shoule be of length 8-16.</div>)
+      return (<div className="errorMsg">The password should include both lower and upper case characters, include at least one special characters, and be 8-16 characters long.</div>)
     }
   }
 

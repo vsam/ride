@@ -60,7 +60,7 @@ class Profile extends Component {
             return (<div className="errorMsg">The password does not match.</div>);
         }
         if (this.state.pwdFmt) {
-            return (<div className="errorMsg">The password should contain at least one special character, one capital letter and shoule be of length 8-16.</div>);
+            return (<div className="errorMsg">The password should include both lower and upper case characters, include at least one special characters, and be 8-16 characters long.</div>);
         }
        
     }
@@ -203,6 +203,7 @@ class Profile extends Component {
                 docRef.update({userName:this.state.edited_username})
                 .then(()=>console.log('succeess'))
                 .catch((error) => console.log(error))
+                localStorage.setItem('userName', this.state.edited_username);
             }
             
         }else{

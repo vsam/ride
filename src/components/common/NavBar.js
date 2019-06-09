@@ -52,7 +52,7 @@ export default function NavBar(props) {
             <a href='/Profile' onClick={hideMenu}>Profile</a>
           </li>
           <li className="item-menu">
-            <a href='/Login' onClick={logOut}>Log Out</a>
+            <a href='/' onClick={logOut}>Log Out</a>
           </li>
         </ul>
       </div>

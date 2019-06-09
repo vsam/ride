@@ -210,12 +210,6 @@ class Login extends Component {
               Log In
             </button>
           </div>
-
-          {/* <div className="btnGroup" id="forget">
-            <button id="forgetBtn" onClick={this.onForgetBtnClicked} >
-              Forget Password
-            </button>
-          </div> */}
          
           <div className="btnGroup" id="signup">
             <button id="signUpBtn" onClick={this.goToSignUp} >
