@@ -1,68 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# Introduction: 
+  Students use ride services for traveling to and from the UCSD campus. Most services like Uber and Lyft become incredibly expensive as the distance of travel increases -- so students post on the UCSD Facebook Page to offer and request rides. However, these tickets quickly become buried under piles of other tickets not related to the rides as well as remain on the page long after the ride is over. To address this issue, our web based application Ride+ will offer the same functionality. Ride+ will provide a web platform for UCSD students who want to subsidize their travel expenses and also to those who want to enjoy safe rides from other UCSD students.
+# Login Credentials:
+  Login credential with pre-populated data: email: yuh300@ucsd.edu Password: 123qweASD! 
+  For the clean credential the tester can register one using their own ucsd email as directed in the test use case.
+# Requirements: 
+  Our web app can be accessed from recent versions of popular mobile browsers such as Chrome, Firefox, Safari and Edge.  Use mobile chrome  for optimal performance.
+# Installation Instruction: 
+  No installation required. Website: https://ride-f1e96.firebaseapp.com/.
+# How to Run: 
+  Register using your ucsd email and login.
+# How to Build:
+  Should you wish to build the application yourself:
+   ## 1. 
+    “clone git@github.com:vsam/ride.git”
+   ## 2. 
+    run " npm install "
+   ## 3. 
+    run " npm start "
+# Known Bugs: 
+  The desired behavior for searching for passenger tickets should return tickets with price higher or equal to the entered price. The actual behavior is that tickets with lower prices are returned. 
