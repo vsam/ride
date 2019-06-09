@@ -18,4 +18,5 @@
    ## 3. 
     run " npm start "
 # Known Bugs: 
-  The desired behavior for searching for passenger tickets should return tickets with price higher or equal to the entered price. The actual behavior is that tickets with lower prices are returned. 
+ ## The desired behavior for searching for passenger tickets should return tickets with price higher or equal to the entered price. The actual behavior is that tickets with lower prices are returned. 
+  ## Changing password with incorrect old password or invalid new password sometimes may have undefined behaviors.
