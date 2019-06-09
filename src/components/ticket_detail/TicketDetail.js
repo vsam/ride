@@ -77,13 +77,14 @@ export default class TicketDetail extends React.Component {
       archivedStyle = { backgroundColor: 'gray' }
     }
 
-    var date = ticket.date.toDate().toLocaleDateString(navigator.language, {
+    var { seconds, nanoseconds } = ticket.date;
+    var timestamp = new firebase.firestore.Timestamp(seconds, nanoseconds);
+    var date = timestamp.toDate().toLocaleDateString(navigator.language, {
       month: '2-digit',
       day:'2-digit',
       year: '2-digit'
     });
-
-    var time = ticket.time.toDate().toLocaleTimeString(navigator.language, {
+    var time = timestamp.toDate().toLocaleTimeString(navigator.language, {
       hour: '2-digit',
       minute:'2-digit'
     });
@@ -104,7 +105,9 @@ export default class TicketDetail extends React.Component {
             </div>
 
             <div className="col info-right-col">
-              <span className="eyebrow-elevated">${ticket.price}</span>
+              <span className="eyebrow-elevated">
+                ${parseFloat(ticket.price).toFixed(2)}
+              </span>
               <span className="reduced">per person</span>
             </div>
           </div>

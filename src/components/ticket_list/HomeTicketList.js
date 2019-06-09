@@ -16,7 +16,8 @@ export default class HomeTicketList extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    window.scrollTo(0, 0);
     var db = firebase.firestore();
     db.collection('tickets').orderBy('date')
       .get().then(querySnapshot => {
