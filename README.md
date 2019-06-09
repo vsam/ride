@@ -11,8 +11,11 @@
   Register using your ucsd email and login.
 # How to Build:
   Should you wish to build the application yourself:
-    1. clone the project
-    2. run " npm install "
-    3. run " npm start "
+   ## 1. 
+    clone the project
+   ## 2. 
+    run " npm install "
+   ## 3. 
+    run " npm start "
 # Known Bugs: 
   The desired behavior for searching for passenger tickets should return tickets with price higher or equal to the entered price. The actual behavior is that tickets with lower prices are returned. 
