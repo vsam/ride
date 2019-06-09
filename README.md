@@ -12,7 +12,7 @@
 # How to Build:
   Should you wish to build the application yourself:
    ## 1. 
-    clone the project
+    “clone git@github.com:vsam/ride.git”
    ## 2. 
     run " npm install "
    ## 3. 
